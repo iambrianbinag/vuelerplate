@@ -53,7 +53,10 @@ class RoleController extends Controller
         $data = $request->only(['name']);
         $role = Role::create($data);
 
-        return response()->json($role);
+        return response()->json([
+            'id' => $role->id,
+            'name' => $role->name
+        ]);
     }
     
     /**
@@ -64,7 +67,10 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return response()->json($role);
+        return response()->json([
+            'id' => $role->id,
+            'name' => $role->name
+        ]);
     }
     
     /**
@@ -79,7 +85,10 @@ class RoleController extends Controller
         $data = $request->only(['name']);
         $role->update($data);
 
-        return response()->json($role);
+        return response()->json([
+            'id' => $role->id,
+            'name' => $role->name
+        ]);
     }
     
     /**
@@ -92,7 +101,10 @@ class RoleController extends Controller
     {
         $role->delete();
 
-        return response()->json($role);
+        return response()->json([
+            'id' => $role->id,
+            'name' => $role->name
+        ]);
     }
     
     /**
@@ -103,9 +115,16 @@ class RoleController extends Controller
      */
     public function getRolePermissions(Role $role)
     {
-        $roleWithPermissions = $role->load('permissions');
+        $roleWithPermissions = $role->load('permissions:id,name');
+        $roleWithPermissions->permissions->transform(function($permission){
+            return $permission->makeHidden('pivot');
+        });
 
-        return response()->json($roleWithPermissions);
+        return response()->json([
+            'id' => $roleWithPermissions->id,
+            'name' => $roleWithPermissions->name,
+            'permissions' => $roleWithPermissions->permissions
+        ]);
     }
     
     /**
@@ -118,8 +137,15 @@ class RoleController extends Controller
     public function giveRolePermissions(GiveRolePermissionsRequest $request, Role $role)
     {
         $roleWithPermissions = $role->givePermissionTo($request->permission_ids);
+        $roleWithPermissions->permissions->transform(function($permission){
+           return $permission->only(['id', 'name']);
+        });
 
-        return response()->json($roleWithPermissions);
+        return response()->json([
+            'id' => $roleWithPermissions->id,
+            'name' => $roleWithPermissions->name,
+            'permissions' => $roleWithPermissions->permissions
+        ]);
     }
     
     /**
@@ -132,7 +158,14 @@ class RoleController extends Controller
     public function syncRolePermissions(GiveRolePermissionsRequest $request, Role $role)
     {
         $roleWithPermissions = $role->syncPermissions($request->permission_ids);
+        $roleWithPermissions->permissions->transform(function($permission){
+            return $permission->only(['id', 'name']);
+        });
 
-        return response()->json($roleWithPermissions);
+        return response()->json([
+            'id' => $roleWithPermissions->id,
+            'name' => $roleWithPermissions->name,
+            'permissions' => $roleWithPermissions->permissions
+        ]);
     }
 }

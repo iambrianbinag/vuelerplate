@@ -1,6 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Users\UserController;
+use App\Http\Controllers\Roles\RoleController;
+use App\Http\Controllers\Auth\UserAuthController;
+use App\Http\Controllers\Permissions\PermissionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/users/login', [UserController::class, 'login']);
+Route::post('/users/login', [UserAuthController::class, 'login']);
 
 Route::group(['middleware' => 'auth:api'], function(){
     // USERS 
@@ -23,9 +26,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/users/{user}', [UserController::class, 'show'])->middleware('permission:view user');
     Route::put('/users/{user}', [UserController::class, 'update'])->middleware('permission:update user');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('permission:delete user');
-    Route::post('/users/logout', [UserController::class, 'logout']);
-    Route::post('/users/refresh', [UserController::class, 'refresh']);
-    Route::post('/users/me', [UserController::class, 'me']);
+    Route::post('/users/logout', [UserAuthController::class, 'logout']);
+    Route::post('/users/refresh', [UserAuthController::class, 'refresh']);
+    Route::post('/users/me', [UserAuthController::class, 'me']);
 
     // PERMISSIONS
     Route::get('/permissions', [PermissionController::class, 'index'])->middleware('permission:view permission');

@@ -52,7 +52,10 @@ class PermissionController extends Controller
         $data = $request->only(['name']);
         $permission = Permission::create($data);
 
-        return respones()->json($permission);
+        return response()->json([
+            'id' => $permission->id,
+            'name' => $permission->name,
+        ]);
     }
     
     /**
@@ -63,7 +66,10 @@ class PermissionController extends Controller
      */
     public function show(Permission $permission)
     {
-        return response()->json($permission);
+        return response()->json([
+            'id' => $permission->id,
+            'name' => $permission->name,
+        ]);
     }
     
     /**
@@ -78,7 +84,10 @@ class PermissionController extends Controller
         $data = $request->only(['name']);
         $permission->update($data);
 
-        return response()->json($permission);
+        return response()->json([
+            'id' => $permission->id,
+            'name' => $permission->name,
+        ]);
     }
     
     /**
@@ -91,6 +100,9 @@ class PermissionController extends Controller
     {
         $permission->delete();
 
-        return response()->json($permission);
+        return response()->json([
+            'id' => $permission->id,
+            'name' => $permission->name,
+        ]);
     }
 }
