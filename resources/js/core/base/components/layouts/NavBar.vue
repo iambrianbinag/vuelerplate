@@ -7,7 +7,7 @@
             app
         >
             <v-app-bar-nav-icon></v-app-bar-nav-icon>
-            <v-toolbar-title>Application</v-toolbar-title>
+            <v-toolbar-title>{{ appName }}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-menu
                 bottom
@@ -43,7 +43,9 @@
                                 size="30" 
                                 color="white"
                             >
-                                <span class="black--text overline">authenticatedUserInformation.name</span>
+                                <span class="black--text overline">
+                                    {{ authenticatedUserInformation.name.slice(0,2) }}
+                                </span>
                             </v-avatar>
                         </template>
                         <template v-else>
@@ -58,35 +60,35 @@
                         </template>
                     </v-btn>
                 </template>
-                <v-card>
-                <v-list-item-content class="justify-center">
-                    <div class="mx-auto text-center">
-                        <div class="subtitle-1">{{ authenticatedUserInformation.name }}</div>
-                        <p class="caption mt-1">
-                            {{ authenticatedUserInformation.email }}
-                        </p>
-                        <v-divider class="my-2"></v-divider>
-                        <v-btn
-                            depressed
-                            small
-                            rounded
-                            text
-                        >
-                            Edit Account
-                        </v-btn>
-                        <v-divider class="my-2"></v-divider>
-                        <v-btn
-                            @click="handleLogout"
-                            :loading="isLoadingAuthenticatedUser"
-                            depressed
-                            small
-                            rounded
-                            text
-                        >
-                            Logout
-                        </v-btn>
-                    </div>
-                </v-list-item-content>
+                <v-card v-if="authenticatedUserInformation">
+                    <v-list-item-content class="justify-center">
+                        <div class="mx-auto text-center">
+                            <div class="subtitle-1">{{ authenticatedUserInformation.name | capitalize }}</div>
+                            <p class="caption mt-1">
+                                {{ authenticatedUserInformation.email }}
+                            </p>
+                            <v-divider class="my-2"></v-divider>
+                            <v-btn
+                                depressed
+                                small
+                                rounded
+                                text
+                            >
+                                Edit Account
+                            </v-btn>
+                            <v-divider class="my-2"></v-divider>
+                            <v-btn
+                                @click="handleLogout"
+                                :loading="isLoadingAuthenticatedUser"
+                                depressed
+                                small
+                                rounded
+                                text
+                            >
+                                Logout
+                            </v-btn>
+                        </div>
+                    </v-list-item-content>
                 </v-card>
             </v-menu>
         </v-app-bar>
@@ -102,13 +104,11 @@
             ...mapGetters('base.authentication', [
                 'authenticatedUserInformation', 
                 'isLoadingAuthenticatedUser'
-            ])
+            ]),
+            ...mapGetters('base.system', ['appName']),
         },
         methods: {
-            ...mapActions('base.authentication', [
-                'getAuthenticatedUser', 
-                'logout'
-            ]),
+            ...mapActions('base.authentication', ['logout']),
             /**
              * Triggered when logout button is clicked
              * 
@@ -123,7 +123,7 @@
             }
         },
         mounted() {
-            this.getAuthenticatedUser();
+            //
         }
     }
 </script>

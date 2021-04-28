@@ -2108,7 +2108,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapGetters)('base.authentication', ['authenticatedUserToken', 'authenticatedUserTokenExpiration'])),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapActions)('base.authentication', ['refresh'])), {}, {
+  watch: {
+    authenticatedUserToken: function authenticatedUserToken(_authenticatedUserToken) {
+      if (_authenticatedUserToken) {
+        this.getAuthenticatedUser();
+      }
+    }
+  },
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapActions)('base.authentication', ['refresh', 'getAuthenticatedUser'])), (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapMutations)('base.system', ['setAppName'])), {}, {
     /**
      * Refresh token of authenticated user if token's expiration date is equal or greater than
      * the seconds to be refreshed that was set in configuration
@@ -2136,6 +2143,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   mounted: function mounted() {
     this.refreshToken();
+    this.setAppName(_config__WEBPACK_IMPORTED_MODULE_3__.default.APP_NAME);
   }
 });
 
@@ -2152,9 +2160,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../config */ "./resources/js/config/index.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2245,12 +2252,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AppLogin',
   data: function data() {
     return {
-      appName: _config__WEBPACK_IMPORTED_MODULE_0__.default.APP_NAME,
       form: {
         email: '',
         password: ''
@@ -2262,16 +2267,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   validations: {
     form: {
       email: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.email
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.required,
+        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.email
       },
       password: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.required
       }
     }
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)('base.authentication', ['authenticatedUser', 'isLoadingAuthenticatedUser'])),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('base.authentication', ['login'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('base.authentication', ['authenticatedUser', 'isLoadingAuthenticatedUser'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('base.system', ['appName'])),
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('base.authentication', ['login'])), {}, {
     /**
      * Triggered when form is submited
      * 
@@ -2424,11 +2429,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'NavBar',
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)('base.authentication', ['authenticatedUserInformation', 'isLoadingAuthenticatedUser'])),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('base.authentication', ['getAuthenticatedUser', 'logout'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)('base.authentication', ['authenticatedUserInformation', 'isLoadingAuthenticatedUser'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)('base.system', ['appName'])),
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('base.authentication', ['logout'])), {}, {
     /**
      * Triggered when logout button is clicked
      * 
@@ -2445,8 +2452,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  mounted: function mounted() {
-    this.getAuthenticatedUser();
+  mounted: function mounted() {//
   }
 });
 
@@ -2920,6 +2926,22 @@ __webpack_require__.r(__webpack_exports__);
  * @mixin 
  */
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  filters: {
+    /**
+     * Capitalize text
+     * 
+     * @param {String} value to be capitalized
+     * @returns {String}
+     */
+    capitalize: function capitalize(value) {
+      if (!value) {
+        return;
+      }
+
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+  },
   methods: {
     /**
      * Add seconds at current date
@@ -3671,11 +3693,15 @@ var state = {
   serverError: {
     isError: false,
     messages: []
-  }
+  },
+  appName: null
 };
 var getters = {
   serverError: function serverError(state) {
     return state.serverError;
+  },
+  appName: function appName(state) {
+    return state.appName;
   }
 };
 var mutations = {
@@ -3690,6 +3716,9 @@ var mutations = {
       isError: false,
       messages: []
     };
+  },
+  setAppName: function setAppName(state, data) {
+    return state.appName = data;
   }
 };
 var actions = {//
@@ -6083,7 +6112,7 @@ var render = function() {
         [
           _c("v-app-bar-nav-icon"),
           _vm._v(" "),
-          _c("v-toolbar-title", [_vm._v("Application")]),
+          _c("v-toolbar-title", [_vm._v(_vm._s(_vm.appName))]),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
@@ -6152,7 +6181,14 @@ var render = function() {
                                           },
                                           [
                                             _vm._v(
-                                              "authenticatedUserInformation.name"
+                                              "\n                                " +
+                                                _vm._s(
+                                                  _vm.authenticatedUserInformation.name.slice(
+                                                    0,
+                                                    2
+                                                  )
+                                                ) +
+                                                "\n                            "
                                             )
                                           ]
                                         )
@@ -6187,72 +6223,86 @@ var render = function() {
             },
             [
               _vm._v(" "),
-              _c(
-                "v-card",
-                [
-                  _c("v-list-item-content", { staticClass: "justify-center" }, [
-                    _c(
-                      "div",
-                      { staticClass: "mx-auto text-center" },
-                      [
-                        _c("div", { staticClass: "subtitle-1" }, [
-                          _vm._v(_vm._s(_vm.authenticatedUserInformation.name))
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "caption mt-1" }, [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(_vm.authenticatedUserInformation.email) +
-                              "\n                    "
+              _vm.authenticatedUserInformation
+                ? _c(
+                    "v-card",
+                    [
+                      _c(
+                        "v-list-item-content",
+                        { staticClass: "justify-center" },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "mx-auto text-center" },
+                            [
+                              _c("div", { staticClass: "subtitle-1" }, [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("capitalize")(
+                                      _vm.authenticatedUserInformation.name
+                                    )
+                                  )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "caption mt-1" }, [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(
+                                      _vm.authenticatedUserInformation.email
+                                    ) +
+                                    "\n                        "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("v-divider", { staticClass: "my-2" }),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    depressed: "",
+                                    small: "",
+                                    rounded: "",
+                                    text: ""
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                            Edit Account\n                        "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("v-divider", { staticClass: "my-2" }),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    loading: _vm.isLoadingAuthenticatedUser,
+                                    depressed: "",
+                                    small: "",
+                                    rounded: "",
+                                    text: ""
+                                  },
+                                  on: { click: _vm.handleLogout }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                            Logout\n                        "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c("v-divider", { staticClass: "my-2" }),
-                        _vm._v(" "),
-                        _c(
-                          "v-btn",
-                          {
-                            attrs: {
-                              depressed: "",
-                              small: "",
-                              rounded: "",
-                              text: ""
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        Edit Account\n                    "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("v-divider", { staticClass: "my-2" }),
-                        _vm._v(" "),
-                        _c(
-                          "v-btn",
-                          {
-                            attrs: {
-                              loading: _vm.isLoadingAuthenticatedUser,
-                              depressed: "",
-                              small: "",
-                              rounded: "",
-                              text: ""
-                            },
-                            on: { click: _vm.handleLogout }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        Logout\n                    "
-                            )
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  ])
-                ],
-                1
-              )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
             ],
             1
           )

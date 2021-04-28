@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex';
+    import { mapGetters, mapActions, mapMutations } from 'vuex';
     import NavBar from './NavBar';
     import SideBar from './SideBar';
     import AppLoading from '../ui/loading/AppLoading';
@@ -38,8 +38,16 @@
                 'authenticatedUserTokenExpiration'
             ])
         },
+        watch: {
+            authenticatedUserToken: function(authenticatedUserToken){
+                if(authenticatedUserToken){
+                    this.getAuthenticatedUser();
+                }
+            }
+        },
         methods: {
-            ...mapActions('base.authentication', ['refresh']),
+            ...mapActions('base.authentication', ['refresh', 'getAuthenticatedUser']),
+            ...mapMutations('base.system', ['setAppName']),
             /**
              * Refresh token of authenticated user if token's expiration date is equal or greater than
              * the seconds to be refreshed that was set in configuration
@@ -63,6 +71,7 @@
         },
         mounted() {
             this.refreshToken();
+            this.setAppName(config.APP_NAME);
         }
     }
 </script>
