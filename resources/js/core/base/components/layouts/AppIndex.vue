@@ -59,8 +59,8 @@
                     const differenceInSeconds = (tokenExpiration.getTime() - currentDate.getTime()) / 1000;
                     const secondsToRefreshToken = parseFloat(config.TOKEN_TO_BE_REFRESHED_SECONDS);
                     if(differenceInSeconds <= secondsToRefreshToken){
-                    this.refresh()
-                        .finally(() => this.isLoadingLocal = false);
+                        this.refresh()
+                            .finally(() => this.isLoadingLocal = false);
                     } else {
                         this.isLoadingLocal = false;
                     }
@@ -72,6 +72,9 @@
         mounted() {
             this.refreshToken();
             this.setAppName(config.APP_NAME);
+            if(this.authenticatedUserToken){
+                this.getAuthenticatedUser();
+            }
         }
     }
 </script>

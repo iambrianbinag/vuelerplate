@@ -2144,6 +2144,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.refreshToken();
     this.setAppName(_config__WEBPACK_IMPORTED_MODULE_3__.default.APP_NAME);
+
+    if (this.authenticatedUserToken) {
+      this.getAuthenticatedUser();
+    }
   }
 });
 
