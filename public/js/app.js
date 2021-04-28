@@ -2088,9 +2088,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
@@ -2332,6 +2329,90 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5702,16 +5783,7 @@ var render = function() {
                     [
                       _c("v-navigation-drawer", { attrs: { app: "" } }),
                       _vm._v(" "),
-                      _c(
-                        "v-app-bar",
-                        { attrs: { app: "" } },
-                        [
-                          _c("v-app-bar-nav-icon"),
-                          _vm._v(" "),
-                          _c("v-toolbar-title", [_vm._v("Application")])
-                        ],
-                        1
-                      )
+                      _c("NavBar")
                     ],
                     1
                   )
@@ -6002,24 +6074,194 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h3", [_vm._v("THIS IS Navbar!")]),
-    _vm._v(" "),
-    _vm.isLoadingAuthenticatedUser
-      ? _c("div", [_vm._v("Loading...")])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.authenticatedUserInformation
-      ? _c("div", [
-          _vm._v("\n        Welcome "),
-          _c("span", { staticStyle: { color: "red" } }, [
-            _vm._v(_vm._s(_vm.authenticatedUserInformation.email))
-          ])
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c("button", { on: { click: _vm.handleLogout } }, [_vm._v("Logout")])
-  ])
+  return _c(
+    "div",
+    [
+      _c(
+        "v-app-bar",
+        { attrs: { color: "primary", dark: "", dense: "", app: "" } },
+        [
+          _c("v-app-bar-nav-icon"),
+          _vm._v(" "),
+          _c("v-toolbar-title", [_vm._v("Application")]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-menu",
+            {
+              attrs: {
+                bottom: "",
+                "min-width": "150px",
+                rounded: "",
+                "offset-y": ""
+              },
+              scopedSlots: _vm._u([
+                {
+                  key: "activator",
+                  fn: function(ref) {
+                    var on = ref.on
+                    return [
+                      _c(
+                        "v-btn",
+                        _vm._g({ attrs: { icon: "", "x-large": "" } }, on),
+                        [
+                          _vm.authenticatedUserInformation
+                            ? [
+                                _vm.authenticatedUserInformation.image
+                                  ? _c(
+                                      "v-badge",
+                                      {
+                                        attrs: {
+                                          bordered: "",
+                                          bottom: "",
+                                          color: "green",
+                                          dot: "",
+                                          "offset-x": "10",
+                                          "offset-y": "10"
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "v-avatar",
+                                          { attrs: { size: "30" } },
+                                          [
+                                            _c("v-img", {
+                                              attrs: {
+                                                src:
+                                                  _vm
+                                                    .authenticatedUserInformation
+                                                    .image,
+                                                alt: "User Image"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  : _c(
+                                      "v-avatar",
+                                      { attrs: { size: "30", color: "white" } },
+                                      [
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass: "black--text overline"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "authenticatedUserInformation.name"
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                              ]
+                            : [
+                                _c(
+                                  "v-avatar",
+                                  { attrs: { size: "30", color: "white" } },
+                                  [
+                                    _c(
+                                      "v-icon",
+                                      { attrs: { color: "primary" } },
+                                      [
+                                        _vm._v(
+                                          "\n                                mdi-account-circle\n                            "
+                                        )
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ]
+                        ],
+                        2
+                      )
+                    ]
+                  }
+                }
+              ])
+            },
+            [
+              _vm._v(" "),
+              _c(
+                "v-card",
+                [
+                  _c("v-list-item-content", { staticClass: "justify-center" }, [
+                    _c(
+                      "div",
+                      { staticClass: "mx-auto text-center" },
+                      [
+                        _c("div", { staticClass: "subtitle-1" }, [
+                          _vm._v(_vm._s(_vm.authenticatedUserInformation.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "caption mt-1" }, [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.authenticatedUserInformation.email) +
+                              "\n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("v-divider", { staticClass: "my-2" }),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: {
+                              depressed: "",
+                              small: "",
+                              rounded: "",
+                              text: ""
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Edit Account\n                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("v-divider", { staticClass: "my-2" }),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: {
+                              loading: _vm.isLoadingAuthenticatedUser,
+                              depressed: "",
+                              small: "",
+                              rounded: "",
+                              text: ""
+                            },
+                            on: { click: _vm.handleLogout }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Logout\n                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

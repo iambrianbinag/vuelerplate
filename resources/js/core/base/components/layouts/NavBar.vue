@@ -1,11 +1,95 @@
 <template>
     <div>
-        <h3>THIS IS Navbar!</h3>
-        <div v-if="isLoadingAuthenticatedUser">Loading...</div>
-        <div v-if="authenticatedUserInformation">
-            Welcome <span style="color: red">{{ authenticatedUserInformation.email }}</span>
-        </div>
-        <button @click="handleLogout">Logout</button>
+        <v-app-bar
+            color="primary"
+            dark
+            dense
+            app
+        >
+            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+            <v-toolbar-title>Application</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-menu
+                bottom
+                min-width="150px"
+                rounded
+                offset-y
+            >
+                <template v-slot:activator="{ on }">
+                    <v-btn
+                        icon
+                        x-large
+                        v-on="on"
+                    >
+                        <template v-if="authenticatedUserInformation">
+                            <v-badge
+                                v-if="authenticatedUserInformation.image"
+                                bordered
+                                bottom
+                                color="green"
+                                dot
+                                offset-x="10"
+                                offset-y="10"
+                            >
+                                <v-avatar size="30">
+                                    <v-img 
+                                        :src="authenticatedUserInformation.image" 
+                                        alt="User Image"
+                                    ></v-img>
+                                </v-avatar>
+                            </v-badge>
+                            <v-avatar
+                                v-else
+                                size="30" 
+                                color="white"
+                            >
+                                <span class="black--text overline">authenticatedUserInformation.name</span>
+                            </v-avatar>
+                        </template>
+                        <template v-else>
+                            <v-avatar
+                                size="30" 
+                                color="white"
+                            >
+                                <v-icon color="primary">
+                                    mdi-account-circle
+                                </v-icon>
+                            </v-avatar>
+                        </template>
+                    </v-btn>
+                </template>
+                <v-card>
+                <v-list-item-content class="justify-center">
+                    <div class="mx-auto text-center">
+                        <div class="subtitle-1">{{ authenticatedUserInformation.name }}</div>
+                        <p class="caption mt-1">
+                            {{ authenticatedUserInformation.email }}
+                        </p>
+                        <v-divider class="my-2"></v-divider>
+                        <v-btn
+                            depressed
+                            small
+                            rounded
+                            text
+                        >
+                            Edit Account
+                        </v-btn>
+                        <v-divider class="my-2"></v-divider>
+                        <v-btn
+                            @click="handleLogout"
+                            :loading="isLoadingAuthenticatedUser"
+                            depressed
+                            small
+                            rounded
+                            text
+                        >
+                            Logout
+                        </v-btn>
+                    </div>
+                </v-list-item-content>
+                </v-card>
+            </v-menu>
+        </v-app-bar>
     </div>
 </template>
 
