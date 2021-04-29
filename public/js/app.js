@@ -2285,7 +2285,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      * Triggered when form is submited
      * 
      * @event click
-     * @type {Event}
+     * @type {event}
      */
     handleLogin: function handleLogin(e) {
       var _this = this;
@@ -2434,17 +2434,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'NavBar',
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)('base.authentication', ['authenticatedUserInformation', 'isLoadingAuthenticatedUser'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)('base.system', ['appName'])),
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)('base.authentication', ['authenticatedUserInformation', 'isLoadingAuthenticatedUser'])),
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('base.authentication', ['logout'])), {}, {
     /**
      * Triggered when logout button is clicked
      * 
      * @event click
-     * @type {Event}
+     * @type {event}
      */
     handleLogout: function handleLogout() {
       var _this = this;
@@ -2496,12 +2495,284 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'SideBar'
+  name: 'SideBar',
+  data: function data() {
+    return {
+      allRoutes: this.$router.options.routes,
+      allRoutess: [{
+        name: 'No Children (1 level)',
+        path: '/no-children',
+        meta: {
+          icon: 'baby-carriage-off',
+          showInSideBar: true
+        }
+      }, {
+        name: 'Attractions (2 levels)',
+        path: '/attractions',
+        meta: {
+          icon: 'airballoon',
+          showInSideBar: true
+        },
+        children: [{
+          name: 'Carnivals',
+          path: '/carnivals',
+          meta: {
+            icon: 'drama-masks',
+            showInSideBar: false
+          }
+        }, {
+          name: 'Museums',
+          path: '/museums',
+          meta: {
+            icon: 'bank',
+            showInSideBar: true
+          }
+        }]
+      }, {
+        name: 'Restaurants (3 levels)',
+        path: '/restaurants',
+        meta: {
+          icon: 'silverware-fork-knife',
+          showInSideBar: true
+        },
+        children: [{
+          name: 'Japanese',
+          path: '/japanese',
+          meta: {
+            icon: 'map-marker-radius-outline',
+            showInSideBar: true
+          },
+          children: [{
+            name: 'Hikari Sushi',
+            path: '/hikari-sushi',
+            meta: {
+              icon: 'food-croissant',
+              showInSideBar: true
+            }
+          }, {
+            name: 'Late Night Ramen',
+            path: '/late-night-ramen',
+            meta: {
+              icon: 'noodles',
+              showInSideBar: true
+            }
+          }]
+        }, {
+          name: 'Italian',
+          path: '/italian',
+          meta: {
+            icon: 'map',
+            showInSideBar: true
+          },
+          children: [{
+            name: 'Jersey Pizza',
+            path: '/jersey-pizza',
+            meta: {
+              icon: 'pizza',
+              showInSideBar: true
+            }
+          }, {
+            name: 'Im-pasta-ble',
+            path: '/im-pasta-ble',
+            meta: {
+              icon: 'pasta',
+              showInSideBar: false
+            }
+          }]
+        }, {
+          name: 'Mexican',
+          path: '/mexican',
+          meta: {
+            icon: 'map-marker'
+          },
+          children: [{
+            name: 'Taco Gato',
+            path: '/taco-gato',
+            meta: {
+              icon: 'taco'
+            }
+          }, {
+            name: 'A-maize-ing',
+            path: '/a-maize-ing',
+            meta: {
+              icon: 'corn'
+            }
+          }]
+        }]
+      }]
+    };
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)('base.system', ['appName'])),
+  methods: {
+    /**
+     * Check if icon property exists in meta property of route
+     * 
+     * @param {object} route object to be checked
+     * @returns {boolean}
+     */
+    isIconExistsInMeta: function isIconExistsInMeta(route) {
+      if (!route.meta) {
+        return false;
+      }
+
+      if (route.meta.icon) {
+        return true;
+      }
+    },
+
+    /**
+     * Check if label property exists in meta property of route
+     * 
+     * @param {object} route object to be checked
+     * @returns {boolean}
+     */
+    isLabelExistsInMeta: function isLabelExistsInMeta(route) {
+      if (!route.meta) {
+        return false;
+      }
+
+      if (route.meta.label) {
+        return true;
+      }
+    },
+
+    /**
+     * Check if showInSideBar property exists in meta property of route and value is true
+     * 
+     * @param {object} route
+     * @returns {boolean}
+     */
+    isShowInSidebar: function isShowInSidebar(route) {
+      if (!route.meta) {
+        return false;
+      }
+
+      if (route.meta.showInSideBar) {
+        return true;
+      }
+    }
+  },
+  mounted: function mounted() {//
+  }
 });
 
 /***/ }),
@@ -2866,8 +3137,8 @@ __webpack_require__.r(__webpack_exports__);
   /**
    * Get cookie by name
    * 
-   * @param {String} cookieName name to search
-   * @returns {String|null}
+   * @param {string} cookieName name to search
+   * @returns {string|null}
    */
   getCookie: function getCookie(cookieName) {
     var name = cookieName + "=";
@@ -2892,9 +3163,9 @@ __webpack_require__.r(__webpack_exports__);
   /**
    * Set cookie by name
    * 
-   * @param {String} cookieName name of cookie
-   * @param {Mixed} cookieValue value of cookie
-   * @param {Number} extensionSeconds seconds to be added in expiration date
+   * @param {string} cookieName name of cookie
+   * @param {mixed} cookieValue value of cookie
+   * @param {number} extensionSeconds seconds to be added in expiration date
    */
   setCookie: function setCookie(cookieName, cookieValue, extensionSeconds) {
     var currentDate = new Date();
@@ -2906,7 +3177,7 @@ __webpack_require__.r(__webpack_exports__);
   /**
    * Delete cookie by name
    * 
-   * @param {String} cookieName cookie name to be deleted
+   * @param {string} cookieName cookie name to be deleted
    */
   deleteCookie: function deleteCookie(cookieName) {
     document.cookie = cookieName + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
@@ -2934,8 +3205,8 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Capitalize text
      * 
-     * @param {String} value to be capitalized
-     * @returns {String}
+     * @param {string} value to be capitalized
+     * @returns {string}
      */
     capitalize: function capitalize(value) {
       if (!value) {
@@ -2950,8 +3221,8 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Add seconds at current date
      * 
-     * @param {Number} seconds seconds to be added at current date
-     * @returns {Date}
+     * @param {number} seconds seconds to be added at current date
+     * @returns {date}
      */
     addSecondsAtCurrentDate: function addSecondsAtCurrentDate() {
       var seconds = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
@@ -3207,15 +3478,42 @@ var routes = [{
   name: 'home',
   component: _core_admin_pages_AppDashboard__WEBPACK_IMPORTED_MODULE_0__.default,
   meta: {
-    requiresAuth: true
+    requiresAuth: true,
+    showInSideBar: true,
+    icon: 'baby-carriage-off',
+    label: 'Home'
   }
 }, {
   path: '/users',
   name: 'users',
   component: _core_admin_pages_AppUsers__WEBPACK_IMPORTED_MODULE_1__.default,
   meta: {
-    requiresAuth: true
-  }
+    requiresAuth: true,
+    showInSideBar: true,
+    icon: 'airballoon',
+    label: 'Users'
+  },
+  children: [{
+    path: 'list',
+    name: 'users-list',
+    component: _core_admin_pages_AppDashboard__WEBPACK_IMPORTED_MODULE_0__.default,
+    meta: {
+      requiresAuth: true,
+      showInSideBar: true,
+      icon: 'drama-masks',
+      label: 'List'
+    }
+  }, {
+    name: 'users-create',
+    path: 'create',
+    component: _core_admin_pages_AppDashboard__WEBPACK_IMPORTED_MODULE_0__.default,
+    meta: {
+      requiresAuth: true,
+      showInSideBar: true,
+      icon: 'bank',
+      label: 'Create'
+    }
+  }]
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (routes);
 
@@ -3326,7 +3624,7 @@ var http = {
   /**
    * Initialize http base url and store's token
    * 
-   * @param {String} baseURL base url 
+   * @param {string} baseURL base url 
    */
   initialize: function initialize(baseURL) {
     (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.baseURL) = baseURL;
@@ -3443,7 +3741,7 @@ var token = {
   /**
    * Get stored token
    * 
-   * @returns {String|null}
+   * @returns {string|null}
    */
   getToken: function getToken() {
     return _helpers__WEBPACK_IMPORTED_MODULE_0__.default.getCookie(TOKEN_KEY);
@@ -3452,7 +3750,7 @@ var token = {
   /**
    * Get stored token's expiration date
    * 
-   * @returns {String|null}
+   * @returns {string|null}
    */
   getTokenExpirationDate: function getTokenExpirationDate() {
     return _helpers__WEBPACK_IMPORTED_MODULE_0__.default.getCookie(TOKEN_KEY_EXIRATION_DATE);
@@ -3461,8 +3759,8 @@ var token = {
   /**
    * Store token
    * 
-   * @param {String} accessToken token's value 
-   * @param {Number} extensionSeconds seconds to be added at current date's expiration
+   * @param {string} accessToken token's value 
+   * @param {number} extensionSeconds seconds to be added at current date's expiration
    */
   saveToken: function saveToken(accessToken) {
     var extensionSeconds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : EXTENSION_SECONDS_DEFAULT;
@@ -3472,8 +3770,8 @@ var token = {
   /**
    * Store token's expiration date
    * 
-   * @param {String} expirationDate token expiration date's value 
-   * @param {Number} extensionSeconds seconds to be added at current date's expiration
+   * @param {string} expirationDate token expiration date's value 
+   * @param {number} extensionSeconds seconds to be added at current date's expiration
    */
   saveTokenExpirationDate: function saveTokenExpirationDate(expirationDate) {
     var extensionSeconds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : EXTENSION_SECONDS_DEFAULT;
@@ -5811,15 +6109,7 @@ var render = function() {
             "div",
             [
               _vm.authenticatedUserToken
-                ? _c(
-                    "div",
-                    [
-                      _c("v-navigation-drawer", { attrs: { app: "" } }),
-                      _vm._v(" "),
-                      _c("NavBar")
-                    ],
-                    1
-                  )
+                ? _c("div", [_c("SideBar"), _vm._v(" "), _c("NavBar")], 1)
                 : _vm._e(),
               _vm._v(" "),
               _c("v-main", [_c("router-view")], 1)
@@ -6116,8 +6406,6 @@ var render = function() {
         [
           _c("v-app-bar-nav-icon"),
           _vm._v(" "),
-          _c("v-toolbar-title", [_vm._v(_vm._s(_vm.appName))]),
-          _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
           _c(
@@ -6372,7 +6660,327 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h3", [_vm._v("I'm Sidebar")])
+  return _c(
+    "v-navigation-drawer",
+    { attrs: { app: "" } },
+    [
+      _c("v-sheet", { staticClass: "pa-2", attrs: { color: "white" } }, [
+        _c("div", { staticClass: "text-h6 text-center" }, [
+          _vm._v(_vm._s(_vm.appName))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("v-divider"),
+      _vm._v(" "),
+      _c(
+        "v-list",
+        { attrs: { dense: "", expand: "", nav: "" } },
+        [
+          _vm._l(_vm.allRoutes, function(item, i) {
+            return [
+              _vm.isShowInSidebar(item)
+                ? [
+                    !item.children
+                      ? _c(
+                          "v-list-item",
+                          {
+                            key: "subheader-" + i,
+                            attrs: { color: "indigo", to: item.path }
+                          },
+                          [
+                            _c(
+                              "v-list-item-icon",
+                              [
+                                _vm.isIconExistsInMeta(item)
+                                  ? _c("v-icon", [
+                                      _vm._v(_vm._s("mdi-" + item.meta.icon))
+                                    ])
+                                  : _vm._e()
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _vm.isLabelExistsInMeta(item)
+                              ? _c("v-list-item-title", [
+                                  _vm._v(_vm._s(item.meta.label))
+                                ])
+                              : _vm._e()
+                          ],
+                          1
+                        )
+                      : _c(
+                          "v-list-group",
+                          {
+                            key: i,
+                            attrs: { group: item.path, color: "indigo" },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "activator",
+                                  fn: function() {
+                                    return [
+                                      _c(
+                                        "v-list-item-content",
+                                        [
+                                          _c(
+                                            "v-list-item-title",
+                                            [
+                                              _vm.isIconExistsInMeta(item)
+                                                ? _c("v-icon", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        "mdi-" + item.meta.icon
+                                                      )
+                                                    )
+                                                  ])
+                                                : _vm._e(),
+                                              _vm._v(
+                                                "\n                " +
+                                                  _vm._s(
+                                                    _vm.isLabelExistsInMeta(
+                                                      item
+                                                    )
+                                                      ? item.meta.label
+                                                      : ""
+                                                  ) +
+                                                  "\n              "
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              ],
+                              null,
+                              true
+                            )
+                          },
+                          [
+                            _vm._v(" "),
+                            _vm._l(item.children, function(subItem, j) {
+                              return [
+                                _vm.isShowInSidebar(subItem)
+                                  ? [
+                                      !subItem.children
+                                        ? _c(
+                                            "v-list-item",
+                                            {
+                                              key: "subheader-" + j,
+                                              staticClass: "ml-5",
+                                              attrs: {
+                                                to:
+                                                  item.path + "/" + subItem.path
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "v-list-item-icon",
+                                                { staticClass: "mr-4" },
+                                                [
+                                                  _vm.isIconExistsInMeta(
+                                                    subItem
+                                                  )
+                                                    ? _c("v-icon", {
+                                                        domProps: {
+                                                          textContent: _vm._s(
+                                                            "mdi-" +
+                                                              subItem.meta.icon
+                                                          )
+                                                        }
+                                                      })
+                                                    : _vm._e()
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-list-item-title",
+                                                { staticClass: "ml-0" },
+                                                [
+                                                  _vm._v(
+                                                    "\n                  " +
+                                                      _vm._s(
+                                                        _vm.isLabelExistsInMeta(
+                                                          subItem
+                                                        )
+                                                          ? subItem.meta.label
+                                                          : ""
+                                                      ) +
+                                                      "\n                "
+                                                  )
+                                                ]
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        : _c(
+                                            "v-list-group",
+                                            {
+                                              key: j,
+                                              attrs: {
+                                                color: "indigo",
+                                                group: subItem.path,
+                                                "sub-group": ""
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "activator",
+                                                    fn: function() {
+                                                      return [
+                                                        _c(
+                                                          "v-list-item-content",
+                                                          [
+                                                            _c(
+                                                              "v-list-item-title",
+                                                              [
+                                                                _vm.isIconExistsInMeta(
+                                                                  subItem
+                                                                )
+                                                                  ? _c(
+                                                                      "v-icon",
+                                                                      [
+                                                                        _vm._v(
+                                                                          _vm._s(
+                                                                            "mdi-" +
+                                                                              subItem
+                                                                                .meta
+                                                                                .icon
+                                                                          )
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  : _vm._e(),
+                                                                _vm._v(
+                                                                  "\n                      " +
+                                                                    _vm._s(
+                                                                      _vm.isLabelExistsInMeta(
+                                                                        subItem
+                                                                      )
+                                                                        ? subItem
+                                                                            .meta
+                                                                            .label
+                                                                        : ""
+                                                                    ) +
+                                                                    "\n                    "
+                                                                )
+                                                              ],
+                                                              1
+                                                            )
+                                                          ],
+                                                          1
+                                                        )
+                                                      ]
+                                                    },
+                                                    proxy: true
+                                                  }
+                                                ],
+                                                null,
+                                                true
+                                              )
+                                            },
+                                            [
+                                              _vm._v(" "),
+                                              _vm._l(subItem.children, function(
+                                                subSubItem,
+                                                k
+                                              ) {
+                                                return [
+                                                  _vm.isShowInSidebar(
+                                                    subSubItem
+                                                  )
+                                                    ? [
+                                                        _c(
+                                                          "v-list-item",
+                                                          {
+                                                            key:
+                                                              "subheader-" + k,
+                                                            attrs: {
+                                                              color: "indigo",
+                                                              value: true,
+                                                              to:
+                                                                item.path +
+                                                                "/" +
+                                                                subItem.path +
+                                                                "/" +
+                                                                subSubItem.path
+                                                            }
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "v-list-item-title",
+                                                              [
+                                                                _vm._v(
+                                                                  "\n                        " +
+                                                                    _vm._s(
+                                                                      _vm.isLabelExistsInMeta(
+                                                                        subItem
+                                                                      )
+                                                                        ? subItem
+                                                                            .meta
+                                                                            .label
+                                                                        : ""
+                                                                    ) +
+                                                                    "\n                      "
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "v-list-item-icon",
+                                                              [
+                                                                _vm.isIconExistsInMeta(
+                                                                  subSubItem
+                                                                )
+                                                                  ? _c(
+                                                                      "v-icon",
+                                                                      [
+                                                                        _vm._v(
+                                                                          _vm._s(
+                                                                            "mdi-" +
+                                                                              subSubItem
+                                                                                .meta
+                                                                                .icon
+                                                                          )
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  : _vm._e()
+                                                              ],
+                                                              1
+                                                            )
+                                                          ],
+                                                          1
+                                                        )
+                                                      ]
+                                                    : _vm._e()
+                                                ]
+                                              })
+                                            ],
+                                            2
+                                          )
+                                    ]
+                                  : _vm._e()
+                              ]
+                            })
+                          ],
+                          2
+                        )
+                  ]
+                : _vm._e()
+            ]
+          })
+        ],
+        2
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

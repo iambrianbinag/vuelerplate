@@ -5,8 +5,8 @@
   /**
    * Get cookie by name
    * 
-   * @param {String} cookieName name to search
-   * @returns {String|null}
+   * @param {string} cookieName name to search
+   * @returns {string|null}
    */
   getCookie(cookieName) {
     let name = cookieName + "=";
@@ -26,9 +26,9 @@
   /**
    * Set cookie by name
    * 
-   * @param {String} cookieName name of cookie
-   * @param {Mixed} cookieValue value of cookie
-   * @param {Number} extensionSeconds seconds to be added in expiration date
+   * @param {string} cookieName name of cookie
+   * @param {mixed} cookieValue value of cookie
+   * @param {number} extensionSeconds seconds to be added in expiration date
    */
   setCookie(cookieName, cookieValue, extensionSeconds) {
     let currentDate = new Date();
@@ -39,7 +39,7 @@
   /**
    * Delete cookie by name
    * 
-   * @param {String} cookieName cookie name to be deleted
+   * @param {string} cookieName cookie name to be deleted
    */
   deleteCookie(cookieName) {
     document.cookie = cookieName + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';

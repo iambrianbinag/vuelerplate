@@ -5,7 +5,7 @@
         </div>
         <div v-else>
             <div v-if="authenticatedUserToken">
-                <v-navigation-drawer app></v-navigation-drawer>
+                <SideBar/>
                 <NavBar/>
             </div>
             <v-main>

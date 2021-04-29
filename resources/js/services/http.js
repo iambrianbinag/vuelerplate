@@ -10,7 +10,7 @@ const http = {
   /**
    * Initialize http base url and store's token
    * 
-   * @param {String} baseURL base url 
+   * @param {string} baseURL base url 
    */
   initialize(baseURL){
     axios.defaults.baseURL = baseURL;

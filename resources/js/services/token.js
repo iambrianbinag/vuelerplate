@@ -11,7 +11,7 @@ const token = {
   /**
    * Get stored token
    * 
-   * @returns {String|null}
+   * @returns {string|null}
    */
   getToken() {
     return helpers.getCookie(TOKEN_KEY);
@@ -19,7 +19,7 @@ const token = {
   /**
    * Get stored token's expiration date
    * 
-   * @returns {String|null}
+   * @returns {string|null}
    */
   getTokenExpirationDate(){
     return helpers.getCookie(TOKEN_KEY_EXIRATION_DATE);
@@ -27,8 +27,8 @@ const token = {
   /**
    * Store token
    * 
-   * @param {String} accessToken token's value 
-   * @param {Number} extensionSeconds seconds to be added at current date's expiration
+   * @param {string} accessToken token's value 
+   * @param {number} extensionSeconds seconds to be added at current date's expiration
    */
   saveToken(accessToken, extensionSeconds = EXTENSION_SECONDS_DEFAULT){ 
     helpers.setCookie(TOKEN_KEY, accessToken, extensionSeconds);
@@ -36,8 +36,8 @@ const token = {
   /**
    * Store token's expiration date
    * 
-   * @param {String} expirationDate token expiration date's value 
-   * @param {Number} extensionSeconds seconds to be added at current date's expiration
+   * @param {string} expirationDate token expiration date's value 
+   * @param {number} extensionSeconds seconds to be added at current date's expiration
    */
   saveTokenExpirationDate(expirationDate, extensionSeconds = EXTENSION_SECONDS_DEFAULT){
     helpers.setCookie(TOKEN_KEY_EXIRATION_DATE, expirationDate, extensionSeconds)

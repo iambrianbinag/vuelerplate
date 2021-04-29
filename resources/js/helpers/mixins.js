@@ -6,8 +6,8 @@
     /**
      * Capitalize text
      * 
-     * @param {String} value to be capitalized
-     * @returns {String}
+     * @param {string} value to be capitalized
+     * @returns {string}
      */
     capitalize: function(value){
       if(!value){
@@ -22,8 +22,8 @@
     /**
      * Add seconds at current date
      * 
-     * @param {Number} seconds seconds to be added at current date
-     * @returns {Date}
+     * @param {number} seconds seconds to be added at current date
+     * @returns {date}
      */
     addSecondsAtCurrentDate(seconds = 0){
       let currentDate = new Date();

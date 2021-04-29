@@ -7,7 +7,10 @@ const routes = [
     name: 'home',
     component: AppDashboard,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      showInSideBar: true,
+      icon: 'baby-carriage-off',
+      label: 'Home'
     }
   },
   {
@@ -15,8 +18,35 @@ const routes = [
     name: 'users',
     component: AppUsers,
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+      showInSideBar: true,
+      icon: 'airballoon',
+      label: 'Users'
+    },
+    children: [
+      {
+        path: 'list',
+        name: 'users-list',
+        component: AppDashboard,
+        meta: {
+          requiresAuth: true,
+          showInSideBar: true,
+          icon: 'drama-masks',
+          label: 'List'
+        },
+      },
+      {
+        name: 'users-create',
+        path: 'create',
+        component: AppDashboard,
+        meta: {
+          requiresAuth: true,
+          showInSideBar: true,
+          icon: 'bank',
+          label: 'Create'
+        },
+      },
+    ]
   },
 ];
 

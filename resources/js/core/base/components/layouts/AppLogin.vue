@@ -115,7 +115,7 @@
              * Triggered when form is submited
              * 
              * @event click
-             * @type {Event}
+             * @type {event}
              */
             handleLogin(e){
                 this.$v.$touch();

@@ -7,7 +7,6 @@
             app
         >
             <v-app-bar-nav-icon></v-app-bar-nav-icon>
-            <v-toolbar-title>{{ appName }}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-menu
                 bottom
@@ -105,7 +104,6 @@
                 'authenticatedUserInformation', 
                 'isLoadingAuthenticatedUser'
             ]),
-            ...mapGetters('base.system', ['appName']),
         },
         methods: {
             ...mapActions('base.authentication', ['logout']),
@@ -113,7 +111,7 @@
              * Triggered when logout button is clicked
              * 
              * @event click
-             * @type {Event}
+             * @type {event}
              */
             handleLogout(){
                 this.logout()
