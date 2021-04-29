@@ -2041,6 +2041,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AppUsers'
 });
@@ -2437,8 +2439,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'NavBar',
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)('base.authentication', ['authenticatedUserInformation', 'isLoadingAuthenticatedUser'])),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('base.authentication', ['logout'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)('base.authentication', ['authenticatedUserInformation', 'isLoadingAuthenticatedUser'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)('base.system', ['isSidebarOpen'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('base.authentication', ['logout'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapMutations)('base.system', ['setIsSidebarOpen'])), {}, {
+    /**
+     * Triggered when toggle icon is clicked
+     * 
+     * @event click
+     * @type {event}
+     */
+    handleSideBarToggle: function handleSideBarToggle() {
+      this.setIsSidebarOpen(!!!this.isSidebarOpen);
+    },
+
     /**
      * Triggered when logout button is clicked
      * 
@@ -2607,170 +2619,70 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SideBar',
   data: function data() {
     return {
-      allRoutes: this.$router.options.routes,
-      allRoutess: [{
-        name: 'No Children (1 level)',
-        path: '/no-children',
-        meta: {
-          icon: 'baby-carriage-off',
-          showInSideBar: true
-        }
-      }, {
-        name: 'Attractions (2 levels)',
-        path: '/attractions',
-        meta: {
-          icon: 'airballoon',
-          showInSideBar: true
-        },
+      allRoutes: [
+      /**
+       * DASHBOARD
+       */
+      {
+        path: '/home',
+        label: 'Home',
+        icon: 'baby-carriage-off'
+      },
+      /**
+       * USERS
+       */
+      {
+        path: '/users',
+        label: 'Users',
+        icon: 'airballoon',
         children: [{
-          name: 'Carnivals',
-          path: '/carnivals',
-          meta: {
-            icon: 'drama-masks',
-            showInSideBar: false
-          }
+          path: '/list',
+          label: 'List',
+          icon: 'drama-masks'
         }, {
-          name: 'Museums',
-          path: '/museums',
-          meta: {
-            icon: 'bank',
-            showInSideBar: true
-          }
+          path: '/create',
+          label: 'Create',
+          icon: 'bank'
         }]
-      }, {
-        name: 'Restaurants (3 levels)',
-        path: '/restaurants',
-        meta: {
-          icon: 'silverware-fork-knife',
-          showInSideBar: true
-        },
+      },
+      /**
+       * SETTINGS
+       */
+      {
+        path: '/settings',
+        label: 'Settings',
+        icon: 'airballoon',
         children: [{
-          name: 'Japanese',
-          path: '/japanese',
-          meta: {
-            icon: 'map-marker-radius-outline',
-            showInSideBar: true
-          },
-          children: [{
-            name: 'Hikari Sushi',
-            path: '/hikari-sushi',
-            meta: {
-              icon: 'food-croissant',
-              showInSideBar: true
-            }
-          }, {
-            name: 'Late Night Ramen',
-            path: '/late-night-ramen',
-            meta: {
-              icon: 'noodles',
-              showInSideBar: true
-            }
-          }]
+          path: '/control-panel',
+          label: 'Control Panel',
+          icon: 'drama-masks'
         }, {
-          name: 'Italian',
-          path: '/italian',
-          meta: {
-            icon: 'map',
-            showInSideBar: true
-          },
-          children: [{
-            name: 'Jersey Pizza',
-            path: '/jersey-pizza',
-            meta: {
-              icon: 'pizza',
-              showInSideBar: true
-            }
-          }, {
-            name: 'Im-pasta-ble',
-            path: '/im-pasta-ble',
-            meta: {
-              icon: 'pasta',
-              showInSideBar: false
-            }
-          }]
-        }, {
-          name: 'Mexican',
-          path: '/mexican',
-          meta: {
-            icon: 'map-marker'
-          },
-          children: [{
-            name: 'Taco Gato',
-            path: '/taco-gato',
-            meta: {
-              icon: 'taco'
-            }
-          }, {
-            name: 'A-maize-ing',
-            path: '/a-maize-ing',
-            meta: {
-              icon: 'corn'
-            }
-          }]
+          path: '/system',
+          label: 'System',
+          icon: 'bank'
         }]
       }]
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)('base.system', ['appName'])),
-  methods: {
-    /**
-     * Check if icon property exists in meta property of route
-     * 
-     * @param {object} route object to be checked
-     * @returns {boolean}
-     */
-    isIconExistsInMeta: function isIconExistsInMeta(route) {
-      if (!route.meta) {
-        return false;
-      }
-
-      if (route.meta.icon) {
-        return true;
-      }
-    },
-
-    /**
-     * Check if label property exists in meta property of route
-     * 
-     * @param {object} route object to be checked
-     * @returns {boolean}
-     */
-    isLabelExistsInMeta: function isLabelExistsInMeta(route) {
-      if (!route.meta) {
-        return false;
-      }
-
-      if (route.meta.label) {
-        return true;
-      }
-    },
-
-    /**
-     * Check if showInSideBar property exists in meta property of route and value is true
-     * 
-     * @param {object} route
-     * @returns {boolean}
-     */
-    isShowInSidebar: function isShowInSidebar(route) {
-      if (!route.meta) {
-        return false;
-      }
-
-      if (route.meta.showInSideBar) {
-        return true;
-      }
-    }
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)('base.system', ['appName', 'isSidebarOpen'])),
+  watch: {//
   },
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapMutations)('base.system', ['setIsSidebarOpen'])), {}, {
+    /**
+     * Triggered when nagivation drawer open/close change
+     * 
+     * @event click
+     * @type {event}
+     */
+    handleNavigationDrawer: function handleNavigationDrawer(isOpen) {
+      this.setIsSidebarOpen(isOpen);
+    }
+  }),
   mounted: function mounted() {//
   }
 });
@@ -3473,47 +3385,55 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_admin_pages_AppUsers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/admin/pages/AppUsers */ "./resources/js/core/admin/pages/AppUsers.vue");
 
 
-var routes = [{
+var routes = [
+/**
+ * DASHBOARD
+ */
+{
   path: '/home',
   name: 'home',
   component: _core_admin_pages_AppDashboard__WEBPACK_IMPORTED_MODULE_0__.default,
   meta: {
-    requiresAuth: true,
-    showInSideBar: true,
-    icon: 'baby-carriage-off',
-    label: 'Home'
+    requiresAuth: true
   }
-}, {
+},
+/**
+ * USERS
+ */
+{
   path: '/users',
   name: 'users',
+  redirect: {
+    name: 'users-list'
+  }
+}, {
+  path: '/users/list',
+  name: 'users-list',
   component: _core_admin_pages_AppUsers__WEBPACK_IMPORTED_MODULE_1__.default,
   meta: {
-    requiresAuth: true,
-    showInSideBar: true,
-    icon: 'airballoon',
-    label: 'Users'
-  },
-  children: [{
-    path: 'list',
-    name: 'users-list',
-    component: _core_admin_pages_AppDashboard__WEBPACK_IMPORTED_MODULE_0__.default,
-    meta: {
-      requiresAuth: true,
-      showInSideBar: true,
-      icon: 'drama-masks',
-      label: 'List'
-    }
-  }, {
-    path: 'create',
-    name: 'users-create',
-    component: _core_admin_pages_AppDashboard__WEBPACK_IMPORTED_MODULE_0__.default,
-    meta: {
-      requiresAuth: true,
-      showInSideBar: true,
-      icon: 'bank',
-      label: 'Create'
-    }
-  }]
+    requiresAuth: true
+  }
+}, {
+  path: '/users/create',
+  name: 'users-create',
+  component: _core_admin_pages_AppUsers__WEBPACK_IMPORTED_MODULE_1__.default,
+  meta: {
+    requiresAuth: true
+  }
+}, {
+  path: '/users/:id/update',
+  name: 'users-update',
+  component: _core_admin_pages_AppUsers__WEBPACK_IMPORTED_MODULE_1__.default,
+  meta: {
+    requiresAuth: true
+  }
+}, {
+  path: '/users/:id/view',
+  name: 'users-view',
+  component: _core_admin_pages_AppUsers__WEBPACK_IMPORTED_MODULE_1__.default,
+  meta: {
+    requiresAuth: true
+  }
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (routes);
 
@@ -3996,7 +3916,8 @@ var state = {
     isError: false,
     messages: []
   },
-  appName: null
+  appName: null,
+  isSidebarOpen: null
 };
 var getters = {
   serverError: function serverError(state) {
@@ -4004,6 +3925,9 @@ var getters = {
   },
   appName: function appName(state) {
     return state.appName;
+  },
+  isSidebarOpen: function isSidebarOpen(state) {
+    return state.isSidebarOpen;
   }
 };
 var mutations = {
@@ -4021,6 +3945,9 @@ var mutations = {
   },
   setAppName: function setAppName(state, data) {
     return state.appName = data;
+  },
+  setIsSidebarOpen: function setIsSidebarOpen(state, data) {
+    return state.isSidebarOpen = data;
   }
 };
 var actions = {//
@@ -6075,9 +6002,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h3", [_vm._v("I'm from Users")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h3", [_vm._v("I'm from Users")])])
+  }
+]
 render._withStripped = true
 
 
@@ -6404,7 +6338,14 @@ var render = function() {
         "v-app-bar",
         { attrs: { color: "primary", dark: "", dense: "", app: "" } },
         [
-          _c("v-app-bar-nav-icon"),
+          _c("v-app-bar-nav-icon", {
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+                return _vm.handleSideBarToggle($event)
+              }
+            }
+          }),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
@@ -6662,7 +6603,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-navigation-drawer",
-    { attrs: { app: "" } },
+    {
+      attrs: { value: _vm.isSidebarOpen, app: "" },
+      on: { input: _vm.handleNavigationDrawer }
+    },
     [
       _c("v-sheet", { staticClass: "pa-2", attrs: { color: "white" } }, [
         _c("div", { staticClass: "text-h6 text-center" }, [
@@ -6678,73 +6622,193 @@ var render = function() {
         [
           _vm._l(_vm.allRoutes, function(item, i) {
             return [
-              _vm.isShowInSidebar(item)
-                ? [
-                    !item.children
-                      ? _c(
-                          "v-list-item",
+              !item.children
+                ? _c(
+                    "v-list-item",
+                    {
+                      key: "subheader-" + i,
+                      attrs: { color: "indigo", to: item.path }
+                    },
+                    [
+                      _c(
+                        "v-list-item-icon",
+                        [_c("v-icon", [_vm._v(_vm._s("mdi-" + item.icon))])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-list-item-title", [_vm._v(_vm._s(item.label))])
+                    ],
+                    1
+                  )
+                : _c(
+                    "v-list-group",
+                    {
+                      key: i,
+                      attrs: { group: item.path, color: "indigo" },
+                      scopedSlots: _vm._u(
+                        [
                           {
-                            key: "subheader-" + i,
-                            attrs: { color: "indigo", to: item.path }
-                          },
-                          [
-                            _c(
-                              "v-list-item-icon",
-                              [
-                                _vm.isIconExistsInMeta(item)
-                                  ? _c("v-icon", [
-                                      _vm._v(_vm._s("mdi-" + item.meta.icon))
-                                    ])
-                                  : _vm._e()
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _vm.isLabelExistsInMeta(item)
-                              ? _c("v-list-item-title", [
-                                  _vm._v(_vm._s(item.meta.label))
-                                ])
-                              : _vm._e()
-                          ],
-                          1
-                        )
-                      : _c(
-                          "v-list-group",
-                          {
-                            key: i,
-                            attrs: { group: item.path, color: "indigo" },
-                            scopedSlots: _vm._u(
-                              [
+                            key: "activator",
+                            fn: function() {
+                              return [
+                                _c(
+                                  "v-list-item-content",
+                                  [
+                                    _c(
+                                      "v-list-item-title",
+                                      [
+                                        _c("v-icon", [
+                                          _vm._v(_vm._s("mdi-" + item.icon))
+                                        ]),
+                                        _vm._v(
+                                          "\n              " +
+                                            _vm._s(item.label) +
+                                            "\n            "
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ]
+                            },
+                            proxy: true
+                          }
+                        ],
+                        null,
+                        true
+                      )
+                    },
+                    [
+                      _vm._v(" "),
+                      _vm._l(item.children, function(subItem, j) {
+                        return [
+                          !subItem.children
+                            ? _c(
+                                "v-list-item",
                                 {
-                                  key: "activator",
-                                  fn: function() {
+                                  key: "subheader-" + j,
+                                  staticClass: "ml-5",
+                                  attrs: { to: item.path + subItem.path }
+                                },
+                                [
+                                  _c(
+                                    "v-list-item-icon",
+                                    { staticClass: "mr-4" },
+                                    [
+                                      _c("v-icon", {
+                                        domProps: {
+                                          textContent: _vm._s(
+                                            "mdi-" + subItem.icon
+                                          )
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-item-title",
+                                    { staticClass: "ml-0" },
+                                    [
+                                      _vm._v(
+                                        "\n              " +
+                                          _vm._s(subItem.label) +
+                                          "\n            "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            : _c(
+                                "v-list-group",
+                                {
+                                  key: j,
+                                  attrs: {
+                                    color: "indigo",
+                                    group: item.path + subItem.path,
+                                    "sub-group": ""
+                                  },
+                                  scopedSlots: _vm._u(
+                                    [
+                                      {
+                                        key: "activator",
+                                        fn: function() {
+                                          return [
+                                            _c(
+                                              "v-list-item-content",
+                                              [
+                                                _c(
+                                                  "v-list-item-title",
+                                                  [
+                                                    _c("v-icon", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          "mdi-" + subItem.icon
+                                                        )
+                                                      )
+                                                    ]),
+                                                    _vm._v(
+                                                      "\n                  " +
+                                                        _vm._s(subItem.label) +
+                                                        "\n                "
+                                                    )
+                                                  ],
+                                                  1
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ]
+                                        },
+                                        proxy: true
+                                      }
+                                    ],
+                                    null,
+                                    true
+                                  )
+                                },
+                                [
+                                  _vm._v(" "),
+                                  _vm._l(subItem.children, function(
+                                    subSubItem,
+                                    k
+                                  ) {
                                     return [
                                       _c(
-                                        "v-list-item-content",
+                                        "v-list-item",
+                                        {
+                                          key: "subheader-" + k,
+                                          attrs: {
+                                            color: "indigo",
+                                            value: true,
+                                            to:
+                                              item.path +
+                                              subItem.path +
+                                              subSubItem.path
+                                          }
+                                        },
                                         [
+                                          _c("v-list-item-title", [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(subItem.label) +
+                                                "\n                "
+                                            )
+                                          ]),
+                                          _vm._v(" "),
                                           _c(
-                                            "v-list-item-title",
+                                            "v-list-item-icon",
                                             [
-                                              _vm.isIconExistsInMeta(item)
-                                                ? _c("v-icon", [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        "mdi-" + item.meta.icon
-                                                      )
-                                                    )
-                                                  ])
-                                                : _vm._e(),
-                                              _vm._v(
-                                                "\n                " +
+                                              _c("v-icon", [
+                                                _vm._v(
                                                   _vm._s(
-                                                    _vm.isLabelExistsInMeta(
-                                                      item
-                                                    )
-                                                      ? item.meta.label
-                                                      : ""
-                                                  ) +
-                                                  "\n              "
-                                              )
+                                                    "mdi-" + subSubItem.icon
+                                                  )
+                                                )
+                                              ])
                                             ],
                                             1
                                           )
@@ -6752,227 +6816,15 @@ var render = function() {
                                         1
                                       )
                                     ]
-                                  },
-                                  proxy: true
-                                }
-                              ],
-                              null,
-                              true
-                            )
-                          },
-                          [
-                            _vm._v(" "),
-                            _vm._l(item.children, function(subItem, j) {
-                              return [
-                                _vm.isShowInSidebar(subItem)
-                                  ? [
-                                      !subItem.children
-                                        ? _c(
-                                            "v-list-item",
-                                            {
-                                              key: "subheader-" + j,
-                                              staticClass: "ml-5",
-                                              attrs: {
-                                                to:
-                                                  item.path + "/" + subItem.path
-                                              }
-                                            },
-                                            [
-                                              _c(
-                                                "v-list-item-icon",
-                                                { staticClass: "mr-4" },
-                                                [
-                                                  _vm.isIconExistsInMeta(
-                                                    subItem
-                                                  )
-                                                    ? _c("v-icon", {
-                                                        domProps: {
-                                                          textContent: _vm._s(
-                                                            "mdi-" +
-                                                              subItem.meta.icon
-                                                          )
-                                                        }
-                                                      })
-                                                    : _vm._e()
-                                                ],
-                                                1
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-item-title",
-                                                { staticClass: "ml-0" },
-                                                [
-                                                  _vm._v(
-                                                    "\n                  " +
-                                                      _vm._s(
-                                                        _vm.isLabelExistsInMeta(
-                                                          subItem
-                                                        )
-                                                          ? subItem.meta.label
-                                                          : ""
-                                                      ) +
-                                                      "\n                "
-                                                  )
-                                                ]
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        : _c(
-                                            "v-list-group",
-                                            {
-                                              key: j,
-                                              attrs: {
-                                                color: "indigo",
-                                                group: subItem.path,
-                                                "sub-group": ""
-                                              },
-                                              scopedSlots: _vm._u(
-                                                [
-                                                  {
-                                                    key: "activator",
-                                                    fn: function() {
-                                                      return [
-                                                        _c(
-                                                          "v-list-item-content",
-                                                          [
-                                                            _c(
-                                                              "v-list-item-title",
-                                                              [
-                                                                _vm.isIconExistsInMeta(
-                                                                  subItem
-                                                                )
-                                                                  ? _c(
-                                                                      "v-icon",
-                                                                      [
-                                                                        _vm._v(
-                                                                          _vm._s(
-                                                                            "mdi-" +
-                                                                              subItem
-                                                                                .meta
-                                                                                .icon
-                                                                          )
-                                                                        )
-                                                                      ]
-                                                                    )
-                                                                  : _vm._e(),
-                                                                _vm._v(
-                                                                  "\n                      " +
-                                                                    _vm._s(
-                                                                      _vm.isLabelExistsInMeta(
-                                                                        subItem
-                                                                      )
-                                                                        ? subItem
-                                                                            .meta
-                                                                            .label
-                                                                        : ""
-                                                                    ) +
-                                                                    "\n                    "
-                                                                )
-                                                              ],
-                                                              1
-                                                            )
-                                                          ],
-                                                          1
-                                                        )
-                                                      ]
-                                                    },
-                                                    proxy: true
-                                                  }
-                                                ],
-                                                null,
-                                                true
-                                              )
-                                            },
-                                            [
-                                              _vm._v(" "),
-                                              _vm._l(subItem.children, function(
-                                                subSubItem,
-                                                k
-                                              ) {
-                                                return [
-                                                  _vm.isShowInSidebar(
-                                                    subSubItem
-                                                  )
-                                                    ? [
-                                                        _c(
-                                                          "v-list-item",
-                                                          {
-                                                            key:
-                                                              "subheader-" + k,
-                                                            attrs: {
-                                                              color: "indigo",
-                                                              value: true,
-                                                              to:
-                                                                item.path +
-                                                                "/" +
-                                                                subItem.path +
-                                                                "/" +
-                                                                subSubItem.path
-                                                            }
-                                                          },
-                                                          [
-                                                            _c(
-                                                              "v-list-item-title",
-                                                              [
-                                                                _vm._v(
-                                                                  "\n                        " +
-                                                                    _vm._s(
-                                                                      _vm.isLabelExistsInMeta(
-                                                                        subItem
-                                                                      )
-                                                                        ? subItem
-                                                                            .meta
-                                                                            .label
-                                                                        : ""
-                                                                    ) +
-                                                                    "\n                      "
-                                                                )
-                                                              ]
-                                                            ),
-                                                            _vm._v(" "),
-                                                            _c(
-                                                              "v-list-item-icon",
-                                                              [
-                                                                _vm.isIconExistsInMeta(
-                                                                  subSubItem
-                                                                )
-                                                                  ? _c(
-                                                                      "v-icon",
-                                                                      [
-                                                                        _vm._v(
-                                                                          _vm._s(
-                                                                            "mdi-" +
-                                                                              subSubItem
-                                                                                .meta
-                                                                                .icon
-                                                                          )
-                                                                        )
-                                                                      ]
-                                                                    )
-                                                                  : _vm._e()
-                                                              ],
-                                                              1
-                                                            )
-                                                          ],
-                                                          1
-                                                        )
-                                                      ]
-                                                    : _vm._e()
-                                                ]
-                                              })
-                                            ],
-                                            2
-                                          )
-                                    ]
-                                  : _vm._e()
-                              ]
-                            })
-                          ],
-                          2
-                        )
-                  ]
-                : _vm._e()
+                                  })
+                                ],
+                                2
+                              )
+                        ]
+                      })
+                    ],
+                    2
+                  )
             ]
           })
         ],

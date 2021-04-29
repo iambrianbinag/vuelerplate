@@ -6,7 +6,7 @@
             dense
             app
         >
-            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click.stop="handleSideBarToggle"></v-app-bar-nav-icon>
             <v-spacer></v-spacer>
             <v-menu
                 bottom
@@ -95,7 +95,7 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex'; 
+    import { mapGetters, mapActions, mapMutations } from 'vuex'; 
 
     export default {
         name: 'NavBar',
@@ -104,9 +104,20 @@
                 'authenticatedUserInformation', 
                 'isLoadingAuthenticatedUser'
             ]),
+            ...mapGetters('base.system', ['isSidebarOpen'])
         },
         methods: {
             ...mapActions('base.authentication', ['logout']),
+            ...mapMutations('base.system', ['setIsSidebarOpen']),
+            /**
+             * Triggered when toggle icon is clicked
+             * 
+             * @event click
+             * @type {event}
+             */
+            handleSideBarToggle(){
+                this.setIsSidebarOpen(!!!this.isSidebarOpen);
+            },
             /**
              * Triggered when logout button is clicked
              * 
@@ -118,7 +129,7 @@
                     .then((response) => {
                         this.$router.push({ name: 'login' });
                     });
-            }
+            },
         },
         mounted() {
             //

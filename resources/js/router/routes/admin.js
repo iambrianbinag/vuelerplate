@@ -2,51 +2,56 @@ import AppDashboard from '../../core/admin/pages/AppDashboard';
 import AppUsers from '../../core/admin/pages/AppUsers';
 
 const routes = [
+  /**
+   * DASHBOARD
+   */
   {
     path: '/home',
     name: 'home',
     component: AppDashboard,
     meta: {
       requiresAuth: true,
-      showInSideBar: true,
-      icon: 'baby-carriage-off',
-      label: 'Home'
     }
   },
-  {
+  /**
+   * USERS
+   */
+   {
     path: '/users',
     name: 'users',
+    redirect: { name: 'users-list' },
+  },
+  {
+    path: '/users/list',
+    name: 'users-list',
     component: AppUsers,
     meta: {
       requiresAuth: true,
-      showInSideBar: true,
-      icon: 'airballoon',
-      label: 'Users'
     },
-    children: [
-      {
-        path: 'list',
-        name: 'users-list',
-        component: AppDashboard,
-        meta: {
-          requiresAuth: true,
-          showInSideBar: true,
-          icon: 'drama-masks',
-          label: 'List'
-        },
-      },
-      {
-        path: 'create',
-        name: 'users-create',
-        component: AppDashboard,
-        meta: {
-          requiresAuth: true,
-          showInSideBar: true,
-          icon: 'bank',
-          label: 'Create'
-        },
-      },
-    ]
+  },
+  {
+    path: '/users/create',
+    name: 'users-create',
+    component: AppUsers,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/users/:id/update',
+    name: 'users-update',
+    component: AppUsers,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/users/:id/view',
+    name: 'users-view',
+    component: AppUsers,
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 
