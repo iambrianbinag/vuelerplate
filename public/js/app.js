@@ -3504,8 +3504,8 @@ var routes = [{
       label: 'List'
     }
   }, {
-    name: 'users-create',
     path: 'create',
+    name: 'users-create',
     component: _core_admin_pages_AppDashboard__WEBPACK_IMPORTED_MODULE_0__.default,
     meta: {
       requiresAuth: true,

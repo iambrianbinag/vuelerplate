@@ -36,8 +36,8 @@ const routes = [
         },
       },
       {
-        name: 'users-create',
         path: 'create',
+        name: 'users-create',
         component: AppDashboard,
         meta: {
           requiresAuth: true,
