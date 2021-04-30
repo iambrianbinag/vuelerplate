@@ -6620,13 +6620,13 @@ var render = function() {
         "v-list",
         { attrs: { dense: "", expand: "", nav: "" } },
         [
-          _vm._l(_vm.allRoutes, function(item, i) {
+          _vm._l(_vm.allRoutes, function(item, indexOfItem) {
             return [
               !item.children
                 ? _c(
                     "v-list-item",
                     {
-                      key: "subheader-" + i,
+                      key: "subheader-" + indexOfItem,
                       attrs: { color: "indigo", to: item.path }
                     },
                     [
@@ -6643,7 +6643,7 @@ var render = function() {
                 : _c(
                     "v-list-group",
                     {
-                      key: i,
+                      key: "list-group-item-" + indexOfItem,
                       attrs: { group: item.path, color: "indigo" },
                       scopedSlots: _vm._u(
                         [
@@ -6682,13 +6682,13 @@ var render = function() {
                     },
                     [
                       _vm._v(" "),
-                      _vm._l(item.children, function(subItem, j) {
+                      _vm._l(item.children, function(subItem, indexOfSubItem) {
                         return [
                           !subItem.children
                             ? _c(
                                 "v-list-item",
                                 {
-                                  key: "subheader-" + j,
+                                  key: "subheader-" + indexOfSubItem,
                                   staticClass: "ml-5",
                                   attrs: { to: item.path + subItem.path }
                                 },
@@ -6725,7 +6725,7 @@ var render = function() {
                             : _c(
                                 "v-list-group",
                                 {
-                                  key: j,
+                                  key: "list-group-sub-item-" + indexOfSubItem,
                                   attrs: {
                                     color: "indigo",
                                     group: item.path + subItem.path,
@@ -6774,13 +6774,13 @@ var render = function() {
                                   _vm._v(" "),
                                   _vm._l(subItem.children, function(
                                     subSubItem,
-                                    k
+                                    indexOfSubSubItem
                                   ) {
                                     return [
                                       _c(
                                         "v-list-item",
                                         {
-                                          key: "subheader-" + k,
+                                          key: "subheader-" + indexOfSubSubItem,
                                           attrs: {
                                             color: "indigo",
                                             value: true,

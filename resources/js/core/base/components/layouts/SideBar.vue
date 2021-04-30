@@ -17,13 +17,13 @@
       nav
     >
       <!-- ENTIRE list is wrapped in a template -->
-      <template v-for="(item, i) in allRoutes">
+      <template v-for="(item, indexOfItem) in allRoutes">
         <!-- use v-if to determine if 2nd level nesting is needed -->
         <!-- if it's a menu item with no children -->
         <v-list-item
           v-if="!item.children"
           color="indigo"
-          :key="`subheader-${i}`"
+          :key="`subheader-${indexOfItem}`"
           :to="item.path"
         >
           <v-list-item-icon>
@@ -34,7 +34,7 @@
         <!-- else if it has children -->
         <v-list-group
           v-else
-          :key="i"
+          :key="`list-group-item-${indexOfItem}`"
           :group="item.path"
           color="indigo"
         >
@@ -48,13 +48,13 @@
             </v-list-item-content>
           </template>
           <!-- this template is for the children/sub-items (2nd level) -->
-          <template v-for="(subItem, j) in item.children">
+          <template v-for="(subItem, indexOfSubItem) in item.children">
             <!-- another v-if to determine if there's a 3rd level -->
             <!-- if there is NOT a 3rd level -->
             <v-list-item
               v-if="!subItem.children"
               class="ml-5"
-              :key="`subheader-${j}`"
+              :key="`subheader-${indexOfSubItem}`"
               :to="item.path + subItem.path"
             >
               <v-list-item-icon class="mr-4">
@@ -67,7 +67,7 @@
             <!-- if there is a 3rd level -->
             <v-list-group
               v-else
-              :key="j"
+              :key="`list-group-sub-item-${indexOfSubItem}`"
               color="indigo"
               :group="item.path + subItem.path"
               sub-group
@@ -80,9 +80,9 @@
                   </v-list-item-title>
                 </v-list-item-content>
               </template>
-              <template v-for="(subSubItem, k) in subItem.children">
+              <template v-for="(subSubItem, indexOfSubSubItem) in subItem.children">
                 <v-list-item
-                  :key="`subheader-${k}`"
+                  :key="`subheader-${indexOfSubSubItem}`"
                   color="indigo"
                   :value="true"
                   :to="item.path + subItem.path + subSubItem.path"
