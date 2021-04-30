@@ -2630,8 +2630,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
        */
       {
         path: '/home',
-        label: 'Home',
-        icon: 'baby-carriage-off'
+        label: 'Dashboard',
+        icon: 'home'
       },
       /**
        * USERS
@@ -2639,15 +2639,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       {
         path: '/users',
         label: 'Users',
-        icon: 'airballoon',
+        icon: 'account-group',
         children: [{
           path: '/list',
           label: 'List',
-          icon: 'drama-masks'
+          icon: 'account-group-outline'
         }, {
           path: '/create',
           label: 'Create',
-          icon: 'bank'
+          icon: 'account-plus-outline'
         }]
       },
       /**
@@ -2656,15 +2656,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       {
         path: '/settings',
         label: 'Settings',
-        icon: 'airballoon',
+        icon: 'cogs',
         children: [{
           path: '/control-panel',
           label: 'Control Panel',
-          icon: 'drama-masks'
+          icon: 'solar-panel'
         }, {
           path: '/system',
           label: 'System',
-          icon: 'bank'
+          icon: 'database'
         }]
       }]
     };
