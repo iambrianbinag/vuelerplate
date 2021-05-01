@@ -146,8 +146,8 @@
           this.total = total;
           this.options = {
             ...this.options,
-            itemsPerPage: per_page,
-            page: current_page,
+            itemsPerPage: parseInt(per_page),
+            page: parseInt(current_page),
           };
         }
       },

@@ -3052,8 +3052,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.items = data;
         this.total = total;
         this.options = _objectSpread(_objectSpread({}, this.options), {}, {
-          itemsPerPage: per_page,
-          page: current_page
+          itemsPerPage: parseInt(per_page),
+          page: parseInt(current_page)
         });
       }
     },
