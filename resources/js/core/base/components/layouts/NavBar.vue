@@ -6,7 +6,10 @@
             dense
             app
         >
-            <v-app-bar-nav-icon @click.stop="handleSideBarToggle"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon 
+                @click.stop="handleSideBarToggle"
+                class="d-lg-none"
+            ></v-app-bar-nav-icon>
             <v-spacer></v-spacer>
             <v-menu
                 bottom

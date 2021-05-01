@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
 import Vuelidate from 'vuelidate';
 import VuelidateErrorExtractor, { templates } from 'vuelidate-error-extractor';
 

@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <h3>I'm from Users</h3>
-  </div>
+  <AppUsersComponent/>
 </template>
 
 <script>
+  import AppUsers from '../components/users/AppUsers';
 
   export default {
-    name: 'AppUsers'
+    name: 'AppUsers',
+    components: { 'AppUsersComponent': AppUsers }
   }
 </script>
