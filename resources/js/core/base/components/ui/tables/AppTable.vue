@@ -62,6 +62,10 @@
         type: Function,
         default: () => {},
       },
+      mutation: {
+        type: Function,
+        default: () => {},
+      },
       loading: {
         type: Boolean,
         default: false,
@@ -186,8 +190,11 @@
         this.action(params);
       },
     },
-    mounted () {
+    mounted() {
       this.setData(this.data);
+    },
+    destroyed(){
+      this.mutation(null);
     },
   }
 </script>

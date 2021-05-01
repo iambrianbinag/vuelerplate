@@ -16,6 +16,7 @@
         "
       :data="users"
       :action="getUsers"
+      :mutation="setUsers"
       :loading="isLoadingUsers"
       orderByDefault="id"
       orderDirectionDefault="desc"
@@ -24,7 +25,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapGetters, mapActions, mapMutations } from 'vuex';
   import AppTable from '../../../base/components/ui/tables/AppTable';
 
   export default {
@@ -38,6 +39,7 @@
     },
     methods: {
       ...mapActions('admin.users', ['getUsers']),
+      ...mapMutations('admin.users', ['setUsers']),
     },
     mounted(){
       this.getUsers();

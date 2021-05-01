@@ -2049,6 +2049,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2057,7 +2058,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     AppTable: _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__.default
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.users', ['users', 'isLoadingUsers'])),
-  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.users', ['getUsers'])),
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.users', ['getUsers'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)('admin.users', ['setUsers'])),
   mounted: function mounted() {
     this.getUsers();
   }
@@ -2964,6 +2965,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: Function,
       "default": function _default() {}
     },
+    mutation: {
+      type: Function,
+      "default": function _default() {}
+    },
     loading: {
       type: Boolean,
       "default": false
@@ -3103,6 +3108,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   mounted: function mounted() {
     this.setData(this.data);
+  },
+  destroyed: function destroyed() {
+    this.mutation(null);
   }
 });
 
@@ -6861,6 +6869,7 @@ var render = function() {
           ],
           data: _vm.users,
           action: _vm.getUsers,
+          mutation: _vm.setUsers,
           loading: _vm.isLoadingUsers,
           orderByDefault: "id",
           orderDirectionDefault: "desc"
