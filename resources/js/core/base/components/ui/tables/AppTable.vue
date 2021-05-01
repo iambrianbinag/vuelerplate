@@ -48,35 +48,58 @@
     name: 'AppTable',
     components: { AppHeader },
     props: {
+      /**
+       * The header columns of the table
+       */
       headers: {
         type: Array,
         default: [],
       },
+      /**
+       * The items of the table, the format should be paginated
+       */
       data: {
         type: Object,
         default: function(){
           return {};
         },
       },
+      /**
+       * Gets called when internal table pagination behavior is changed
+       */
       action: {
         type: Function,
         default: () => {},
       },
+      /**
+       * Gets called on destroy lifecycle, to set null on store's state
+       */
       mutation: {
         type: Function,
         default: () => {},
       },
+      /**
+       * The loading state of the table
+       */
       loading: {
         type: Boolean,
         default: false,
       },
+      /**
+       * The column to be ordered by, the value should match with headers props
+       */
       orderByDefault: {
         type: String,
         default: null,
       },
+      /**
+       * The order direction of ordered column
+       * `asc, desc`
+       */
       orderDirectionDefault: {
-        type: String,
-        default: 'asc',
+        validator: function(value){
+          return ['asc', 'desc'].includes(value);
+        },
       },
     },
     data () {
@@ -110,6 +133,7 @@
       },
       options: {
         handler (newValue, oldValue) {
+          // Check if there has/have difference in new and old values, if any, then callthe  method that will request in backend
           let isMustRequestToBackend = false;
 
           if(newValue.page !== oldValue.page){
@@ -143,6 +167,10 @@
       },
     },
     methods: {
+      /**
+       * Format data to be matched in v-data-table component's properties
+       * @param {object} object to be formatted
+       */
       setData(object = {}){
         if(!this.isObjectEmpty(object)){
           const { data, current_page, per_page, total } = object;

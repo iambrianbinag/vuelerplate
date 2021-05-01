@@ -2038,24 +2038,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AppUsers',
   components: {
     AppTable: _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  data: function data() {
+    return {
+      table: {
+        headers: [{
+          text: 'ID',
+          value: 'id'
+        }, {
+          text: 'Name',
+          value: 'name'
+        }, {
+          text: 'Email',
+          value: 'email'
+        }, {
+          text: 'Action',
+          align: 'start',
+          sortable: false,
+          value: 'action'
+        }],
+        orderBy: 'id',
+        orderDirection: 'desc'
+      }
+    };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.users', ['users', 'isLoadingUsers'])),
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.users', ['getUsers'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)('admin.users', ['setUsers'])),
@@ -2951,35 +2962,64 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     AppHeader: _headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
+    /**
+     * The header columns of the table
+     */
     headers: {
       type: Array,
       "default": []
     },
+
+    /**
+     * The items of the table, the format should be paginated
+     */
     data: {
       type: Object,
       "default": function _default() {
         return {};
       }
     },
+
+    /**
+     * Gets called when internal table pagination behavior is changed
+     */
     action: {
       type: Function,
       "default": function _default() {}
     },
+
+    /**
+     * Gets called on destroy lifecycle, to set null on store's state
+     */
     mutation: {
       type: Function,
       "default": function _default() {}
     },
+
+    /**
+     * The loading state of the table
+     */
     loading: {
       type: Boolean,
       "default": false
     },
+
+    /**
+     * The column to be ordered by, the value should match with headers props
+     */
     orderByDefault: {
       type: String,
       "default": null
     },
+
+    /**
+     * The order direction of ordered column
+     * `asc, desc`
+     */
     orderDirectionDefault: {
-      type: String,
-      "default": 'asc'
+      validator: function validator(value) {
+        return ['asc', 'desc'].includes(value);
+      }
     }
   },
   data: function data() {
@@ -3012,6 +3052,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     options: {
       handler: function handler(newValue, oldValue) {
+        // Check if there has/have difference in new and old values, if any, then callthe  method that will request in backend
         var isMustRequestToBackend = false;
 
         if (newValue.page !== oldValue.page) {
@@ -3046,6 +3087,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
+    /**
+     * Format data to be matched in v-data-table component's properties
+     * @param {object} object to be formatted
+     */
     setData: function setData() {
       var object = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -6856,23 +6901,13 @@ var render = function() {
     [
       _c("AppTable", {
         attrs: {
-          headers: [
-            { text: "ID", value: "id" },
-            { text: "Name", value: "name" },
-            { text: "Email", value: "email" },
-            {
-              text: "Action",
-              align: "start",
-              sortable: false,
-              value: "action"
-            }
-          ],
+          headers: _vm.table.headers,
           data: _vm.users,
           action: _vm.getUsers,
           mutation: _vm.setUsers,
           loading: _vm.isLoadingUsers,
-          orderByDefault: "id",
-          orderDirectionDefault: "desc"
+          orderByDefault: _vm.table.orderBy,
+          orderDirectionDefault: _vm.table.orderDirection
         }
       })
     ],

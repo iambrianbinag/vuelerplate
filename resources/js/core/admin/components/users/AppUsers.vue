@@ -1,25 +1,13 @@
 <template>
   <v-container>
     <AppTable
-      :headers="
-        [
-            { text: 'ID', value: 'id' },
-            { text: 'Name', value: 'name' },
-            { text: 'Email', value: 'email' },
-            {
-              text: 'Action',
-              align: 'start',
-              sortable: false,
-              value: 'action',
-            },
-          ]
-        "
+      :headers="table.headers"
       :data="users"
       :action="getUsers"
       :mutation="setUsers"
       :loading="isLoadingUsers"
-      orderByDefault="id"
-      orderDirectionDefault="desc"
+      :orderByDefault="table.orderBy"
+      :orderDirectionDefault="table.orderDirection"
     />
   </v-container>
 </template>
@@ -31,6 +19,25 @@
   export default {
     name: 'AppUsers',
     components: { AppTable },
+    data(){
+      return {
+        table: {
+          headers: [
+            { text: 'ID', value: 'id' },
+            { text: 'Name', value: 'name' },
+            { text: 'Email', value: 'email' },
+            {
+              text: 'Action',
+              align: 'start',
+              sortable: false,
+              value: 'action',
+            },
+          ],
+          orderBy: 'id',
+          orderDirection: 'desc'
+        },
+      }
+    },
     computed: {
       ...mapGetters('admin.users', [
         'users',
