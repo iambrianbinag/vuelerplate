@@ -18,7 +18,7 @@
       :action="getUsers"
       :loading="isLoadingUsers"
       orderByDefault="id"
-      orderDirectionDefault="asc"
+      orderDirectionDefault="desc"
     />
   </v-container>
 </template>

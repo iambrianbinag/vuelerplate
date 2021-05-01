@@ -169,9 +169,6 @@
         
         params.page = page;
         params.per_page = itemsPerPage;
-        if(!this.search){
-          params.page = 1;
-        }
         if(this.search){
           params.page = 1;
           params.search = this.search;

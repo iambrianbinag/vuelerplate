@@ -3081,10 +3081,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       params.page = page;
       params.per_page = itemsPerPage;
 
-      if (!this.search) {
-        params.page = 1;
-      }
-
       if (this.search) {
         params.page = 1;
         params.search = this.search;
@@ -6867,7 +6863,7 @@ var render = function() {
           action: _vm.getUsers,
           loading: _vm.isLoadingUsers,
           orderByDefault: "id",
-          orderDirectionDefault: "asc"
+          orderDirectionDefault: "desc"
         }
       })
     ],
