@@ -1,8 +1,19 @@
 <template>
   <v-container>
+    <div class="mb-3">
+        <v-btn
+          small
+          color="primary"
+          @click="handleCreateUser"
+        >
+          <v-icon left>
+            mdi-plus
+          </v-icon>
+          Add
+        </v-btn>
+    </div>
     <AppTable
       title="Users"
-      :backButton="true"
       :headers="table.headers"
       :data="users"
       :action="getUsers"
@@ -12,7 +23,22 @@
       :orderDirectionDefault="table.orderDirection"
     >
       <template #action="{ item }">
-        <div class="primary">Hello {{ item.name }}, your ID is {{ item.id }}</div>
+        <v-btn
+            icon
+            x-small
+            color="secondary"
+            @click="handleUserView(item)"
+          >
+          <v-icon>mdi-eye</v-icon>
+        </v-btn>
+        <v-btn
+            icon
+            x-small
+            color="primary"
+            @click="handleUserView(item)"
+          >
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
       </template>
     </AppTable>
   </v-container>
@@ -53,6 +79,24 @@
     methods: {
       ...mapActions('admin.users', ['getUsers']),
       ...mapMutations('admin.users', ['setUsers']),
+      /**
+       *  Triggered when create button is clicked
+       * 
+       * @event click
+       * @type {event}
+       */
+      handleCreateUser(){
+        console.log('Routed to create user'); 
+      },
+      /**
+       * Triggered when view button is clicked
+       * 
+       * @event click
+       * @type {event}
+       */
+      handleUserView(user){
+        console.log(user);
+      },
     },
     mounted(){
       this.getUsers();

@@ -2044,6 +2044,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2075,7 +2101,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.users', ['users', 'isLoadingUsers'])),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.users', ['getUsers'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)('admin.users', ['setUsers'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.users', ['getUsers'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)('admin.users', ['setUsers'])), {}, {
+    /**
+     *  Triggered when create button is clicked
+     * 
+     * @event click
+     * @type {event}
+     */
+    handleCreateUser: function handleCreateUser() {
+      console.log('Routed to create user');
+    },
+
+    /**
+     * Triggered when view button is clicked
+     * 
+     * @event click
+     * @type {event}
+     */
+    handleUserView: function handleUserView(user) {
+      console.log(user);
+    }
+  }),
   mounted: function mounted() {
     this.getUsers();
   }
@@ -6943,10 +6989,31 @@ var render = function() {
   return _c(
     "v-container",
     [
+      _c(
+        "div",
+        { staticClass: "mb-3" },
+        [
+          _c(
+            "v-btn",
+            {
+              attrs: { small: "", color: "primary" },
+              on: { click: _vm.handleCreateUser }
+            },
+            [
+              _c("v-icon", { attrs: { left: "" } }, [
+                _vm._v("\n          mdi-plus\n        ")
+              ]),
+              _vm._v("\n        Add\n      ")
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("AppTable", {
         attrs: {
           title: "Users",
-          backButton: true,
           headers: _vm.table.headers,
           data: _vm.users,
           action: _vm.getUsers,
@@ -6961,14 +7028,33 @@ var render = function() {
             fn: function(ref) {
               var item = ref.item
               return [
-                _c("div", { staticClass: "primary" }, [
-                  _vm._v(
-                    "Hello " +
-                      _vm._s(item.name) +
-                      ", your ID is " +
-                      _vm._s(item.id)
-                  )
-                ])
+                _c(
+                  "v-btn",
+                  {
+                    attrs: { icon: "", "x-small": "", color: "secondary" },
+                    on: {
+                      click: function($event) {
+                        return _vm.handleUserView(item)
+                      }
+                    }
+                  },
+                  [_c("v-icon", [_vm._v("mdi-eye")])],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-btn",
+                  {
+                    attrs: { icon: "", "x-small": "", color: "primary" },
+                    on: {
+                      click: function($event) {
+                        return _vm.handleUserView(item)
+                      }
+                    }
+                  },
+                  [_c("v-icon", [_vm._v("mdi-pencil")])],
+                  1
+                )
               ]
             }
           }
