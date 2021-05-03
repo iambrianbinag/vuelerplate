@@ -1,6 +1,8 @@
 <template>
   <v-container>
     <AppTable
+      title="Users"
+      :backButton="true"
       :headers="table.headers"
       :data="users"
       :action="getUsers"
@@ -8,7 +10,11 @@
       :loading="isLoadingUsers"
       :orderByDefault="table.orderBy"
       :orderDirectionDefault="table.orderDirection"
-    />
+    >
+      <template #action="{ item }">
+        <div class="primary">Hello {{ item.name }}, your ID is {{ item.id }}</div>
+      </template>
+    </AppTable>
   </v-container>
 </template>
 

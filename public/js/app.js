@@ -2038,6 +2038,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2839,15 +2845,33 @@ __webpack_require__.r(__webpack_exports__);
     BackButton: _buttons_BackButton__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
-    title: String,
+    /**
+     * The title of header
+     */
+    title: {
+      type: String,
+      "default": ''
+    },
+
+    /**
+     * Boolean whether to add margin bottom
+     */
     gutter: {
       type: Boolean,
       "default": true
     },
+
+    /**
+     * Boolean whether to add back button
+     */
     backButton: {
       type: Boolean,
       "default": true
     },
+
+    /**
+     * Boolean wheter to add elavation
+     */
     elevation: {
       type: Boolean,
       "default": true
@@ -2955,6 +2979,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AppTable',
@@ -2962,6 +2990,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     AppHeader: _headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
+    /**
+     * The title of table header
+     */
+    title: {
+      type: String,
+      "default": ''
+    },
+
+    /**
+     * Boolean whether to add back button
+     */
+    backButton: {
+      type: Boolean,
+      "default": false
+    },
+
     /**
      * The header columns of the table
      */
@@ -6901,6 +6945,8 @@ var render = function() {
     [
       _c("AppTable", {
         attrs: {
+          title: "Users",
+          backButton: true,
           headers: _vm.table.headers,
           data: _vm.users,
           action: _vm.getUsers,
@@ -6908,7 +6954,25 @@ var render = function() {
           loading: _vm.isLoadingUsers,
           orderByDefault: _vm.table.orderBy,
           orderDirectionDefault: _vm.table.orderDirection
-        }
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "action",
+            fn: function(ref) {
+              var item = ref.item
+              return [
+                _c("div", { staticClass: "primary" }, [
+                  _vm._v(
+                    "Hello " +
+                      _vm._s(item.name) +
+                      ", your ID is " +
+                      _vm._s(item.id)
+                  )
+                ])
+              ]
+            }
+          }
+        ])
       })
     ],
     1
@@ -7933,7 +7997,11 @@ var render = function() {
                 { attrs: { cols: "12", sm: "4" } },
                 [
                   _c("AppHeader", {
-                    attrs: { title: "Users", elevation: false }
+                    attrs: {
+                      title: _vm.title,
+                      backButton: _vm.backButton,
+                      elevation: false
+                    }
                   })
                 ],
                 1
@@ -7986,7 +8054,26 @@ var render = function() {
           "update:options": function($event) {
             _vm.options = $event
           }
-        }
+        },
+        scopedSlots: _vm._u(
+          [
+            _vm._l(_vm.headers, function(header) {
+              return {
+                key: "item." + header.value,
+                fn: function(ref) {
+                  var item = ref.item
+                  return [
+                    _vm._t(header.value, [_vm._v(_vm._s(item[header.value]))], {
+                      item: item
+                    })
+                  ]
+                }
+              }
+            })
+          ],
+          null,
+          true
+        )
       })
     ],
     1

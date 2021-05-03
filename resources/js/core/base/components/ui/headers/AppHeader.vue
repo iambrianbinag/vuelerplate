@@ -19,15 +19,30 @@
     name: 'AppHeader',
     components: { BackButton },
     props: {
-      title: String,
+      /**
+       * The title of header
+       */
+      title: {
+        type: String,
+        default: '',
+      },
+      /**
+       * Boolean whether to add margin bottom
+       */
       gutter: {
         type: Boolean,
         default: true,
       },
+      /**
+       * Boolean whether to add back button
+       */
       backButton: {
         type: Boolean,
         default: true,
       },
+      /**
+       * Boolean wheter to add elavation
+       */
       elevation: {
         type: Boolean,
         default: true,

@@ -7,7 +7,8 @@
           sm="4"
         >
           <AppHeader 
-            title="Users" 
+            :title="title"
+            :backButton="backButton" 
             :elevation="false" 
           />
         </v-col>
@@ -37,6 +38,9 @@
       :footer-props="footerProps"
       dense
     >
+      <template v-for="header in headers" #[`item.${header.value}`]="{ item }">
+        <slot :name="header.value" :item="item" >{{ item[header.value] }}</slot>
+      </template>
     </v-data-table>
   </v-card>
 </template>
@@ -48,6 +52,20 @@
     name: 'AppTable',
     components: { AppHeader },
     props: {
+      /**
+       * The title of table header
+       */
+      title: {
+        type: String,
+        default: '',
+      },
+      /**
+       * Boolean whether to add back button
+       */
+      backButton: {
+        type: Boolean,
+        default: false,
+      },
       /**
        * The header columns of the table
        */
