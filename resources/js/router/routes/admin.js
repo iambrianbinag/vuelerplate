@@ -1,5 +1,6 @@
 import AppDashboard from '../../core/admin/pages/AppDashboard';
 import AppUsers from '../../core/admin/pages/AppUsers';
+import UsersForm from '../../core/admin/pages/UsersForm';
 
 const routes = [
   /**
@@ -32,7 +33,7 @@ const routes = [
   {
     path: '/users/create',
     name: 'users-create',
-    component: AppUsers,
+    component: UsersForm,
     meta: {
       requiresAuth: true,
     },

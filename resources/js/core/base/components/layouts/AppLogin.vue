@@ -56,7 +56,9 @@
                                                     v-model="form.password"
                                                     label='Password'
                                                     prepend-icon='mdi-lock'
-                                                    type='password'
+                                                    :type="isPasswordShown ? 'text' : 'password'"
+                                                    :append-icon="isPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
+                                                    @click:append="isPasswordShown = !isPasswordShown"
                                             />
                                             </form-group>
                                             <v-btn
@@ -88,6 +90,7 @@
         name: 'AppLogin',
         data(){
             return {
+                isPasswordShown: false,
                 form: {
                     email: '',
                     password: ''
@@ -117,7 +120,7 @@
              * @event click
              * @type {event}
              */
-            handleLogin(e){
+            handleLogin(){
                 this.$v.$touch();
                 if(this.$v.$invalid){
                     return;

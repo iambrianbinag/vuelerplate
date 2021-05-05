@@ -86,7 +86,7 @@
        * @type {event}
        */
       handleCreateUser(){
-        console.log('Routed to create user'); 
+        this.$router.push({ name: 'users-create' });
       },
       /**
        * Triggered when view button is clicked
