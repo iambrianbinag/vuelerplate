@@ -1,24 +1,47 @@
 const state = {
-  serverError: { isError: false, messages: [] },
+  snackbar: { 
+    show: false,
+    color: 'success',
+    timeout: 5000,  
+    message: '', 
+    messages: [],
+  },
   appName: null,
   isSidebarOpen: null,
 };
 
 const getters = {
-  serverError: (state) => state.serverError,
+  snackbar: (state) => state.snackbar,
   appName: (state) => state.appName,
   isSidebarOpen: (state) => state.isSidebarOpen,
 };
 
 const mutations = {
-  setServerError: (state, data) => state.serverError = { isError: true, messages: data.messages },
-  resetServerError: (state) => state.serverError = { isError: false, messages: [] },
+  setSnackbar: (state, data) => state.snackbar = data, 
+  resetSnackbar: (state, data) => state.snackbar = data,
   setAppName: (state, data) => state.appName = data,
   setIsSidebarOpen: (state, data) => state.isSidebarOpen = data,
 };
 
 const actions = {
-  //
+  showSnackbar({commit, state}, data){
+    commit('setSnackbar', { 
+      show: true, 
+      color: data.color || 'success', 
+      timeout: data.timeout || 5000, 
+      message: data.message,
+      messages: data.messages,
+    });
+  },
+  resetSnackbar({commit, state}, data){
+    commit('setSnackbar', { 
+      show: false, 
+      color: 'success', 
+      timeout: 5000,
+      message: '', 
+      messages: [],
+    });
+  }
 };
 
 export default {

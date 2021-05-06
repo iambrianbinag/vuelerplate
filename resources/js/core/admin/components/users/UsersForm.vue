@@ -63,6 +63,7 @@
           </v-row>
           <div class="d-flex justify-end mt-2">
             <v-btn
+              :loading="isLoadingCreateUser"
               color='primary'
               type='submit'
               small
@@ -77,6 +78,7 @@
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex';
   import AppHeader from '../../../base/components/ui/headers/AppHeader';
   import { required, email, minLength } from 'vuelidate/lib/validators';
 
@@ -92,6 +94,11 @@
           password: '',
         }
       }
+    },
+    computed: {
+      ...mapGetters('admin.users', [
+        'isLoadingCreateUser'
+      ]),
     },
     validations: {
       form: {
@@ -109,14 +116,42 @@
       }
     },
     methods: {
+      ...mapActions('base.system', [
+        'showSnackbar'
+      ]),
+      ...mapActions('admin.users', [
+        'createUser'
+      ]),
+      /**
+       *  Triggered when form is submitted
+       * 
+       * @event click
+       * @type {event}
+       */
       handleFormSubmit(){
         this.$v.$touch();
         if(this.$v.$invalid){
           return;
         }
 
-        console.log(this.form);
+        this.createUser(this.form)
+          .then((response) => {
+            this.showSnackbar({
+              message: 'User created successfully'
+            });
+            this.resetForm();
+          });
       },
+      /**
+       * Reset form to empty
+       */
+      resetForm(){
+        this.form = {
+          name: '',
+          email: '',
+          password: '',
+        }
+      }
     }
   }
 </script>

@@ -46,11 +46,21 @@ const http = {
           router.push({ name: 'login' });
           break;
         case 422:
-          console.log('Error 422', error.response.data);
-          // TODO error parameters message
+          const { errors } = error.response.data
+          const errorMessagesFormatted = [];
+          Object.entries(errors).forEach(([errorName, errorMessages]) => {
+            errorMessages.forEach((errorMessage) => {
+              errorMessagesFormatted.push(errorMessage);
+            });
+          });
+          store.dispatch('base.system/showSnackbar', {
+            color: 'error', 
+            messages: errorMessagesFormatted
+          });
           break;
         case 500:
-          store.commit('base.system/setServerError', { 
+          store.dispatch('base.system/showSnackbar', {
+            color: 'error', 
             messages: [
               'Sorry, something went wrong. Seems like we have an internal server error. Please try again later or report this issue.'
             ] 
@@ -59,8 +69,6 @@ const http = {
         default:
           // Do nothing...
       }
-
-      setTimeout(() => store.commit('base.system/resetServerError'), 3000);
 
       throw error;
     });

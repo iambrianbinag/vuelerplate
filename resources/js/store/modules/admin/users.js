@@ -5,12 +5,14 @@ const state = {
   users: null,
 
   isLoadingUsers: false,
+  isLoadingCreateUser: false,
 };
 
 const getters = {
   users: (state) => state.users,
 
   isLoadingUsers: (state) => state.isLoadingUsers,
+  isLoadingCreateUser: (state) => state.isLoadingCreateUser,
 };
 
 const mutations = {
@@ -32,7 +34,20 @@ const actions = {
       .finally(() => {
         state.isLoadingUsers = false;
       });
-  }
+  },
+  createUser({commit, state}, data){
+    state.isLoadingCreateUser = true;
+
+    return httpService.post('/users', data)
+      .then((response) => {
+        const { data } = response;
+       
+        return data;
+      })
+      .finally(() => {
+        state.isLoadingCreateUser = false;
+      });  
+  },
 };
 
 export default {

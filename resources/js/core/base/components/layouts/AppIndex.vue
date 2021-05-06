@@ -22,7 +22,7 @@
     import SideBar from './SideBar';
     import AppLoading from '../ui/loading/AppLoading';
     import config from '../../../../config';
-    import SnackBar from '../ui/validations/SnackBar';
+    import SnackBar from '../ui/messages/SnackBar';
 
     export default {
         name: 'AppIndex',
