@@ -139,11 +139,12 @@
             this.showSnackbar({
               message: 'User created successfully'
             });
+            this.$v.$reset();
             this.resetForm();
           });
       },
       /**
-       * Reset form to empty
+       * Set form to empty
        */
       resetForm(){
         this.form = {

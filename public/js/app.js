@@ -2284,7 +2284,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.showSnackbar({
           message: 'User created successfully'
         });
+
+        _this.$v.$reset();
+
+        _this.resetForm();
       });
+    },
+
+    /**
+     * Set form to empty
+     */
+    resetForm: function resetForm() {
+      this.form = {
+        name: '',
+        email: '',
+        password: ''
+      };
     }
   })
 });
