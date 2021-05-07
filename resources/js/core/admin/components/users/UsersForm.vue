@@ -86,7 +86,7 @@
   import { mapGetters, mapActions } from 'vuex';
   import AppHeader from '../../../base/components/ui/headers/AppHeader';
   import AppLoading from '../../../base/components/ui/loading/AppLoading';
-  import { required, email, minLength } from 'vuelidate/lib/validators';
+  import { required, email, minLength, requiredUnless, requiredIf } from 'vuelidate/lib/validators';
 
   export default {
     name: 'UsersForm',
@@ -125,7 +125,9 @@
           email 
         },
         password: { 
-          required, 
+          required: requiredUnless(function(form){
+            return this.isUpdateAction;
+          }),
           minLengthString: minLength(8),
         },
       }
@@ -176,17 +178,21 @@
           return;
         }
 
+        const params = {...this.form};
+
         if(this.isUpdateAction){
-          this.updateUser(this.form)
+          if(!params.password){
+            delete params.password;
+          }
+          this.updateUser(params)
             .then((response) => {
               this.showSnackbar({
                 message: 'User updated successfully'
               });
               this.$v.$reset();
-              this.resetForm();
             });
         } else {
-          this.createUser(this.form)
+          this.createUser(params)
             .then((response) => {
               this.showSnackbar({
                 message: 'User created successfully'

@@ -2287,7 +2287,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.email
       },
       password: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required,
+        required: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.requiredUnless)(function (form) {
+          return this.isUpdateAction;
+        }),
         minLengthString: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.minLength)(8)
       }
     }
@@ -2339,18 +2341,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return;
       }
 
+      var params = _objectSpread({}, this.form);
+
       if (this.isUpdateAction) {
-        this.updateUser(this.form).then(function (response) {
+        if (!params.password) {
+          delete params.password;
+        }
+
+        this.updateUser(params).then(function (response) {
           _this2.showSnackbar({
             message: 'User updated successfully'
           });
 
           _this2.$v.$reset();
-
-          _this2.resetForm();
         });
       } else {
-        this.createUser(this.form).then(function (response) {
+        this.createUser(params).then(function (response) {
           _this2.showSnackbar({
             message: 'User created successfully'
           });
