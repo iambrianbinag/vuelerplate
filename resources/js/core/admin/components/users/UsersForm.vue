@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <AppHeader title="Add New User" />
+    <AppHeader :title="headerTitle" />
     <AppLoading 
-      v-if="true"
+      v-if="isLoadingUser"
       :heightInVH="70" 
     />
     <v-sheet
@@ -95,6 +95,7 @@
       return {
         isPasswordShown: false,
         form: {
+          id: null,
           name: '',
           email: '',
           password: '',
@@ -107,6 +108,9 @@
         'isLoadingUpdateUser',
         'isLoadingUser'
       ]),
+      headerTitle: function(){
+        return this.isUpdateAction ? 'Update user' : 'Add new user';
+      },
       isUpdateAction: function(){
         return this.getIdParam() ? true : false;
       },
@@ -136,24 +140,18 @@
         'getUser',
       ]),
       /**
-       *  Triggered when form is submitted
-       * 
-       * @event click
-       * @type {event}
+       * Get id in route's params
        */
-      handleFormSubmit(){
-        this.$v.$touch();
-        if(this.$v.$invalid){
-          return;
-        }
-
-        this.createUser(this.form)
-          .then((response) => {
-            this.showSnackbar({
-              message: 'User created successfully'
-            });
-            this.$v.$reset();
-            this.resetForm();
+      getIdParam(){
+        return this.$route.params.id;
+      },
+      /**
+       * Get user by id
+       */
+      fetchUser(){
+        this.getUser({ id: this.getIdParam() })
+          .then((data) => {
+            this.form = {...this.form, ...data};
           });
       },
       /**
@@ -167,15 +165,41 @@
         }
       },
       /**
-       * Get id in route's params
+       *  Triggered when form is submitted
+       * 
+       * @event click
+       * @type {event}
        */
-      getIdParam(){
-        return this.$route.params.id;
-      }
+      handleFormSubmit(){
+        this.$v.$touch();
+        if(this.$v.$invalid){
+          return;
+        }
+
+        if(this.isUpdateAction){
+          this.updateUser(this.form)
+            .then((response) => {
+              this.showSnackbar({
+                message: 'User updated successfully'
+              });
+              this.$v.$reset();
+              this.resetForm();
+            });
+        } else {
+          this.createUser(this.form)
+            .then((response) => {
+              this.showSnackbar({
+                message: 'User created successfully'
+              });
+              this.$v.$reset();
+              this.resetForm();
+            });
+        }
+      },
     },
     mounted(){
       if(this.isUpdateAction){
-        this.getUser({ id: this.getIdParam() });
+        this.fetchUser();
       }
     }
   }

@@ -74,7 +74,7 @@ const actions = {
     const id = data.id;
     delete data.id;
 
-    return httpService.post(`/users/${id}`, data)
+    return httpService.put(`/users/${id}`, data)
       .then((response) => {
         const { data } = response;
        

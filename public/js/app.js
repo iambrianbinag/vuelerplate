@@ -2262,6 +2262,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       isPasswordShown: false,
       form: {
+        id: null,
         name: '',
         email: '',
         password: ''
@@ -2269,6 +2270,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)('admin.users', ['isLoadingCreateUser', 'isLoadingUpdateUser', 'isLoadingUser'])), {}, {
+    headerTitle: function headerTitle() {
+      return this.isUpdateAction ? 'Update user' : 'Add new user';
+    },
     isUpdateAction: function isUpdateAction() {
       return this.getIdParam() ? true : false;
     }
@@ -2290,28 +2294,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('base.system', ['showSnackbar'])), (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('admin.users', ['createUser', 'updateUser', 'getUser'])), {}, {
     /**
-     *  Triggered when form is submitted
-     * 
-     * @event click
-     * @type {event}
+     * Get id in route's params
      */
-    handleFormSubmit: function handleFormSubmit() {
+    getIdParam: function getIdParam() {
+      return this.$route.params.id;
+    },
+
+    /**
+     * Get user by id
+     */
+    fetchUser: function fetchUser() {
       var _this = this;
 
-      this.$v.$touch();
-
-      if (this.$v.$invalid) {
-        return;
-      }
-
-      this.createUser(this.form).then(function (response) {
-        _this.showSnackbar({
-          message: 'User created successfully'
-        });
-
-        _this.$v.$reset();
-
-        _this.resetForm();
+      this.getUser({
+        id: this.getIdParam()
+      }).then(function (data) {
+        _this.form = _objectSpread(_objectSpread({}, _this.form), data);
       });
     },
 
@@ -2327,17 +2325,46 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
 
     /**
-     * Get id in route's params
+     *  Triggered when form is submitted
+     * 
+     * @event click
+     * @type {event}
      */
-    getIdParam: function getIdParam() {
-      return this.$route.params.id;
+    handleFormSubmit: function handleFormSubmit() {
+      var _this2 = this;
+
+      this.$v.$touch();
+
+      if (this.$v.$invalid) {
+        return;
+      }
+
+      if (this.isUpdateAction) {
+        this.updateUser(this.form).then(function (response) {
+          _this2.showSnackbar({
+            message: 'User updated successfully'
+          });
+
+          _this2.$v.$reset();
+
+          _this2.resetForm();
+        });
+      } else {
+        this.createUser(this.form).then(function (response) {
+          _this2.showSnackbar({
+            message: 'User created successfully'
+          });
+
+          _this2.$v.$reset();
+
+          _this2.resetForm();
+        });
+      }
     }
   }),
   mounted: function mounted() {
     if (this.isUpdateAction) {
-      this.getUser({
-        id: this.getIdParam()
-      });
+      this.fetchUser();
     }
   }
 });
@@ -4723,7 +4750,7 @@ var actions = {
     state.isLoadingUpdateUser = true;
     var id = data.id;
     delete data.id;
-    return _services_http__WEBPACK_IMPORTED_MODULE_0__.default.post("/users/".concat(id), data).then(function (response) {
+    return _services_http__WEBPACK_IMPORTED_MODULE_0__.default.put("/users/".concat(id), data).then(function (response) {
       var data = response.data;
       return data;
     })["finally"](function () {
@@ -7652,11 +7679,205 @@ var render = function() {
   return _c(
     "v-container",
     [
-      _c("AppHeader", { attrs: { title: "Add New User" } }),
+      _c("AppHeader", { attrs: { title: _vm.headerTitle } }),
       _vm._v(" "),
-       true
+      _vm.isLoadingUser
         ? _c("AppLoading", { attrs: { heightInVH: 70 } })
-        : 0
+        : _c(
+            "v-sheet",
+            { staticClass: "pa-2", attrs: { color: "white", elevation: "1" } },
+            [
+              _c(
+                "form-wrapper",
+                { attrs: { validator: _vm.$v.form } },
+                [
+                  _c(
+                    "v-form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.handleFormSubmit($event)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "v-row",
+                        { attrs: { dense: "" } },
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", sm: "6" } },
+                            [
+                              _c("form-group", {
+                                attrs: { name: "name" },
+                                scopedSlots: _vm._u([
+                                  {
+                                    key: "default",
+                                    fn: function(ref) {
+                                      var attrs = ref.attrs
+                                      return _c(
+                                        "v-text-field",
+                                        _vm._b(
+                                          {
+                                            attrs: {
+                                              label: "Name",
+                                              "hide-details": "auto",
+                                              outlined: "",
+                                              dense: ""
+                                            },
+                                            model: {
+                                              value: _vm.form.name,
+                                              callback: function($$v) {
+                                                _vm.$set(_vm.form, "name", $$v)
+                                              },
+                                              expression: "form.name"
+                                            }
+                                          },
+                                          "v-text-field",
+                                          attrs,
+                                          false
+                                        )
+                                      )
+                                    }
+                                  }
+                                ])
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", sm: "6" } },
+                            [
+                              _c("form-group", {
+                                attrs: { name: "email" },
+                                scopedSlots: _vm._u([
+                                  {
+                                    key: "default",
+                                    fn: function(ref) {
+                                      var attrs = ref.attrs
+                                      return _c(
+                                        "v-text-field",
+                                        _vm._b(
+                                          {
+                                            attrs: {
+                                              label: "Email",
+                                              "hide-details": "auto",
+                                              outlined: "",
+                                              dense: ""
+                                            },
+                                            model: {
+                                              value: _vm.form.email,
+                                              callback: function($$v) {
+                                                _vm.$set(_vm.form, "email", $$v)
+                                              },
+                                              expression: "form.email"
+                                            }
+                                          },
+                                          "v-text-field",
+                                          attrs,
+                                          false
+                                        )
+                                      )
+                                    }
+                                  }
+                                ])
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", sm: "6" } },
+                            [
+                              _c("form-group", {
+                                attrs: { name: "password" },
+                                scopedSlots: _vm._u([
+                                  {
+                                    key: "default",
+                                    fn: function(ref) {
+                                      var attrs = ref.attrs
+                                      return _c(
+                                        "v-text-field",
+                                        _vm._b(
+                                          {
+                                            attrs: {
+                                              label: "Password",
+                                              "hide-details": "auto",
+                                              type: _vm.isPasswordShown
+                                                ? "text"
+                                                : "password",
+                                              "append-icon": _vm.isPasswordShown
+                                                ? "mdi-eye"
+                                                : "mdi-eye-off",
+                                              outlined: "",
+                                              dense: ""
+                                            },
+                                            on: {
+                                              "click:append": function($event) {
+                                                _vm.isPasswordShown = !_vm.isPasswordShown
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.form.password,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.form,
+                                                  "password",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "form.password"
+                                            }
+                                          },
+                                          "v-text-field",
+                                          attrs,
+                                          false
+                                        )
+                                      )
+                                    }
+                                  }
+                                ])
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "d-flex justify-end mt-2" },
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: {
+                                loading: _vm.isLoadingCreateUser,
+                                color: "primary",
+                                type: "submit",
+                                small: ""
+                              }
+                            },
+                            [_vm._v("\n              Save\n          ")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
     ],
     1
   )
