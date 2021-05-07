@@ -1,6 +1,6 @@
 import AppDashboard from '../../core/admin/pages/AppDashboard';
 import AppUsers from '../../core/admin/pages/AppUsers';
-import UsersForm from '../../core/admin/pages/UsersForm';
+import UserForm from '../../core/admin/pages/UserForm';
 
 const routes = [
   /**
@@ -34,24 +34,24 @@ const routes = [
   },
   {
     path: '/users/create',
-    name: 'users-create',
-    component: UsersForm,
+    name: 'user-create',
+    component: UserForm,
     meta: {
       requiresAuth: true,
     },
   },
   {
     path: '/users/:id/update',
-    name: 'users-update',
-    component: UsersForm,
+    name: 'user-update',
+    component: UserForm,
     meta: {
       requiresAuth: true,
     },
   },
   {
     path: '/users/:id/view',
-    name: 'users-view',
-    component: UsersForm,
+    name: 'user-view',
+    component: UserForm,
     meta: {
       requiresAuth: true,
     },

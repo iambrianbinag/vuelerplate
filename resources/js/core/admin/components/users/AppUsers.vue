@@ -86,7 +86,7 @@
        * @type {event}
        */
       handleCreateUser(){
-        this.$router.push({ name: 'users-create' });
+        this.$router.push({ name: 'user-create' });
       },
       /**
        * Triggered when view button is clicked
@@ -95,7 +95,7 @@
        * @type {event}
        */
       handleUserView(user){
-        this.$router.push({ name: 'users-view', params: { id: user.id } });
+        this.$router.push({ name: 'user-view', params: { id: user.id } });
       },
        /**
        * Triggered when update button is clicked
@@ -104,7 +104,7 @@
        * @type {event}
        */
       handleUserUpdate(user){
-        this.$router.push({ name: 'users-update', params: { id: user.id } });
+        this.$router.push({ name: 'user-update', params: { id: user.id } });
       },
     },
     mounted(){

@@ -5,8 +5,8 @@ const state = {
   users: null,
   user: null,
 
-  isLoadingUsers: false,
-  isLoadingUser: false,
+  isLoadingGetUsers: false,
+  isLoadingGetUser: false,
   isLoadingCreateUser: false,
   isLoadingUpdateUser: false,
 };
@@ -14,8 +14,8 @@ const state = {
 const getters = {
   users: (state) => state.users,
 
-  isLoadingUsers: (state) => state.isLoadingUsers,
-  isLoadingUser: (state) => state.isLoadingUser,
+  isLoadingGetUsers: (state) => state.isLoadingGetUsers,
+  isLoadingGetUser: (state) => state.isLoadingGetUser,
   isLoadingCreateUser: (state) => state.isLoadingCreateUser,
   isLoadingUpdateUser: (state) => state.isLoadingUpdateUser,
 };
@@ -27,7 +27,7 @@ const mutations = {
 
 const actions = {
   getUsers({commit, state}, data){
-    state.isLoadingUsers = true;
+    state.isLoadingGetUsers = true;
 
     const params = helperMixins.methods.generateUrlParams(data);
     return httpService.get(`/users${params}`)
@@ -38,11 +38,11 @@ const actions = {
         return data;
       })
       .finally(() => {
-        state.isLoadingUsers = false;
+        state.isLoadingGetUsers = false;
       });
   },
   getUser({commit, state}, data){
-    state.isLoadingUser = true;
+    state.isLoadingGetUser = true;
 
     return httpService.get(`/users/${data.id}`)
       .then((response) => {
@@ -52,7 +52,7 @@ const actions = {
         return data;
       })
       .finally(() => {
-        state.isLoadingUser = false;
+        state.isLoadingGetUser = false;
       });
   },
   createUser({commit, state}, data){
