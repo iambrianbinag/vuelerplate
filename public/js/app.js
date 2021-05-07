@@ -2101,7 +2101,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.users', ['users', 'isLoadingUsers'])),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.users', ['getUsers'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)('admin.users', ['setUsers'])), {}, _defineProperty({
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.users', ['getUsers'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)('admin.users', ['setUsers'])), {}, {
     /**
      *  Triggered when create button is clicked
      * 
@@ -2127,15 +2127,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           id: user.id
         }
       });
+    },
+
+    /**
+    * Triggered when update button is clicked
+    * 
+    * @event click
+    * @type {event}
+    */
+    handleUserUpdate: function handleUserUpdate(user) {
+      this.$router.push({
+        name: 'users-update',
+        params: {
+          id: user.id
+        }
+      });
     }
-  }, "handleUserView", function handleUserView(user) {
-    this.$router.push({
-      name: 'users-view',
-      params: {
-        id: user.id
-      }
-    });
-  })),
+  }),
   mounted: function mounted() {
     this.getUsers();
   }
@@ -4495,7 +4503,7 @@ var http = {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.t0 = error.response.status;
-                _context.next = _context.t0 === 401 ? 3 : _context.t0 === 422 ? 10 : _context.t0 === 500 ? 15 : 17;
+                _context.next = _context.t0 === 401 ? 3 : _context.t0 === 422 ? 10 : _context.t0 === 404 ? 15 : _context.t0 === 500 ? 17 : 19;
                 break;
 
               case 3:
@@ -4509,7 +4517,7 @@ var http = {
                 _router__WEBPACK_IMPORTED_MODULE_3__.default.push({
                   name: 'login'
                 });
-                return _context.abrupt("break", 17);
+                return _context.abrupt("break", 19);
 
               case 10:
                 errors = error.response.data.errors;
@@ -4527,19 +4535,25 @@ var http = {
                   color: 'error',
                   messages: errorMessagesFormatted
                 });
-                return _context.abrupt("break", 17);
+                return _context.abrupt("break", 19);
 
               case 15:
+                _router__WEBPACK_IMPORTED_MODULE_3__.default.push({
+                  name: '404'
+                });
+                return _context.abrupt("break", 19);
+
+              case 17:
                 _store__WEBPACK_IMPORTED_MODULE_4__.default.dispatch('base.system/showSnackbar', {
                   color: 'error',
                   messages: ['Sorry, something went wrong. Seems like we have an internal server error. Please try again later or report this issue.']
                 });
-                return _context.abrupt("break", 17);
+                return _context.abrupt("break", 19);
 
-              case 17:
+              case 19:
                 throw error;
 
-              case 18:
+              case 20:
               case "end":
                 return _context.stop();
             }
@@ -7643,7 +7657,7 @@ var render = function() {
                     attrs: { icon: "", "x-small": "", color: "primary" },
                     on: {
                       click: function($event) {
-                        return _vm.handleUserView(item)
+                        return _vm.handleUserUpdate(item)
                       }
                     }
                   },

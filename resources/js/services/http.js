@@ -58,6 +58,9 @@ const http = {
             messages: errorMessagesFormatted
           });
           break;
+        case 404:
+          router.push({ name: '404' });
+          break;
         case 500:
           store.dispatch('base.system/showSnackbar', {
             color: 'error', 

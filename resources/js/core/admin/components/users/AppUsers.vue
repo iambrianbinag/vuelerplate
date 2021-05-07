@@ -35,7 +35,7 @@
             icon
             x-small
             color="primary"
-            @click="handleUserView(item)"
+            @click="handleUserUpdate(item)"
           >
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
@@ -103,8 +103,8 @@
        * @event click
        * @type {event}
        */
-      handleUserView(user){
-        this.$router.push({ name: 'users-view', params: { id: user.id } });
+      handleUserUpdate(user){
+        this.$router.push({ name: 'users-update', params: { id: user.id } });
       },
     },
     mounted(){
