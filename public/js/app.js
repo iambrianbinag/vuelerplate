@@ -2101,7 +2101,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.users', ['users', 'isLoadingUsers'])),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.users', ['getUsers'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)('admin.users', ['setUsers'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.users', ['getUsers'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)('admin.users', ['setUsers'])), {}, _defineProperty({
     /**
      *  Triggered when create button is clicked
      * 
@@ -2121,9 +2121,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      * @type {event}
      */
     handleUserView: function handleUserView(user) {
-      console.log(user);
+      this.$router.push({
+        name: 'users-view',
+        params: {
+          id: user.id
+        }
+      });
     }
-  }),
+  }, "handleUserView", function handleUserView(user) {
+    this.$router.push({
+      name: 'users-view',
+      params: {
+        id: user.id
+      }
+    });
+  })),
   mounted: function mounted() {
     this.getUsers();
   }
@@ -2142,9 +2154,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _base_components_ui_headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../base/components/ui/headers/AppHeader */ "./resources/js/core/base/components/ui/headers/AppHeader.vue");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var _base_components_ui_loading_AppLoading__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../base/components/ui/loading/AppLoading */ "./resources/js/core/base/components/ui/loading/AppLoading.vue");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2230,13 +2243,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'UsersForm',
   components: {
-    AppHeader: _base_components_ui_headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__.default
+    AppHeader: _base_components_ui_headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__.default,
+    AppLoading: _base_components_ui_loading_AppLoading__WEBPACK_IMPORTED_MODULE_1__.default
   },
   data: function data() {
     return {
@@ -2248,23 +2268,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.users', ['isLoadingCreateUser'])),
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)('admin.users', ['isLoadingCreateUser', 'isLoadingUpdateUser', 'isLoadingUser'])), {}, {
+    isUpdateAction: function isUpdateAction() {
+      return this.getIdParam() ? true : false;
+    }
+  }),
   validations: {
     form: {
       name: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
       },
       email: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.required,
-        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.email
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required,
+        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.email
       },
       password: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.required,
-        minLengthString: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.minLength)(8)
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required,
+        minLengthString: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.minLength)(8)
       }
     }
   },
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('base.system', ['showSnackbar'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.users', ['createUser'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('base.system', ['showSnackbar'])), (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('admin.users', ['createUser', 'updateUser', 'getUser'])), {}, {
     /**
      *  Triggered when form is submitted
      * 
@@ -2300,8 +2324,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         email: '',
         password: ''
       };
+    },
+
+    /**
+     * Get id in route's params
+     */
+    getIdParam: function getIdParam() {
+      return this.$route.params.id;
     }
-  })
+  }),
+  mounted: function mounted() {
+    if (this.isUpdateAction) {
+      this.getUser({
+        id: this.getIdParam()
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -3164,8 +3202,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'AppLoading'
+  name: 'AppLoading',
+  props: {
+    /**
+     * Height of root element in viewport height
+     */
+    heightInVH: {
+      validator: function validator(value) {
+        return [10, 20, 30, 40, 50, 60, 70, 80, 90, 100].includes(value);
+      }
+    }
+  },
+  computed: {
+    heightInVHClass: function heightInVHClass() {
+      var className = '-h-100vh';
+
+      if (this.heightInVH) {
+        className = "-h-".concat(this.heightInVH, "vh");
+      }
+
+      return className;
+    }
+  }
 });
 
 /***/ }),
@@ -4229,14 +4291,14 @@ var routes = [
 }, {
   path: '/users/:id/update',
   name: 'users-update',
-  component: _core_admin_pages_AppUsers__WEBPACK_IMPORTED_MODULE_1__.default,
+  component: _core_admin_pages_UsersForm__WEBPACK_IMPORTED_MODULE_2__.default,
   meta: {
     requiresAuth: true
   }
 }, {
   path: '/users/:id/view',
   name: 'users-view',
-  component: _core_admin_pages_AppUsers__WEBPACK_IMPORTED_MODULE_1__.default,
+  component: _core_admin_pages_UsersForm__WEBPACK_IMPORTED_MODULE_2__.default,
   meta: {
     requiresAuth: true
   }
@@ -4587,8 +4649,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var state = {
   users: null,
+  user: null,
   isLoadingUsers: false,
-  isLoadingCreateUser: false
+  isLoadingUser: false,
+  isLoadingCreateUser: false,
+  isLoadingUpdateUser: false
 };
 var getters = {
   users: function users(state) {
@@ -4597,13 +4662,22 @@ var getters = {
   isLoadingUsers: function isLoadingUsers(state) {
     return state.isLoadingUsers;
   },
+  isLoadingUser: function isLoadingUser(state) {
+    return state.isLoadingUser;
+  },
   isLoadingCreateUser: function isLoadingCreateUser(state) {
     return state.isLoadingCreateUser;
+  },
+  isLoadingUpdateUser: function isLoadingUpdateUser(state) {
+    return state.isLoadingUpdateUser;
   }
 };
 var mutations = {
   setUsers: function setUsers(state, data) {
     return state.users = data;
+  },
+  setUser: function setUser(state, data) {
+    return state.user = data;
   }
 };
 var actions = {
@@ -4620,15 +4694,40 @@ var actions = {
       state.isLoadingUsers = false;
     });
   },
-  createUser: function createUser(_ref2, data) {
+  getUser: function getUser(_ref2, data) {
     var commit = _ref2.commit,
         state = _ref2.state;
+    state.isLoadingUser = true;
+    return _services_http__WEBPACK_IMPORTED_MODULE_0__.default.get("/users/".concat(data.id)).then(function (response) {
+      var data = response.data;
+      commit('setUser', data);
+      return data;
+    })["finally"](function () {
+      state.isLoadingUser = false;
+    });
+  },
+  createUser: function createUser(_ref3, data) {
+    var commit = _ref3.commit,
+        state = _ref3.state;
     state.isLoadingCreateUser = true;
     return _services_http__WEBPACK_IMPORTED_MODULE_0__.default.post('/users', data).then(function (response) {
       var data = response.data;
       return data;
     })["finally"](function () {
       state.isLoadingCreateUser = false;
+    });
+  },
+  updateUser: function updateUser(_ref4, data) {
+    var commit = _ref4.commit,
+        state = _ref4.state;
+    state.isLoadingUpdateUser = true;
+    var id = data.id;
+    delete data.id;
+    return _services_http__WEBPACK_IMPORTED_MODULE_0__.default.post("/users/".concat(id), data).then(function (response) {
+      var data = response.data;
+      return data;
+    })["finally"](function () {
+      state.isLoadingUpdateUser = false;
     });
   }
 };
@@ -7555,197 +7654,9 @@ var render = function() {
     [
       _c("AppHeader", { attrs: { title: "Add New User" } }),
       _vm._v(" "),
-      _c(
-        "v-sheet",
-        { staticClass: "pa-2", attrs: { color: "white", elevation: "1" } },
-        [
-          _c(
-            "form-wrapper",
-            { attrs: { validator: _vm.$v.form } },
-            [
-              _c(
-                "v-form",
-                {
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.handleFormSubmit($event)
-                    }
-                  }
-                },
-                [
-                  _c(
-                    "v-row",
-                    { attrs: { dense: "" } },
-                    [
-                      _c(
-                        "v-col",
-                        { attrs: { cols: "12", sm: "6" } },
-                        [
-                          _c("form-group", {
-                            attrs: { name: "name" },
-                            scopedSlots: _vm._u([
-                              {
-                                key: "default",
-                                fn: function(ref) {
-                                  var attrs = ref.attrs
-                                  return _c(
-                                    "v-text-field",
-                                    _vm._b(
-                                      {
-                                        attrs: {
-                                          label: "Name",
-                                          "hide-details": "auto",
-                                          outlined: "",
-                                          dense: ""
-                                        },
-                                        model: {
-                                          value: _vm.form.name,
-                                          callback: function($$v) {
-                                            _vm.$set(_vm.form, "name", $$v)
-                                          },
-                                          expression: "form.name"
-                                        }
-                                      },
-                                      "v-text-field",
-                                      attrs,
-                                      false
-                                    )
-                                  )
-                                }
-                              }
-                            ])
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-col",
-                        { attrs: { cols: "12", sm: "6" } },
-                        [
-                          _c("form-group", {
-                            attrs: { name: "email" },
-                            scopedSlots: _vm._u([
-                              {
-                                key: "default",
-                                fn: function(ref) {
-                                  var attrs = ref.attrs
-                                  return _c(
-                                    "v-text-field",
-                                    _vm._b(
-                                      {
-                                        attrs: {
-                                          label: "Email",
-                                          "hide-details": "auto",
-                                          outlined: "",
-                                          dense: ""
-                                        },
-                                        model: {
-                                          value: _vm.form.email,
-                                          callback: function($$v) {
-                                            _vm.$set(_vm.form, "email", $$v)
-                                          },
-                                          expression: "form.email"
-                                        }
-                                      },
-                                      "v-text-field",
-                                      attrs,
-                                      false
-                                    )
-                                  )
-                                }
-                              }
-                            ])
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-col",
-                        { attrs: { cols: "12", sm: "6" } },
-                        [
-                          _c("form-group", {
-                            attrs: { name: "password" },
-                            scopedSlots: _vm._u([
-                              {
-                                key: "default",
-                                fn: function(ref) {
-                                  var attrs = ref.attrs
-                                  return _c(
-                                    "v-text-field",
-                                    _vm._b(
-                                      {
-                                        attrs: {
-                                          label: "Password",
-                                          "hide-details": "auto",
-                                          type: _vm.isPasswordShown
-                                            ? "text"
-                                            : "password",
-                                          "append-icon": _vm.isPasswordShown
-                                            ? "mdi-eye"
-                                            : "mdi-eye-off",
-                                          outlined: "",
-                                          dense: ""
-                                        },
-                                        on: {
-                                          "click:append": function($event) {
-                                            _vm.isPasswordShown = !_vm.isPasswordShown
-                                          }
-                                        },
-                                        model: {
-                                          value: _vm.form.password,
-                                          callback: function($$v) {
-                                            _vm.$set(_vm.form, "password", $$v)
-                                          },
-                                          expression: "form.password"
-                                        }
-                                      },
-                                      "v-text-field",
-                                      attrs,
-                                      false
-                                    )
-                                  )
-                                }
-                              }
-                            ])
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "d-flex justify-end mt-2" },
-                    [
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: {
-                            loading: _vm.isLoadingCreateUser,
-                            color: "primary",
-                            type: "submit",
-                            small: ""
-                          }
-                        },
-                        [_vm._v("\n              Save\n          ")]
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
+       true
+        ? _c("AppLoading", { attrs: { heightInVH: 70 } })
+        : 0
     ],
     1
   )
@@ -8754,12 +8665,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
+  var _obj
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "d-flex justify-center align-center -h-100vh" },
+    {
+      staticClass: "d-flex justify-center align-center",
+      class: ((_obj = {}), (_obj[_vm.heightInVHClass] = true), _obj)
+    },
     [
       _c("v-progress-circular", {
         attrs: { indeterminate: "", color: "primary" }

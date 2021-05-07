@@ -95,7 +95,16 @@
        * @type {event}
        */
       handleUserView(user){
-        console.log(user);
+        this.$router.push({ name: 'users-view', params: { id: user.id } });
+      },
+       /**
+       * Triggered when update button is clicked
+       * 
+       * @event click
+       * @type {event}
+       */
+      handleUserView(user){
+        this.$router.push({ name: 'users-view', params: { id: user.id } });
       },
     },
     mounted(){

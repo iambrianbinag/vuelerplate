@@ -1,7 +1,12 @@
 <template>
   <v-container>
     <AppHeader title="Add New User" />
+    <AppLoading 
+      v-if="true"
+      :heightInVH="70" 
+    />
     <v-sheet
+      v-else
       color="white"
       elevation="1"
       class="pa-2"
@@ -80,11 +85,12 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import AppHeader from '../../../base/components/ui/headers/AppHeader';
+  import AppLoading from '../../../base/components/ui/loading/AppLoading';
   import { required, email, minLength } from 'vuelidate/lib/validators';
 
   export default {
     name: 'UsersForm',
-    components: { AppHeader },
+    components: { AppHeader, AppLoading },
     data(){
       return {
         isPasswordShown: false,
@@ -97,8 +103,13 @@
     },
     computed: {
       ...mapGetters('admin.users', [
-        'isLoadingCreateUser'
+        'isLoadingCreateUser',
+        'isLoadingUpdateUser',
+        'isLoadingUser'
       ]),
+      isUpdateAction: function(){
+        return this.getIdParam() ? true : false;
+      },
     },
     validations: {
       form: {
@@ -120,7 +131,9 @@
         'showSnackbar'
       ]),
       ...mapActions('admin.users', [
-        'createUser'
+        'createUser',
+        'updateUser',
+        'getUser',
       ]),
       /**
        *  Triggered when form is submitted
@@ -152,6 +165,17 @@
           email: '',
           password: '',
         }
+      },
+      /**
+       * Get id in route's params
+       */
+      getIdParam(){
+        return this.$route.params.id;
+      }
+    },
+    mounted(){
+      if(this.isUpdateAction){
+        this.getUser({ id: this.getIdParam() });
       }
     }
   }

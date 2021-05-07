@@ -20,7 +20,9 @@ const routes = [
    {
     path: '/users',
     name: 'users',
-    redirect: { name: 'users-list' },
+    redirect: { 
+      name: 'users-list' 
+    },
   },
   {
     path: '/users/list',
@@ -41,7 +43,7 @@ const routes = [
   {
     path: '/users/:id/update',
     name: 'users-update',
-    component: AppUsers,
+    component: UsersForm,
     meta: {
       requiresAuth: true,
     },
@@ -49,7 +51,7 @@ const routes = [
   {
     path: '/users/:id/view',
     name: 'users-view',
-    component: AppUsers,
+    component: UsersForm,
     meta: {
       requiresAuth: true,
     },
