@@ -124,18 +124,23 @@
            */
           {
             path: '/users',
-            label: 'Users',
+            label: 'System Users',
             icon: 'account-group',
             children: [
               {
                 path: '/list',
-                label: 'List',
+                label: 'Users',
                 icon: 'account-group-outline',
               },
               {
-                path: '/create',
-                label: 'Create',
-                icon: 'account-plus-outline',
+                path: '/roles',
+                label: 'Roles',
+                icon: 'account-lock-outline',
+              },
+              {
+                path: '/permissions',
+                label: 'Permissions',
+                icon: 'account-check-outline',
               },
             ]
           },

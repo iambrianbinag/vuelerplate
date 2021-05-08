@@ -49,12 +49,12 @@
   import AppTable from '../../../base/components/ui/tables/AppTable';
 
   export default {
-    name: 'AppUsers',
+    name: 'AppRoles',
     components: { AppTable },
     data(){
       return {
         table: {
-          title: 'Users',
+          title: 'Roles',
           headers: [
             { text: 'ID', value: 'id' },
             { text: 'Name', value: 'name' },

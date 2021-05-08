@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import UserForm from '../components/users/UserForm';
+  import UserForm from '../../components/users/UserForm';
 
   export default {
     name: 'UserForm',

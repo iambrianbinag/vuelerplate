@@ -1,6 +1,17 @@
-import AppDashboard from '../../core/admin/pages/AppDashboard';
-import AppUsers from '../../core/admin/pages/AppUsers';
-import UserForm from '../../core/admin/pages/UserForm';
+/**
+ * DASHBOARD
+ */
+import AppDashboard from '../../core/admin/pages/dashboard/AppDashboard';
+/**
+ * USERS
+ */
+import AppUsers from '../../core/admin/pages/users/AppUsers';
+import UserForm from '../../core/admin/pages/users/UserForm';
+import UserView from '../../core/admin/pages/users/UserView';
+/**
+ * ROLES
+ */
+import AppRoles from '../../core/admin/pages/roles/AppRoles';
 
 const routes = [
   /**
@@ -17,16 +28,16 @@ const routes = [
   /**
    * USERS
    */
-   {
+  {
     path: '/users',
     name: 'users',
     redirect: { 
-      name: 'users-list' 
+      name: 'user-list' 
     },
   },
   {
     path: '/users/list',
-    name: 'users-list',
+    name: 'user-list',
     component: AppUsers,
     meta: {
       requiresAuth: true,
@@ -51,7 +62,18 @@ const routes = [
   {
     path: '/users/:id/view',
     name: 'user-view',
-    component: UserForm,
+    component: UserView,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  /**
+   * ROLES
+   */
+  {
+    path: '/users/roles',
+    name: 'role-list',
+    component: AppRoles,
     meta: {
       requiresAuth: true,
     },
