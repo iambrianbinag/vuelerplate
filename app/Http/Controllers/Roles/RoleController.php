@@ -24,6 +24,7 @@ class RoleController extends Controller
         $orderBy = $request->order_by;
         $orderDirection = $request->order_direction ?? config('settings.pagination.order_direction');
         $search = $request->search;
+        $notPaginated = $request->not_paginated;
 
         $roles = Role::select('id', 'name')
             ->when($search, function($query, $search){
@@ -37,7 +38,11 @@ class RoleController extends Controller
             }, function($query) use ($orderDirection){
                 return $query->orderBy('id', $orderDirection);
             })
-            ->paginate($perPage);
+            ->when($notPaginated, function($query){
+                return $query->get();
+            }, function($query) use ($perPage){
+                return $query->paginate($perPage);
+            });
 
         return response()->json($roles);
     }

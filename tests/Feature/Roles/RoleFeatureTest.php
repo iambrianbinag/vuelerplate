@@ -31,6 +31,25 @@ class RoleFeatureTest extends TestCase
     }
 
     /** @test */
+    public function it_can_return_all_roles_not_paginated()
+    {
+        Role::factory()->create();
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->getJson('/api/roles?not_paginated=true')
+            ->assertStatus(200)
+            ->assertJson(function(AssertableJson $json){
+                $json
+                    ->first(function($json){
+                        $json
+                            ->has('id')
+                            ->has('name');
+                    });
+            });
+    }
+
+    /** @test */
     public function it_can_search_roles()
     {
         $role = Role::factory()->create();
@@ -186,7 +205,6 @@ class RoleFeatureTest extends TestCase
         $response = $this
             ->actingAs($this->user, 'api')
             ->getJson("/api/roles/$role->id/permissions")
-            ->dump()
             ->assertStatus(200)
             ->assertJson(function(AssertableJson $json) use ($role){
                 $json

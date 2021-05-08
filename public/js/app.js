@@ -2256,6 +2256,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2273,11 +2295,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         id: null,
         name: '',
         email: '',
+        role: '',
         password: ''
       }
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)('admin.users', ['isLoadingCreateUser', 'isLoadingUpdateUser', 'isLoadingUser'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)('admin.users', ['isLoadingCreateUser', 'isLoadingUpdateUser', 'isLoadingGetUser'])), (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)('admin.roles', ['roles', 'isLoadingGetRoles'])), {}, {
     headerTitle: function headerTitle() {
       return this.isUpdateAction ? 'Update user' : 'Add new user';
     },
@@ -2288,6 +2311,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   validations: {
     form: {
       name: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      role: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
       },
       email: {
@@ -2302,7 +2328,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   },
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('base.system', ['showSnackbar'])), (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('admin.users', ['createUser', 'updateUser', 'getUser'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('base.system', ['showSnackbar'])), (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('admin.users', ['createUser', 'updateUser', 'getUser'])), (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('admin.roles', ['getRoles'])), {}, {
     /**
      * Get id in route's params
      */
@@ -2330,6 +2356,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form = {
         name: '',
         email: '',
+        role: '',
         password: ''
       };
     },
@@ -2377,6 +2404,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   mounted: function mounted() {
+    this.getRoles({
+      not_paginated: true
+    });
+
     if (this.isUpdateAction) {
       this.fetchUser();
     }
@@ -4676,6 +4707,63 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vuex__WEBPACK_IMPORTED_MODULE_2__.d
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_2__.default.Store({
   modules: _modules__WEBPACK_IMPORTED_MODULE_0__.default
 }));
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/admin/roles.js":
+/*!***************************************************!*\
+  !*** ./resources/js/store/modules/admin/roles.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _services_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../services/http */ "./resources/js/services/http.js");
+/* harmony import */ var _helpers_mixins__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../helpers/mixins */ "./resources/js/helpers/mixins.js");
+
+
+var state = {
+  roles: null,
+  isLoadingGetRoles: false
+};
+var getters = {
+  roles: function roles(state) {
+    return state.roles;
+  },
+  isLoadingGetRoles: function isLoadingGetRoles(state) {
+    return state.isLoadingGetRoles;
+  }
+};
+var mutations = {
+  setRoles: function setRoles(state, data) {
+    return state.roles = data;
+  }
+};
+var actions = {
+  getRoles: function getRoles(_ref, data) {
+    var commit = _ref.commit,
+        state = _ref.state;
+    state.isLoadingGetRoles = true;
+    var params = _helpers_mixins__WEBPACK_IMPORTED_MODULE_1__.default.methods.generateUrlParams(data);
+    return _services_http__WEBPACK_IMPORTED_MODULE_0__.default.get("/roles".concat(params)).then(function (response) {
+      var data = response.data;
+      commit('setRoles', data);
+      return data;
+    })["finally"](function () {
+      state.isLoadingGetRoles = false;
+    });
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
+});
 
 /***/ }),
 
@@ -7701,7 +7789,7 @@ var render = function() {
     [
       _c("AppHeader", { attrs: { title: _vm.headerTitle } }),
       _vm._v(" "),
-      _vm.isLoadingUser
+      _vm.isLoadingGetUser || _vm.isLoadingGetRoles
         ? _c("AppLoading", { attrs: { heightInVH: 70 } })
         : _c(
             "v-sheet",
@@ -7756,6 +7844,54 @@ var render = function() {
                                             }
                                           },
                                           "v-text-field",
+                                          attrs,
+                                          false
+                                        )
+                                      )
+                                    }
+                                  }
+                                ])
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", sm: "6" } },
+                            [
+                              _c("form-group", {
+                                attrs: { name: "role" },
+                                scopedSlots: _vm._u([
+                                  {
+                                    key: "default",
+                                    fn: function(ref) {
+                                      var attrs = ref.attrs
+                                      return _c(
+                                        "v-select",
+                                        _vm._b(
+                                          {
+                                            attrs: {
+                                              label: "Role",
+                                              items: _vm.roles || [],
+                                              "item-text": "name",
+                                              "item-value": "id",
+                                              "persistent-hint": "",
+                                              "return-object": "",
+                                              "single-line": "",
+                                              clearable: "",
+                                              outlined: "",
+                                              dense: ""
+                                            },
+                                            model: {
+                                              value: _vm.form.role,
+                                              callback: function($$v) {
+                                                _vm.$set(_vm.form, "role", $$v)
+                                              },
+                                              expression: "form.role"
+                                            }
+                                          },
+                                          "v-select",
                                           attrs,
                                           false
                                         )
@@ -74298,6 +74434,7 @@ webpackContext.id = "./resources/js/router/routes sync recursive \\.js$";
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
+	"./admin/roles.js": "./resources/js/store/modules/admin/roles.js",
 	"./admin/users.js": "./resources/js/store/modules/admin/users.js",
 	"./base/authentication.js": "./resources/js/store/modules/base/authentication.js",
 	"./base/system.js": "./resources/js/store/modules/base/system.js",

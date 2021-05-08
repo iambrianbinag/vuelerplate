@@ -2,7 +2,7 @@
   <v-container>
     <AppHeader :title="headerTitle" />
     <AppLoading 
-      v-if="isLoadingUser"
+      v-if="isLoadingGetUser || isLoadingGetRoles"
       :heightInVH="70" 
     />
     <v-sheet
@@ -28,6 +28,28 @@
                   outlined
                   dense
                 />
+              </form-group>
+            </v-col>
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <form-group name="role">
+                <v-select
+                  slot-scope="{ attrs }"
+                  v-bind="attrs"
+                  v-model="form.role"
+                  label="Role"
+                  :items="roles || []"
+                  item-text="name"
+                  item-value="id"
+                  persistent-hint
+                  return-object
+                  single-line
+                  clearable
+                  outlined
+                  dense
+                ></v-select>
               </form-group>
             </v-col>
             <v-col
@@ -98,6 +120,7 @@
           id: null,
           name: '',
           email: '',
+          role: '',
           password: '',
         }
       }
@@ -106,7 +129,11 @@
       ...mapGetters('admin.users', [
         'isLoadingCreateUser',
         'isLoadingUpdateUser',
-        'isLoadingUser'
+        'isLoadingGetUser',
+      ]),
+      ...mapGetters('admin.roles', [
+        'roles',
+        'isLoadingGetRoles',
       ]),
       headerTitle: function(){
         return this.isUpdateAction ? 'Update user' : 'Add new user';
@@ -119,6 +146,9 @@
       form: {
         name: { 
           required 
+        },
+        role: {
+          required
         },
         email: { 
           required, 
@@ -140,6 +170,9 @@
         'createUser',
         'updateUser',
         'getUser',
+      ]),
+      ...mapActions('admin.roles', [
+        'getRoles',
       ]),
       /**
        * Get id in route's params
@@ -163,6 +196,7 @@
         this.form = {
           name: '',
           email: '',
+          role: '',
           password: '',
         }
       },
@@ -204,6 +238,7 @@
       },
     },
     mounted(){
+      this.getRoles({ not_paginated: true});
       if(this.isUpdateAction){
         this.fetchUser();
       }
