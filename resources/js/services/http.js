@@ -45,6 +45,13 @@ const http = {
           this.removeHeader();
           router.push({ name: 'login' });
           break;
+        case 403:
+          const { message } = error.response.data;
+          store.dispatch('base.system/showSnackbar', {
+            color: 'error', 
+            message,
+          });
+          break;
         case 422:
           const { errors } = error.response.data
           const errorMessagesFormatted = [];

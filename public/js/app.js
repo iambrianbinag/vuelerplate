@@ -4530,13 +4530,13 @@ var http = {
 
     axios__WEBPACK_IMPORTED_MODULE_1___default().interceptors.response.use(null, /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(error) {
-        var errors, errorMessagesFormatted;
+        var message, errors, errorMessagesFormatted;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.t0 = error.response.status;
-                _context.next = _context.t0 === 401 ? 3 : _context.t0 === 422 ? 10 : _context.t0 === 404 ? 15 : _context.t0 === 500 ? 17 : 19;
+                _context.next = _context.t0 === 401 ? 3 : _context.t0 === 403 ? 10 : _context.t0 === 422 ? 13 : _context.t0 === 404 ? 18 : _context.t0 === 500 ? 20 : 22;
                 break;
 
               case 3:
@@ -4550,9 +4550,17 @@ var http = {
                 _router__WEBPACK_IMPORTED_MODULE_3__.default.push({
                   name: 'login'
                 });
-                return _context.abrupt("break", 19);
+                return _context.abrupt("break", 22);
 
               case 10:
+                message = error.response.data.message;
+                _store__WEBPACK_IMPORTED_MODULE_4__.default.dispatch('base.system/showSnackbar', {
+                  color: 'error',
+                  message: message
+                });
+                return _context.abrupt("break", 22);
+
+              case 13:
                 errors = error.response.data.errors;
                 errorMessagesFormatted = [];
                 Object.entries(errors).forEach(function (_ref2) {
@@ -4568,25 +4576,25 @@ var http = {
                   color: 'error',
                   messages: errorMessagesFormatted
                 });
-                return _context.abrupt("break", 19);
+                return _context.abrupt("break", 22);
 
-              case 15:
+              case 18:
                 _router__WEBPACK_IMPORTED_MODULE_3__.default.push({
                   name: '404'
                 });
-                return _context.abrupt("break", 19);
+                return _context.abrupt("break", 22);
 
-              case 17:
+              case 20:
                 _store__WEBPACK_IMPORTED_MODULE_4__.default.dispatch('base.system/showSnackbar', {
                   color: 'error',
                   messages: ['Sorry, something went wrong. Seems like we have an internal server error. Please try again later or report this issue.']
                 });
-                return _context.abrupt("break", 19);
+                return _context.abrupt("break", 22);
 
-              case 19:
+              case 22:
                 throw error;
 
-              case 20:
+              case 23:
               case "end":
                 return _context.stop();
             }
