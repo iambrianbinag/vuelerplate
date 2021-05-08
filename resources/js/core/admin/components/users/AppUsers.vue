@@ -108,6 +108,9 @@
         this.$router.push({ name: 'user-update', params: { id: user.id } });
       },
     },
+    created(){
+      this.setUsers(null);
+    },
     mounted(){
       this.getUsers();
     }

@@ -4,7 +4,7 @@
         <v-btn
           small
           color="primary"
-          @click="handleCreateUser"
+          @click="handleCreateRole"
         >
           <v-icon left>
             mdi-plus
@@ -15,19 +15,17 @@
     <AppTable
       :title="table.title"
       :headers="table.headers"
-      :data="users"
-      :action="getUsers"
-      :mutation="setUsers"
-      :loading="isLoadingGetUsers"
-      :orderByDefault="table.orderBy"
-      :orderDirectionDefault="table.orderDirection"
+      :data="roles"
+      :action="getRoles"
+      :mutation="setRoles"
+      :loading="isLoadingGetRoles"
     >
       <template #action="{ item }">
         <v-btn
             icon
             x-small
             color="secondary"
-            @click="handleUserView(item)"
+            @click="handleRoleView(item)"
           >
           <v-icon>mdi-eye</v-icon>
         </v-btn>
@@ -35,30 +33,39 @@
             icon
             x-small
             color="primary"
-            @click="handleUserUpdate(item)"
+            @click="handleRoleUpdate(item)"
           >
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </template>
     </AppTable>
+    <template v-if="action.isVisible && !action.isLoading">
+      <RoleFormDialog :visible.sync="action.isVisible" />
+    </template>
+    <LoadingDialog v-if="action.isLoading" />
   </v-container>
 </template>
 
 <script>
   import { mapGetters, mapActions, mapMutations } from 'vuex';
   import AppTable from '../../../base/components/ui/tables/AppTable';
+  import RoleFormDialog from './dialogs/RoleFormDialog';
+  import LoadingDialog from '../../../base/components/ui/loading/LoadingDialog';
 
   export default {
     name: 'AppRoles',
-    components: { AppTable },
+    components: { AppTable, RoleFormDialog, LoadingDialog },
     data(){
       return {
+        action: {
+          isVisible: false,
+          isLoading: false,
+          role: null,
+        },
         table: {
           title: 'Roles',
           headers: [
-            { text: 'ID', value: 'id' },
             { text: 'Name', value: 'name' },
-            { text: 'Email', value: 'email' },
             {
               text: 'Action',
               align: 'start',
@@ -66,28 +73,26 @@
               value: 'action',
             },
           ],
-          orderBy: 'id',
-          orderDirection: 'desc'
         },
       }
     },
     computed: {
-      ...mapGetters('admin.users', [
-        'users',
-        'isLoadingGetUsers',
+      ...mapGetters('admin.roles', [
+        'roles',
+        'isLoadingGetRoles',
       ]),
     },
     methods: {
-      ...mapActions('admin.users', ['getUsers']),
-      ...mapMutations('admin.users', ['setUsers']),
+      ...mapActions('admin.roles', ['getRoles']),
+      ...mapMutations('admin.roles', ['setRoles']),
       /**
        *  Triggered when create button is clicked
        * 
        * @event click
        * @type {event}
        */
-      handleCreateUser(){
-        this.$router.push({ name: 'user-create' });
+      handleCreateRole(){
+        this.action.isVisible = true;
       },
       /**
        * Triggered when view button is clicked
@@ -95,8 +100,8 @@
        * @event click
        * @type {event}
        */
-      handleUserView(user){
-        this.$router.push({ name: 'user-view', params: { id: user.id } });
+      handleRoleView(user){
+        // this.$router.push({ name: 'user-view', params: { id: user.id } });
       },
        /**
        * Triggered when update button is clicked
@@ -104,12 +109,15 @@
        * @event click
        * @type {event}
        */
-      handleUserUpdate(user){
-        this.$router.push({ name: 'user-update', params: { id: user.id } });
+      handleRoleUpdate(user){
+        // this.$router.push({ name: 'user-update', params: { id: user.id } });
       },
     },
+    created(){
+      this.setRoles(null);
+    },
     mounted(){
-      this.getUsers();
+      this.getRoles();
     }
   }
 </script>
