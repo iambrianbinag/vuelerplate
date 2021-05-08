@@ -68,4 +68,25 @@ class User extends Authenticatable implements JWTSubject
     {
         return ['id' => $this->id];
     }
+
+    /**
+     * Get first role and it's permission instead of multiple roles
+     */
+    public function getRoleAttribute()
+    {
+        $role = null;
+        if($firstRole = $this->roles->first()){
+            $firstRole->load('permissions:id,name');
+            $firstRole->permissions->transform(function($permission){
+                return $permission->makeHidden('pivot');
+            });
+            $role = [
+                'id' => $firstRole->id,
+                'name' => $firstRole->name,
+                'permissions' => $firstRole->permissions
+            ];
+        }
+
+        return  $role;
+    }
 }

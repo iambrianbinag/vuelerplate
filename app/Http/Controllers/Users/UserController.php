@@ -53,11 +53,13 @@ class UserController extends Controller
     {
         $data = $request->only(['name', 'email', 'password']);
         $user = User::create($data);
+        $user->assignRole($request->role_id);
 
         return response()->json([
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
+            'role' => $user->role,
         ]);
     }
     
@@ -73,6 +75,7 @@ class UserController extends Controller
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
+            'role' => $user->role
         ]);
     }
         
@@ -91,11 +94,13 @@ class UserController extends Controller
         }
 
         $user->update($data);
+        $user->syncRoles($request->role_id);
 
         return response()->json([
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
+            'role' => $user->role,
         ]);
     }
     

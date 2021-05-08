@@ -43,10 +43,9 @@
                   :items="roles || []"
                   item-text="name"
                   item-value="id"
+                  hide-details="auto"
                   persistent-hint
                   return-object
-                  single-line
-                  clearable
                   outlined
                   dense
                 ></v-select>
@@ -213,6 +212,8 @@
         }
 
         const params = {...this.form};
+        params.role_id = params.role.id;
+        delete params.role;
 
         if(this.isUpdateAction){
           if(!params.password){

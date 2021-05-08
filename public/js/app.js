@@ -2277,7 +2277,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -2377,6 +2376,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       var params = _objectSpread({}, this.form);
+
+      params.role_id = params.role.id;
+      delete params.role;
 
       if (this.isUpdateAction) {
         if (!params.password) {
@@ -7876,10 +7878,9 @@ var render = function() {
                                               items: _vm.roles || [],
                                               "item-text": "name",
                                               "item-value": "id",
+                                              "hide-details": "auto",
                                               "persistent-hint": "",
                                               "return-object": "",
-                                              "single-line": "",
-                                              clearable: "",
                                               outlined: "",
                                               dense: ""
                                             },

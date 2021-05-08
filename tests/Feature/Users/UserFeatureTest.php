@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Users;
 
+use App\Models\Roles\Role;
 use App\Models\Users\User;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
@@ -63,7 +64,8 @@ class UserFeatureTest extends TestCase
                 $json
                     ->where('id', $user->id)
                     ->where('name', $user->name)
-                    ->where('email', $user->email);
+                    ->where('email', $user->email)
+                    ->has('role');
             });
    }
 
@@ -73,7 +75,8 @@ class UserFeatureTest extends TestCase
         $data = [
             'name' => 'John Doe',
             'email' => 'johndoe@example.com',
-            'password' => 'secret!!!'
+            'password' => 'secret!!!',
+            'role_id' => Role::factory()->create()->id
         ];
 
         $this
@@ -84,10 +87,11 @@ class UserFeatureTest extends TestCase
                 $json
                     ->has('id')
                     ->where('name', $data['name'])
-                    ->where('email', $data['email']);
+                    ->where('email', $data['email'])
+                    ->where('role.id', $data['role_id']);
             });
         
-        $created = collect($data)->except('password');
+        $created = collect($data)->except(['password', 'role_id']);
 
         $this->assertDatabaseHas('users', $created->all());
    }
@@ -100,6 +104,7 @@ class UserFeatureTest extends TestCase
         $update = [
             'name' => $this->faker->name,
             'email' => $this->faker->email,
+            'role_id' => Role::factory()->create()->id
         ];
 
         $this
@@ -110,10 +115,13 @@ class UserFeatureTest extends TestCase
                 $json
                     ->where('id', $user->id)
                     ->where('name', $update['name'])
-                    ->where('email', $update['email']);
+                    ->where('email', $update['email'])
+                    ->where('role.id', $update['role_id']);
             });
 
-        $this->assertDatabaseHas('users', $update);
+        $updated = collect($update)->except(['role_id']);
+
+        $this->assertDatabaseHas('users', $updated->all());
    }
 
    /** @test */
