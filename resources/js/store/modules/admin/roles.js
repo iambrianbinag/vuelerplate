@@ -5,12 +5,16 @@ const state = {
   roles: null,
 
   isLoadingGetRoles: false,
+  isLoadingCreateRole: false,
+  isLoadingUpdateRole: false,
 };
 
 const getters = {
   roles: (state) => state.roles,
 
   isLoadingGetRoles: (state) => state.isLoadingGetRoles,
+  isLoadingCreateRole: (state) => state.isLoadingCreateRole,
+  isLoadingUpdateRole: (state) => state.isLoadingUpdateRole,
 };
 
 const mutations = {
@@ -31,6 +35,35 @@ const actions = {
       })
       .finally(() => {
         state.isLoadingGetRoles = false;
+      });
+  },
+  createRole({commit, state}, data){
+    state.isLoadingCreateRole = true;
+
+    return httpService.post('/roles', data)
+      .then((response) => {
+        const { data } = response;
+
+        return data;
+      })
+      .finally(() => {
+        state.isLoadingCreateRole = false;
+      });
+  },
+  updateRole({commit, state}, data){
+    state.isLoadingUpdateRole = true;
+
+    const id = data.id;
+    delete data.id;
+
+    return httpService.put(`/roles/${id}`, data)
+      .then((response) => {
+        const { data } = response;
+
+        return data;
+      })
+      .finally(() => {
+        state.isLoadingUpdateRole = false;
       });
   },
 };

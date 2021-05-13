@@ -39,10 +39,13 @@
         </v-btn>
       </template>
     </AppTable>
-    <template v-if="action.isVisible && !action.isLoading">
-      <RoleFormDialog :visible.sync="action.isVisible" />
+    <template v-if="action.isVisible">
+      <RoleFormDialog 
+        :visible.sync="action.isVisible" 
+        :role="action.role"
+        :successCallback="getRoles"
+      />
     </template>
-    <LoadingDialog v-if="action.isLoading" />
   </v-container>
 </template>
 
@@ -59,7 +62,6 @@
       return {
         action: {
           isVisible: false,
-          isLoading: false,
           role: null,
         },
         table: {
@@ -81,6 +83,16 @@
         'roles',
         'isLoadingGetRoles',
       ]),
+    },
+    watch: {
+      action: {
+        handler(value){
+          if(!value.isVisible){
+            this.action.role = null;
+          }
+        },
+        deep: true,
+      },
     },
     methods: {
       ...mapActions('admin.roles', ['getRoles']),
@@ -109,8 +121,11 @@
        * @event click
        * @type {event}
        */
-      handleRoleUpdate(user){
-        // this.$router.push({ name: 'user-update', params: { id: user.id } });
+      handleRoleUpdate(role){
+        this.action = {
+          isVisible: true,
+          role: role,
+        }
       },
     },
     created(){

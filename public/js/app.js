@@ -2074,6 +2074,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2089,7 +2092,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       action: {
         isVisible: false,
-        isLoading: false,
         role: null
       },
       table: {
@@ -2107,6 +2109,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)('admin.roles', ['roles', 'isLoadingGetRoles'])),
+  watch: {
+    action: {
+      handler: function handler(value) {
+        if (!value.isVisible) {
+          this.action.role = null;
+        }
+      },
+      deep: true
+    }
+  },
   methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapActions)('admin.roles', ['getRoles'])), (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapMutations)('admin.roles', ['setRoles'])), {}, {
     /**
      *  Triggered when create button is clicked
@@ -2133,7 +2145,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     * @event click
     * @type {event}
     */
-    handleRoleUpdate: function handleRoleUpdate(user) {// this.$router.push({ name: 'user-update', params: { id: user.id } });
+    handleRoleUpdate: function handleRoleUpdate(role) {
+      this.action = {
+        isVisible: true,
+        role: role
+      };
     }
   }),
   created: function created() {
@@ -2157,6 +2173,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2204,29 +2228,143 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'RoleForm',
   props: {
+    /**
+     * The role details
+     */
+    role: {
+      type: Object,
+      "default": null
+    },
+
     /**
      * Visible status of dialog
      */
     visible: {
       type: Boolean,
       "default": false
+    },
+
+    /**
+     * Get called when action is successful
+     */
+    successCallback: {
+      type: Function,
+      "default": function _default() {}
     }
   },
   data: function data() {
     return {
-      title: 'Create New Role'
+      title: 'Create New Role',
+      form: {
+        id: null,
+        name: ''
+      }
     };
   },
-  methods: {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)('admin.roles', ['isLoadingCreateRole', 'isLoadingUpdateRole'])), {}, {
+    isUpdateAction: function isUpdateAction() {
+      return this.form.id ? true : false;
+    }
+  }),
+  validations: {
+    form: {
+      name: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
+      }
+    }
+  },
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('base.system', ['showSnackbar'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('admin.roles', ['createRole', 'updateRole'])), {}, {
     /**
      * Close dialog
      */
     closeDialog: function closeDialog() {
       this.$emit('update:visible', false);
+    },
+
+    /**
+     * Set role details in form data
+     */
+    setRolePropToForm: function setRolePropToForm() {
+      if (this.role) {
+        this.form = _objectSpread({}, this.role);
+      }
+    },
+
+    /**
+     * Set form to empty
+     */
+    resetForm: function resetForm() {
+      this.form = {
+        id: null,
+        name: ''
+      };
+    },
+
+    /**
+     *  Triggered when form is submitted
+     * 
+     * @event click
+     * @type {event}
+     */
+    handleFormSubmit: function handleFormSubmit() {
+      var _this = this;
+
+      this.$v.$touch();
+
+      if (this.$v.$invalid) {
+        return;
+      }
+
+      var params = _objectSpread({}, this.form);
+
+      if (this.isUpdateAction) {
+        this.updateRole(params).then(function (response) {
+          _this.showSnackbar({
+            message: 'Role updated successfully'
+          });
+
+          _this.$v.$reset();
+
+          _this.successCallback();
+
+          _this.closeDialog();
+        });
+      } else {
+        delete params.id;
+        this.createRole(params).then(function (response) {
+          _this.showSnackbar({
+            message: 'Role created successfully'
+          });
+
+          _this.$v.$reset();
+
+          _this.resetForm();
+
+          _this.successCallback();
+
+          _this.closeDialog();
+        });
+      }
     }
+  }),
+  mounted: function mounted() {
+    this.setRolePropToForm();
   }
 });
 
@@ -2584,6 +2722,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      */
     resetForm: function resetForm() {
       this.form = {
+        id: null,
         name: '',
         email: '',
         role: '',
@@ -2624,6 +2763,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this2.$v.$reset();
         });
       } else {
+        delete params.id;
         this.createUser(params).then(function (response) {
           _this2.showSnackbar({
             message: 'User created successfully'
@@ -5228,7 +5368,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var state = {
   roles: null,
-  isLoadingGetRoles: false
+  isLoadingGetRoles: false,
+  isLoadingCreateRole: false,
+  isLoadingUpdateRole: false
 };
 var getters = {
   roles: function roles(state) {
@@ -5236,6 +5378,12 @@ var getters = {
   },
   isLoadingGetRoles: function isLoadingGetRoles(state) {
     return state.isLoadingGetRoles;
+  },
+  isLoadingCreateRole: function isLoadingCreateRole(state) {
+    return state.isLoadingCreateRole;
+  },
+  isLoadingUpdateRole: function isLoadingUpdateRole(state) {
+    return state.isLoadingUpdateRole;
   }
 };
 var mutations = {
@@ -5255,6 +5403,30 @@ var actions = {
       return data;
     })["finally"](function () {
       state.isLoadingGetRoles = false;
+    });
+  },
+  createRole: function createRole(_ref2, data) {
+    var commit = _ref2.commit,
+        state = _ref2.state;
+    state.isLoadingCreateRole = true;
+    return _services_http__WEBPACK_IMPORTED_MODULE_0__.default.post('/roles', data).then(function (response) {
+      var data = response.data;
+      return data;
+    })["finally"](function () {
+      state.isLoadingCreateRole = false;
+    });
+  },
+  updateRole: function updateRole(_ref3, data) {
+    var commit = _ref3.commit,
+        state = _ref3.state;
+    state.isLoadingUpdateRole = true;
+    var id = data.id;
+    delete data.id;
+    return _services_http__WEBPACK_IMPORTED_MODULE_0__.default.put("/roles/".concat(id), data).then(function (response) {
+      var data = response.data;
+      return data;
+    })["finally"](function () {
+      state.isLoadingUpdateRole = false;
     });
   }
 };
@@ -8689,10 +8861,14 @@ var render = function() {
         ])
       }),
       _vm._v(" "),
-      _vm.action.isVisible && !_vm.action.isLoading
+      _vm.action.isVisible
         ? [
             _c("RoleFormDialog", {
-              attrs: { visible: _vm.action.isVisible },
+              attrs: {
+                visible: _vm.action.isVisible,
+                role: _vm.action.role,
+                successCallback: _vm.getRoles
+              },
               on: {
                 "update:visible": function($event) {
                   return _vm.$set(_vm.action, "isVisible", $event)
@@ -8700,9 +8876,7 @@ var render = function() {
               }
             })
           ]
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.action.isLoading ? _c("LoadingDialog") : _vm._e()
+        : _vm._e()
     ],
     2
   )
@@ -8748,62 +8922,124 @@ var render = function() {
         },
         [
           _c(
-            "v-card",
+            "form-wrapper",
+            { attrs: { validator: _vm.$v.form } },
             [
-              _c("v-card-title", [
-                _c("span", { staticClass: "text-h6" }, [
-                  _vm._v(_vm._s(_vm.title))
-                ])
-              ]),
-              _vm._v(" "),
               _c(
-                "v-card-text",
+                "v-form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.handleFormSubmit($event)
+                    }
+                  }
+                },
                 [
                   _c(
-                    "v-row",
+                    "v-card",
                     [
+                      _c("v-card-title", [
+                        _c("span", { staticClass: "text-h6" }, [
+                          _vm._v(_vm._s(_vm.title))
+                        ])
+                      ]),
+                      _vm._v(" "),
                       _c(
-                        "v-col",
-                        { attrs: { cols: "12" } },
+                        "v-card-text",
                         [
-                          _c("v-text-field", {
-                            attrs: { label: "Name *", required: "" }
-                          })
+                          _c(
+                            "v-row",
+                            [
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12" } },
+                                [
+                                  _c("form-group", {
+                                    attrs: { name: "name" },
+                                    scopedSlots: _vm._u([
+                                      {
+                                        key: "default",
+                                        fn: function(ref) {
+                                          var attrs = ref.attrs
+                                          return _c(
+                                            "v-text-field",
+                                            _vm._b(
+                                              {
+                                                attrs: {
+                                                  label: "Name *",
+                                                  "hide-details": "auto",
+                                                  outlined: "",
+                                                  dense: ""
+                                                },
+                                                model: {
+                                                  value: _vm.form.name,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.form,
+                                                      "name",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "form.name"
+                                                }
+                                              },
+                                              "v-text-field",
+                                              attrs,
+                                              false
+                                            )
+                                          )
+                                        }
+                                      }
+                                    ])
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: {
+                                loading: false,
+                                color: "secondary",
+                                small: ""
+                              },
+                              on: { click: _vm.closeDialog }
+                            },
+                            [_vm._v("\n                Cancel\n            ")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: {
+                                loading:
+                                  _vm.isLoadingCreateRole ||
+                                  _vm.isLoadingUpdateRole,
+                                color: "primary",
+                                type: "submit",
+                                small: ""
+                              }
+                            },
+                            [_vm._v("\n                Save\n            ")]
+                          )
                         ],
                         1
                       )
                     ],
                     1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-card-actions",
-                [
-                  _c("v-spacer"),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { loading: false, color: "secondary", small: "" },
-                      on: { click: _vm.closeDialog }
-                    },
-                    [_vm._v("\n            Cancel\n        ")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: {
-                        loading: false,
-                        color: "primary",
-                        type: "submit",
-                        small: ""
-                      }
-                    },
-                    [_vm._v("\n            Save\n        ")]
                   )
                 ],
                 1
@@ -8988,7 +9224,7 @@ var render = function() {
                                         _vm._b(
                                           {
                                             attrs: {
-                                              label: "Name",
+                                              label: "Name *",
                                               "hide-details": "auto",
                                               outlined: "",
                                               dense: ""
@@ -9030,7 +9266,7 @@ var render = function() {
                                         _vm._b(
                                           {
                                             attrs: {
-                                              label: "Role",
+                                              label: "Role *",
                                               items: _vm.roles || [],
                                               "item-text": "name",
                                               "item-value": "id",
@@ -9077,7 +9313,7 @@ var render = function() {
                                         _vm._b(
                                           {
                                             attrs: {
-                                              label: "Email",
+                                              label: "Email *",
                                               "hide-details": "auto",
                                               outlined: "",
                                               dense: ""
@@ -9171,7 +9407,9 @@ var render = function() {
                             "v-btn",
                             {
                               attrs: {
-                                loading: _vm.isLoadingCreateUser,
+                                loading:
+                                  _vm.isLoadingCreateUser ||
+                                  _vm.isLoadingUpdateUser,
                                 color: "primary",
                                 type: "submit",
                                 small: ""

@@ -23,7 +23,7 @@
                   slot-scope="{ attrs }"
                   v-bind="attrs"
                   v-model="form.name"
-                  label="Name"
+                  label="Name *"
                   hide-details="auto"
                   outlined
                   dense
@@ -39,7 +39,7 @@
                   slot-scope="{ attrs }"
                   v-bind="attrs"
                   v-model="form.role"
-                  label="Role"
+                  label="Role *"
                   :items="roles || []"
                   item-text="name"
                   item-value="id"
@@ -60,7 +60,7 @@
                   slot-scope="{ attrs }"
                   v-bind="attrs"
                   v-model="form.email"
-                  label="Email"
+                  label="Email *"
                   hide-details="auto"
                   outlined
                   dense
@@ -89,7 +89,7 @@
           </v-row>
           <div class="d-flex justify-end mt-2">
             <v-btn
-              :loading="isLoadingCreateUser"
+              :loading="isLoadingCreateUser || isLoadingUpdateUser"
               color='primary'
               type='submit'
               small
@@ -193,6 +193,7 @@
        */
       resetForm(){
         this.form = {
+          id: null,
           name: '',
           email: '',
           role: '',
@@ -227,6 +228,7 @@
               this.$v.$reset();
             });
         } else {
+          delete params.id;
           this.createUser(params)
             .then((response) => {
               this.showSnackbar({
