@@ -33,7 +33,6 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                :loading="false"
                 color='secondary'
                 @click="closeDialog"
                 small
@@ -87,7 +86,6 @@
     },
     data(){
       return {
-        title: 'Create New Role',
         form: {
           id: null,
           name: '',
@@ -99,6 +97,9 @@
         'isLoadingCreateRole',
         'isLoadingUpdateRole'
       ]),
+      title: function(){
+        return this.isUpdateAction ? 'Update role' : 'Add new role';
+      },
       isUpdateAction: function(){
         return this.form.id ? true : false;
       },

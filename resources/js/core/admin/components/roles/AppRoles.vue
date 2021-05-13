@@ -40,7 +40,13 @@
       </template>
     </AppTable>
     <template v-if="action.isVisible">
+      <RoleViewDialog
+        v-if="action.type == 'VIEW'"
+        :visible.sync="action.isVisible"
+        :role="action.role"
+      />
       <RoleFormDialog 
+        v-else
         :visible.sync="action.isVisible" 
         :role="action.role"
         :successCallback="getRoles"
@@ -53,14 +59,21 @@
   import { mapGetters, mapActions, mapMutations } from 'vuex';
   import AppTable from '../../../base/components/ui/tables/AppTable';
   import RoleFormDialog from './dialogs/RoleFormDialog';
+  import RoleViewDialog from './dialogs/RoleViewDialog';
   import LoadingDialog from '../../../base/components/ui/loading/LoadingDialog';
 
   export default {
     name: 'AppRoles',
-    components: { AppTable, RoleFormDialog, LoadingDialog },
+    components: { 
+      AppTable, 
+      RoleFormDialog, 
+      RoleViewDialog, 
+      LoadingDialog 
+    },
     data(){
       return {
         action: {
+          type: null, // ADD, UPDATE, or VIEW
           isVisible: false,
           role: null,
         },
@@ -104,7 +117,11 @@
        * @type {event}
        */
       handleCreateRole(){
-        this.action.isVisible = true;
+        this.action = {
+          type: 'ADD',
+          isVisible: true,
+          role: null,
+        }
       },
       /**
        * Triggered when view button is clicked
@@ -112,8 +129,12 @@
        * @event click
        * @type {event}
        */
-      handleRoleView(user){
-        // this.$router.push({ name: 'user-view', params: { id: user.id } });
+      handleRoleView(role){
+        this.action = {
+          type: 'VIEW',
+          isVisible: true,
+          role,
+        }
       },
        /**
        * Triggered when update button is clicked
@@ -123,8 +144,9 @@
        */
       handleRoleUpdate(role){
         this.action = {
+          type: 'UPDATE',
           isVisible: true,
-          role: role,
+          role,
         }
       },
     },
