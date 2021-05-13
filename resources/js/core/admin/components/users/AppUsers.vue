@@ -23,22 +23,36 @@
       :orderDirectionDefault="table.orderDirection"
     >
       <template #action="{ item }">
-        <v-btn
-            icon
-            x-small
-            color="secondary"
-            @click="handleUserView(item)"
-          >
-          <v-icon>mdi-eye</v-icon>
-        </v-btn>
-        <v-btn
-            icon
-            x-small
-            color="primary"
-            @click="handleUserUpdate(item)"
-          >
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
+        <v-tooltip top>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              color="secondary"
+              @click="handleUserView(item)"
+              v-bind="attrs"
+              v-on="on"
+              x-small
+              icon
+            >
+              <v-icon>mdi-eye</v-icon>
+            </v-btn>
+          </template>
+          <span>View user</span>
+        </v-tooltip>
+        <v-tooltip top>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              @click="handleUserUpdate(item)"
+              v-bind="attrs"
+              v-on="on"
+              x-small
+              icon
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </template>
+          <span>Update user</span>
+        </v-tooltip>
       </template>
     </AppTable>
   </v-container>

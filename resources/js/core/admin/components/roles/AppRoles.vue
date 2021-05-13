@@ -21,22 +21,51 @@
       :loading="isLoadingGetRoles"
     >
       <template #action="{ item }">
-        <v-btn
-            icon
-            x-small
-            color="secondary"
-            @click="handleRoleView(item)"
-          >
-          <v-icon>mdi-eye</v-icon>
-        </v-btn>
-        <v-btn
-            icon
-            x-small
-            color="primary"
-            @click="handleRoleUpdate(item)"
-          >
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
+        <v-tooltip top>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              color="secondary"
+              @click="handleRoleView(item)"
+              v-bind="attrs"
+              v-on="on"
+              x-small
+              icon
+            >
+              <v-icon>mdi-eye</v-icon>
+            </v-btn>
+          </template>
+          <span>View role</span>
+        </v-tooltip>
+        <v-tooltip top>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              @click="handleRoleUpdate(item)"
+              v-bind="attrs"
+              v-on="on"
+              x-small
+              icon
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </template>
+          <span>Update role</span>
+        </v-tooltip>
+        <v-tooltip top>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              color="info"
+              @click="handleRoleUpdate(item)"
+              v-bind="attrs"
+              v-on="on"
+              x-small
+              icon
+            >
+              <v-icon>mdi-account-check</v-icon>
+            </v-btn>
+          </template>
+          <span>Permissions</span>
+        </v-tooltip>
       </template>
     </AppTable>
     <template v-if="action.isVisible">

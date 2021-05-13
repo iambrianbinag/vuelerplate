@@ -2084,6 +2084,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2522,6 +2551,20 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9034,31 +9077,147 @@ var render = function() {
               var item = ref.item
               return [
                 _c(
-                  "v-btn",
+                  "v-tooltip",
                   {
-                    attrs: { icon: "", "x-small": "", color: "secondary" },
-                    on: {
-                      click: function($event) {
-                        return _vm.handleRoleView(item)
-                      }
-                    }
+                    attrs: { top: "" },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "activator",
+                          fn: function(ref) {
+                            var on = ref.on
+                            var attrs = ref.attrs
+                            return [
+                              _c(
+                                "v-btn",
+                                _vm._g(
+                                  _vm._b(
+                                    {
+                                      attrs: {
+                                        color: "secondary",
+                                        "x-small": "",
+                                        icon: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.handleRoleView(item)
+                                        }
+                                      }
+                                    },
+                                    "v-btn",
+                                    attrs,
+                                    false
+                                  ),
+                                  on
+                                ),
+                                [_c("v-icon", [_vm._v("mdi-eye")])],
+                                1
+                              )
+                            ]
+                          }
+                        }
+                      ],
+                      null,
+                      true
+                    )
                   },
-                  [_c("v-icon", [_vm._v("mdi-eye")])],
-                  1
+                  [_vm._v(" "), _c("span", [_vm._v("View role")])]
                 ),
                 _vm._v(" "),
                 _c(
-                  "v-btn",
+                  "v-tooltip",
                   {
-                    attrs: { icon: "", "x-small": "", color: "primary" },
-                    on: {
-                      click: function($event) {
-                        return _vm.handleRoleUpdate(item)
-                      }
-                    }
+                    attrs: { top: "" },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "activator",
+                          fn: function(ref) {
+                            var on = ref.on
+                            var attrs = ref.attrs
+                            return [
+                              _c(
+                                "v-btn",
+                                _vm._g(
+                                  _vm._b(
+                                    {
+                                      attrs: {
+                                        color: "primary",
+                                        "x-small": "",
+                                        icon: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.handleRoleUpdate(item)
+                                        }
+                                      }
+                                    },
+                                    "v-btn",
+                                    attrs,
+                                    false
+                                  ),
+                                  on
+                                ),
+                                [_c("v-icon", [_vm._v("mdi-pencil")])],
+                                1
+                              )
+                            ]
+                          }
+                        }
+                      ],
+                      null,
+                      true
+                    )
                   },
-                  [_c("v-icon", [_vm._v("mdi-pencil")])],
-                  1
+                  [_vm._v(" "), _c("span", [_vm._v("Update role")])]
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-tooltip",
+                  {
+                    attrs: { top: "" },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "activator",
+                          fn: function(ref) {
+                            var on = ref.on
+                            var attrs = ref.attrs
+                            return [
+                              _c(
+                                "v-btn",
+                                _vm._g(
+                                  _vm._b(
+                                    {
+                                      attrs: {
+                                        color: "info",
+                                        "x-small": "",
+                                        icon: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.handleRoleUpdate(item)
+                                        }
+                                      }
+                                    },
+                                    "v-btn",
+                                    attrs,
+                                    false
+                                  ),
+                                  on
+                                ),
+                                [_c("v-icon", [_vm._v("mdi-account-check")])],
+                                1
+                              )
+                            ]
+                          }
+                        }
+                      ],
+                      null,
+                      true
+                    )
+                  },
+                  [_vm._v(" "), _c("span", [_vm._v("Permissions")])]
                 )
               ]
             }
@@ -9444,31 +9603,99 @@ var render = function() {
               var item = ref.item
               return [
                 _c(
-                  "v-btn",
+                  "v-tooltip",
                   {
-                    attrs: { icon: "", "x-small": "", color: "secondary" },
-                    on: {
-                      click: function($event) {
-                        return _vm.handleUserView(item)
-                      }
-                    }
+                    attrs: { top: "" },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "activator",
+                          fn: function(ref) {
+                            var on = ref.on
+                            var attrs = ref.attrs
+                            return [
+                              _c(
+                                "v-btn",
+                                _vm._g(
+                                  _vm._b(
+                                    {
+                                      attrs: {
+                                        color: "secondary",
+                                        "x-small": "",
+                                        icon: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.handleUserView(item)
+                                        }
+                                      }
+                                    },
+                                    "v-btn",
+                                    attrs,
+                                    false
+                                  ),
+                                  on
+                                ),
+                                [_c("v-icon", [_vm._v("mdi-eye")])],
+                                1
+                              )
+                            ]
+                          }
+                        }
+                      ],
+                      null,
+                      true
+                    )
                   },
-                  [_c("v-icon", [_vm._v("mdi-eye")])],
-                  1
+                  [_vm._v(" "), _c("span", [_vm._v("View user")])]
                 ),
                 _vm._v(" "),
                 _c(
-                  "v-btn",
+                  "v-tooltip",
                   {
-                    attrs: { icon: "", "x-small": "", color: "primary" },
-                    on: {
-                      click: function($event) {
-                        return _vm.handleUserUpdate(item)
-                      }
-                    }
+                    attrs: { top: "" },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "activator",
+                          fn: function(ref) {
+                            var on = ref.on
+                            var attrs = ref.attrs
+                            return [
+                              _c(
+                                "v-btn",
+                                _vm._g(
+                                  _vm._b(
+                                    {
+                                      attrs: {
+                                        color: "primary",
+                                        "x-small": "",
+                                        icon: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.handleUserUpdate(item)
+                                        }
+                                      }
+                                    },
+                                    "v-btn",
+                                    attrs,
+                                    false
+                                  ),
+                                  on
+                                ),
+                                [_c("v-icon", [_vm._v("mdi-pencil")])],
+                                1
+                              )
+                            ]
+                          }
+                        }
+                      ],
+                      null,
+                      true
+                    )
                   },
-                  [_c("v-icon", [_vm._v("mdi-pencil")])],
-                  1
+                  [_vm._v(" "), _c("span", [_vm._v("Update user")])]
                 )
               ]
             }
