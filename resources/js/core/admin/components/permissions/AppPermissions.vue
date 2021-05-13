@@ -4,7 +4,7 @@
         <v-btn
           small
           color="primary"
-          @click="handleCreateRole"
+          @click="handleCreatePermission"
         >
           <v-icon left>
             mdi-plus
@@ -15,17 +15,17 @@
     <AppTable
       :title="table.title"
       :headers="table.headers"
-      :data="roles"
-      :action="getRoles"
-      :mutation="setRoles"
-      :loading="isLoadingGetRoles"
+      :data="permissions"
+      :action="getPermissions"
+      :mutation="setPermissions"
+      :loading="isLoadingGetPermissions"
     >
       <template #action="{ item }">
         <v-tooltip top>
           <template #activator="{ on, attrs }">
             <v-btn
               color="secondary"
-              @click="handleRoleView(item)"
+              @click="handlePermissionView(item)"
               v-bind="attrs"
               v-on="on"
               x-small
@@ -34,13 +34,13 @@
               <v-icon>mdi-eye</v-icon>
             </v-btn>
           </template>
-          <span>View role</span>
+          <span>View permission</span>
         </v-tooltip>
         <v-tooltip top>
           <template #activator="{ on, attrs }">
             <v-btn
               color="primary"
-              @click="handleRoleUpdate(item)"
+              @click="handlePermissionUpdate(item)"
               v-bind="attrs"
               v-on="on"
               x-small
@@ -51,34 +51,19 @@
           </template>
           <span>Update role</span>
         </v-tooltip>
-        <v-tooltip top>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              color="info"
-              @click="handleRoleUpdate(item)"
-              v-bind="attrs"
-              v-on="on"
-              x-small
-              icon
-            >
-              <v-icon>mdi-account-check</v-icon>
-            </v-btn>
-          </template>
-          <span>Permissions</span>
-        </v-tooltip>
       </template>
     </AppTable>
     <template v-if="action.isVisible">
-      <RoleViewDialog
+      <PermissionViewDialog
         v-if="action.type == 'VIEW'"
         :visible.sync="action.isVisible"
-        :role="action.role"
+        :permission="action.permission"
       />
-      <RoleFormDialog 
+      <PermissionFormDialog 
         v-else
         :visible.sync="action.isVisible" 
-        :role="action.role"
-        :successCallback="getRoles"
+        :permission="action.permission"
+        :successCallback="getPermissions"
       />
     </template>
   </v-container>
@@ -87,25 +72,25 @@
 <script>
   import { mapGetters, mapActions, mapMutations } from 'vuex';
   import AppTable from '../../../base/components/ui/tables/AppTable';
-  import RoleFormDialog from './dialogs/RoleFormDialog';
-  import RoleViewDialog from './dialogs/RoleViewDialog';
+  import PermissionFormDialog from './dialogs/PermissionFormDialog';
+  import PermissionViewDialog from './dialogs/PermissionViewDialog';
 
   export default {
     name: 'AppRoles',
     components: { 
       AppTable, 
-      RoleFormDialog, 
-      RoleViewDialog, 
+      PermissionFormDialog, 
+      PermissionViewDialog,  
     },
     data(){
       return {
         action: {
           type: null, // ADD, UPDATE, or VIEW
           isVisible: false,
-          role: null,
+          permission: null,
         },
         table: {
-          title: 'Roles',
+          title: 'Permissions',
           headers: [
             { text: 'Name', value: 'name' },
             {
@@ -119,9 +104,9 @@
       }
     },
     computed: {
-      ...mapGetters('admin.roles', [
-        'roles',
-        'isLoadingGetRoles',
+      ...mapGetters('admin.permissions', [
+        'permissions',
+        'isLoadingGetPermissions',
       ]),
     },
     watch: {
@@ -130,25 +115,25 @@
           this.action = {
             type: null,
             isVisible: false,
-            role: null,
+            permission: null,
           }
         }
       },
     },
     methods: {
-      ...mapActions('admin.roles', ['getRoles']),
-      ...mapMutations('admin.roles', ['setRoles']),
+      ...mapActions('admin.permissions', ['getPermissions']),
+      ...mapMutations('admin.permissions', ['setPermissions']),
       /**
        *  Triggered when create button is clicked
        * 
        * @event click
        * @type {event}
        */
-      handleCreateRole(){
+      handleCreatePermission(){
         this.action = {
           type: 'ADD',
           isVisible: true,
-          role: null,
+          permission: null,
         }
       },
       /**
@@ -157,11 +142,11 @@
        * @event click
        * @type {event}
        */
-      handleRoleView(role){
+      handlePermissionView(permission){
         this.action = {
           type: 'VIEW',
           isVisible: true,
-          role,
+          permission,
         }
       },
        /**
@@ -170,19 +155,19 @@
        * @event click
        * @type {event}
        */
-      handleRoleUpdate(role){
+      handlePermissionUpdate(permission){
         this.action = {
           type: 'UPDATE',
           isVisible: true,
-          role,
+          permission,
         }
       },
     },
     created(){
-      this.setRoles(null);
+      this.setPermissions(null);
     },
     mounted(){
-      this.getRoles();
+      this.getPermissions();
     }
   }
 </script>

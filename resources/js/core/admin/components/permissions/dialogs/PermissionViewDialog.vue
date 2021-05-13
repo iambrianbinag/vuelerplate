@@ -42,12 +42,12 @@
 
 <script>
   export default {
-    name: 'RoleViewDialog',
+    name: 'PermissionViewDialog',
     props: {
       /**
-       * The role details
+       * The permission details
        */
-      role: {
+      permission: {
         type: Object,
         default: null,
       },
@@ -61,7 +61,7 @@
     },
     data(){
       return {
-        title: 'View role',
+        title: 'View permission',
         form: {
           id: null,
           name: '',
@@ -76,16 +76,16 @@
         this.$emit('update:visible', false);
       },
       /**
-       * Set role details in form data
+       * Set permission details in form data
        */
-      setRolePropToForm(){
-        if(this.role){
-          this.form = { ...this.role };
+      setPermissionPropToForm(){
+        if(this.permission){
+          this.form = { ...this.permission };
         }
       },
     },
     mounted(){
-      this.setRolePropToForm();
+      this.setPermissionPropToForm();
     }
   }
 </script>

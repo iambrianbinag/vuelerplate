@@ -12,6 +12,10 @@ import UserView from '../../core/admin/pages/users/UserView';
  * ROLES
  */
 import AppRoles from '../../core/admin/pages/roles/AppRoles';
+/**
+ * PERMISSIONS
+ */
+import AppPermissions from '../../core/admin/pages/permissions/AppPermissions';
 
 const routes = [
   /**
@@ -74,6 +78,17 @@ const routes = [
     path: '/users/roles',
     name: 'role-list',
     component: AppRoles,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  /**
+   * PERMISSIONS
+   */
+  {
+    path: '/users/permissions',
+    name: 'permission-list',
+    component: AppPermissions,
     meta: {
       requiresAuth: true,
     },

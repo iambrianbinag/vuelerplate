@@ -40,7 +40,7 @@
                   Cancel
               </v-btn>
               <v-btn
-                :loading="isLoadingCreateRole || isLoadingUpdateRole"
+                :loading="isLoadingCreatePermission || isLoadingUpdatePermission"
                 color='primary'
                 type='submit'
                 small
@@ -60,12 +60,12 @@
   import { required } from 'vuelidate/lib/validators';
 
   export default {
-    name: 'RoleFormDialog',
+    name: 'PermissionFormDialog',
     props: {
       /**
-       * The role details
+       * The permission details
        */
-      role: {
+      permission: {
         type: Object,
         default: null,
       },
@@ -93,12 +93,12 @@
       }
     },
     computed: {
-      ...mapGetters('admin.roles', [
-        'isLoadingCreateRole',
-        'isLoadingUpdateRole'
+      ...mapGetters('admin.permissions', [
+        'isLoadingCreatePermission',
+        'isLoadingUpdatePermission'
       ]),
       title: function(){
-        return this.isUpdateAction ? 'Update role' : 'Add new role';
+        return this.isUpdateAction ? 'Update permission' : 'Add new permission';
       },
       isUpdateAction: function(){
         return this.form.id ? true : false;
@@ -115,9 +115,9 @@
       ...mapActions('base.system', [
         'showSnackbar'
       ]),
-      ...mapActions('admin.roles', [
-        'createRole',
-        'updateRole',
+      ...mapActions('admin.permissions', [
+        'createPermission',
+        'updatePermission',
       ]),
       /**
        * Close dialog
@@ -126,11 +126,11 @@
         this.$emit('update:visible', false);
       },
       /**
-       * Set role details in form data
+       * Set permission details in form data
        */
-      setRolePropToForm(){
-        if(this.role){
-          this.form = { ...this.role };
+      setPermissionPropToForm(){
+        if(this.permission){
+          this.form = { ...this.permission };
         }
       },
       /**
@@ -157,10 +157,10 @@
         const params = {...this.form};
 
         if(this.isUpdateAction){
-          this.updateRole(params)
+          this.updatePermission(params)
             .then((response) => {
               this.showSnackbar({
-                message: 'Role updated successfully'
+                message: 'Permission updated successfully'
               });
               this.$v.$reset();
               this.successCallback();
@@ -168,10 +168,10 @@
             });
         } else {
           delete params.id;
-          this.createRole(params)
+          this.createPermission(params)
             .then((response) => {
               this.showSnackbar({
-                message: 'Role created successfully'
+                message: 'Permission created successfully'
               });
               this.$v.$reset();
               this.resetForm();
@@ -182,7 +182,7 @@
       },
     },
     mounted(){
-      this.setRolePropToForm();
+      this.setPermissionPropToForm();
     }
   }
 </script>
