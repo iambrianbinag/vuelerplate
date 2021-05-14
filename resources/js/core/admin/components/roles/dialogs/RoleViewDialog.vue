@@ -5,37 +5,44 @@
       persistent
       max-width="300px"
     >
-      <v-card>
-        <v-card-title>
-          <span class="text-h6">{{ title }}</span>
-        </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col
-              cols="12"
-            >
-              <v-text-field
-                v-model="form.name"
-                label="Name"
-                hide-details
-                disabled
-                outlined
-                dense
-              />
-            </v-col>
-            </v-row>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color='secondary'
-            @click="closeDialog"
-            small
+      <v-form>
+        <v-card>
+          <v-toolbar
+            color="primary"
+            dark
+            flat
+            dense
           >
-              Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+            <v-toolbar-title>{{ title }}</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            <v-row>
+              <v-col
+                cols="12"
+              >
+                <v-text-field
+                  v-model="form.name"
+                  label="Name"
+                  hide-details
+                  disabled
+                  outlined
+                  dense
+                />
+              </v-col>
+            </v-row>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color='secondary'
+              @click="closeDialog"
+              small
+            >
+                Close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
     </v-dialog>
   </v-row>
 </template>

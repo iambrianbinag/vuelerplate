@@ -8,9 +8,14 @@
       <form-wrapper :validator="$v.form">
         <v-form @submit.prevent="handleFormSubmit">
           <v-card>
-            <v-card-title>
-              <span class="text-h6">{{ title }}</span>
-            </v-card-title>
+            <v-toolbar
+              color="primary"
+              dark
+              flat
+              dense
+            >
+              <v-toolbar-title>{{ title }}</v-toolbar-title>
+            </v-toolbar>
             <v-card-text>
               <v-row>
                 <v-col
@@ -28,7 +33,7 @@
                     />
                   </form-group>
                 </v-col>
-                </v-row>
+              </v-row>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>

@@ -2526,10 +2526,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../base/components/ui/tables/AppTable */ "./resources/js/core/base/components/ui/tables/AppTable.vue");
 /* harmony import */ var _dialogs_RoleFormDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dialogs/RoleFormDialog */ "./resources/js/core/admin/components/roles/dialogs/RoleFormDialog.vue");
 /* harmony import */ var _dialogs_RoleViewDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dialogs/RoleViewDialog */ "./resources/js/core/admin/components/roles/dialogs/RoleViewDialog.vue");
+/* harmony import */ var _dialogs_RolePermissionsFormDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dialogs/RolePermissionsFormDialog */ "./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2622,6 +2623,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
@@ -2631,13 +2638,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     AppTable: _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__.default,
     RoleFormDialog: _dialogs_RoleFormDialog__WEBPACK_IMPORTED_MODULE_1__.default,
-    RoleViewDialog: _dialogs_RoleViewDialog__WEBPACK_IMPORTED_MODULE_2__.default
+    RoleViewDialog: _dialogs_RoleViewDialog__WEBPACK_IMPORTED_MODULE_2__.default,
+    RolePermissionsFormDialog: _dialogs_RolePermissionsFormDialog__WEBPACK_IMPORTED_MODULE_3__.default
   },
   data: function data() {
     return {
       action: {
         type: null,
-        // ADD, UPDATE, or VIEW
+        // ADD, UPDATE, VIEW, or ROLE PERMISSIONS
         isVisible: false,
         role: null
       },
@@ -2655,7 +2663,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)('admin.roles', ['roles', 'isLoadingGetRoles'])),
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)('admin.roles', ['roles', 'isLoadingGetRoles'])),
   watch: {
     'action.isVisible': function actionIsVisible(value) {
       if (!value) {
@@ -2667,7 +2675,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   },
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapActions)('admin.roles', ['getRoles'])), (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapMutations)('admin.roles', ['setRoles'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)('admin.roles', ['getRoles'])), (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapMutations)('admin.roles', ['setRoles'])), {}, {
     /**
      *  Triggered when create button is clicked
      * 
@@ -2708,6 +2716,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         isVisible: true,
         role: role
       };
+    },
+
+    /**
+    * Triggered when role's permissions button is clicked
+    * 
+    * @event click
+    * @type {event}
+    */
+    handleRolePermissions: function handleRolePermissions(role) {
+      this.action = {
+        type: 'ROLE PERMISSIONS',
+        isVisible: true,
+        role: role
+      };
     }
   }),
   created: function created() {
@@ -2739,6 +2761,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2929,6 +2956,257 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _base_components_ui_loading_LoadingDialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../base/components/ui/loading/LoadingDialog */ "./resources/js/core/base/components/ui/loading/LoadingDialog.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'RolePermissionsFormDialog',
+  components: {
+    LoadingDialog: _base_components_ui_loading_LoadingDialog__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  props: {
+    /**
+     * The role details
+     */
+    role: {
+      type: Object,
+      "default": null
+    },
+
+    /**
+     * Visible status of dialog
+     */
+    visible: {
+      type: Boolean,
+      "default": false
+    },
+
+    /**
+     * Get called when action is successful
+     */
+    successCallback: {
+      type: Function,
+      "default": function _default() {}
+    }
+  },
+  data: function data() {
+    return {
+      breweries: [],
+      isLoading: false,
+      tree: [],
+      types: [],
+      title: "Role's permissions",
+      form: {
+        role: null,
+        permissions: []
+      }
+    };
+  },
+  computed: _objectSpread({
+    items: function items() {
+      return [{
+        id: 1,
+        name: 'Permission 1'
+      }, {
+        id: 2,
+        name: 'Permission 2'
+      }, {
+        id: 3,
+        name: 'Permission 3'
+      }, {
+        id: 4,
+        name: 'Permission 4'
+      }, {
+        id: 5,
+        name: 'Permission 5'
+      }, {
+        id: 11,
+        name: 'Permission 11'
+      }, {
+        id: 22,
+        name: 'Permission 22'
+      }, {
+        id: 33,
+        name: 'Permission 33'
+      }, {
+        id: 44,
+        name: 'Permission 44'
+      }, {
+        id: 55,
+        name: 'Permission 55'
+      }, {
+        id: 111,
+        name: 'Permission 111'
+      }, {
+        id: 222,
+        name: 'Permission 222'
+      }, {
+        id: 333,
+        name: 'Permission 333'
+      }, {
+        id: 444,
+        name: 'Permission 444'
+      }, {
+        id: 555,
+        name: 'Permission 555'
+      }];
+    }
+  }, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.roles', ['isLoadingGetRolePermissions'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('base.system', ['showSnackbar'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.roles', ['getRolePermissions'])), {}, {
+    /**
+     * Close dialog
+     */
+    closeDialog: function closeDialog() {
+      this.$emit('update:visible', false);
+    },
+
+    /**
+     * Get role's permissions
+     */
+    fetchRolePermissions: function fetchRolePermissions() {
+      if (this.role.id) {
+        this.getRolePermissions({
+          id: this.role.id
+        });
+      }
+    },
+
+    /**
+     *  Triggered when form is submitted
+     * 
+     * @event click
+     * @type {event}
+     */
+    handleFormSubmit: function handleFormSubmit() {
+      var _this = this;
+
+      this.$v.$touch();
+
+      if (this.$v.$invalid) {
+        return;
+      }
+
+      var params = _objectSpread({}, this.form);
+
+      this.updateRole(params).then(function (response) {
+        _this.showSnackbar({
+          message: 'Role updated successfully'
+        });
+
+        _this.$v.$reset();
+
+        _this.successCallback();
+
+        _this.closeDialog();
+      });
+    }
+  }),
+  mounted: function mounted() {
+    this.fetchRolePermissions();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/roles/dialogs/RoleViewDialog.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/roles/dialogs/RoleViewDialog.vue?vue&type=script&lang=js& ***!
@@ -2946,6 +3224,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4572,6 +4857,55 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/base/components/ui/loading/LoadingDialog.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/base/components/ui/loading/LoadingDialog.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'LoadingDialog',
+  props: {
+    /**
+     * Desciption of loading text
+     */
+    description: {
+      type: String,
+      "default": 'Loading...'
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/base/components/ui/messages/SnackBar.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/base/components/ui/messages/SnackBar.vue?vue&type=script&lang=js& ***!
@@ -6135,9 +6469,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var state = {
   roles: null,
+  rolePermissions: null,
   isLoadingGetRoles: false,
   isLoadingCreateRole: false,
-  isLoadingUpdateRole: false
+  isLoadingUpdateRole: false,
+  isLoadingGetRolePermissions: false
 };
 var getters = {
   roles: function roles(state) {
@@ -6151,11 +6487,17 @@ var getters = {
   },
   isLoadingUpdateRole: function isLoadingUpdateRole(state) {
     return state.isLoadingUpdateRole;
+  },
+  isLoadingGetRolePermissions: function isLoadingGetRolePermissions(state) {
+    return state.isLoadingGetRolePermissions;
   }
 };
 var mutations = {
   setRoles: function setRoles(state, data) {
     return state.roles = data;
+  },
+  setRolePermissions: function setRolePermissions(state, data) {
+    return state.rolePermissions = data;
   }
 };
 var actions = {
@@ -6194,6 +6536,18 @@ var actions = {
       return data;
     })["finally"](function () {
       state.isLoadingUpdateRole = false;
+    });
+  },
+  getRolePermissions: function getRolePermissions(_ref4, data) {
+    var commit = _ref4.commit,
+        state = _ref4.state;
+    state.isLoadingGetRolePermissions = true;
+    return _services_http__WEBPACK_IMPORTED_MODULE_0__.default.get("/roles/".concat(data.id, "/permissions")).then(function (response) {
+      var data = response.data;
+      commit('setRolePermissions', data);
+      return data;
+    })["finally"](function () {
+      state.isLoadingGetRolePermissions = false;
     });
   }
 };
@@ -7843,6 +8197,45 @@ component.options.__file = "resources/js/core/admin/components/roles/dialogs/Rol
 
 /***/ }),
 
+/***/ "./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _RolePermissionsFormDialog_vue_vue_type_template_id_8ee73366_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RolePermissionsFormDialog.vue?vue&type=template&id=8ee73366&scoped=true& */ "./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue?vue&type=template&id=8ee73366&scoped=true&");
+/* harmony import */ var _RolePermissionsFormDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RolePermissionsFormDialog.vue?vue&type=script&lang=js& */ "./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _RolePermissionsFormDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _RolePermissionsFormDialog_vue_vue_type_template_id_8ee73366_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _RolePermissionsFormDialog_vue_vue_type_template_id_8ee73366_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "8ee73366",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/core/admin/components/roles/dialogs/RoleViewDialog.vue":
 /*!*****************************************************************************!*\
   !*** ./resources/js/core/admin/components/roles/dialogs/RoleViewDialog.vue ***!
@@ -8545,6 +8938,45 @@ component.options.__file = "resources/js/core/base/components/ui/loading/AppLoad
 
 /***/ }),
 
+/***/ "./resources/js/core/base/components/ui/loading/LoadingDialog.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/core/base/components/ui/loading/LoadingDialog.vue ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _LoadingDialog_vue_vue_type_template_id_2254589a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LoadingDialog.vue?vue&type=template&id=2254589a&scoped=true& */ "./resources/js/core/base/components/ui/loading/LoadingDialog.vue?vue&type=template&id=2254589a&scoped=true&");
+/* harmony import */ var _LoadingDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LoadingDialog.vue?vue&type=script&lang=js& */ "./resources/js/core/base/components/ui/loading/LoadingDialog.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _LoadingDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _LoadingDialog_vue_vue_type_template_id_2254589a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _LoadingDialog_vue_vue_type_template_id_2254589a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "2254589a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/core/base/components/ui/loading/LoadingDialog.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/core/base/components/ui/messages/SnackBar.vue":
 /*!********************************************************************!*\
   !*** ./resources/js/core/base/components/ui/messages/SnackBar.vue ***!
@@ -8900,6 +9332,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RolePermissionsFormDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RolePermissionsFormDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RolePermissionsFormDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/core/admin/components/roles/dialogs/RoleViewDialog.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************!*\
   !*** ./resources/js/core/admin/components/roles/dialogs/RoleViewDialog.vue?vue&type=script&lang=js& ***!
@@ -9188,6 +9636,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/core/base/components/ui/loading/LoadingDialog.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/core/base/components/ui/loading/LoadingDialog.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LoadingDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LoadingDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/base/components/ui/loading/LoadingDialog.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LoadingDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/core/base/components/ui/messages/SnackBar.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************!*\
   !*** ./resources/js/core/base/components/ui/messages/SnackBar.vue?vue&type=script&lang=js& ***!
@@ -9381,6 +9845,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleFormDialog_vue_vue_type_template_id_3e3d5fff_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleFormDialog_vue_vue_type_template_id_3e3d5fff_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RoleFormDialog.vue?vue&type=template&id=3e3d5fff&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/roles/dialogs/RoleFormDialog.vue?vue&type=template&id=3e3d5fff&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue?vue&type=template&id=8ee73366&scoped=true&":
+/*!***********************************************************************************************************************************!*\
+  !*** ./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue?vue&type=template&id=8ee73366&scoped=true& ***!
+  \***********************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RolePermissionsFormDialog_vue_vue_type_template_id_8ee73366_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RolePermissionsFormDialog_vue_vue_type_template_id_8ee73366_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RolePermissionsFormDialog_vue_vue_type_template_id_8ee73366_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RolePermissionsFormDialog.vue?vue&type=template&id=8ee73366&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue?vue&type=template&id=8ee73366&scoped=true&");
 
 
 /***/ }),
@@ -9687,6 +10168,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppLoading_vue_vue_type_template_id_3b8e0a48___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppLoading_vue_vue_type_template_id_3b8e0a48___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AppLoading.vue?vue&type=template&id=3b8e0a48& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/base/components/ui/loading/AppLoading.vue?vue&type=template&id=3b8e0a48&");
+
+
+/***/ }),
+
+/***/ "./resources/js/core/base/components/ui/loading/LoadingDialog.vue?vue&type=template&id=2254589a&scoped=true&":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/js/core/base/components/ui/loading/LoadingDialog.vue?vue&type=template&id=2254589a&scoped=true& ***!
+  \*******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoadingDialog_vue_vue_type_template_id_2254589a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoadingDialog_vue_vue_type_template_id_2254589a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoadingDialog_vue_vue_type_template_id_2254589a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LoadingDialog.vue?vue&type=template&id=2254589a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/base/components/ui/loading/LoadingDialog.vue?vue&type=template&id=2254589a&scoped=true&");
 
 
 /***/ }),
@@ -10481,7 +10979,7 @@ var render = function() {
                                       },
                                       on: {
                                         click: function($event) {
-                                          return _vm.handleRoleUpdate(item)
+                                          return _vm.handleRolePermissions(item)
                                         }
                                       }
                                     },
@@ -10514,6 +11012,18 @@ var render = function() {
         ? [
             _vm.action.type == "VIEW"
               ? _c("RoleViewDialog", {
+                  attrs: {
+                    visible: _vm.action.isVisible,
+                    role: _vm.action.role
+                  },
+                  on: {
+                    "update:visible": function($event) {
+                      return _vm.$set(_vm.action, "isVisible", $event)
+                    }
+                  }
+                })
+              : _vm.action.type == "ROLE PERMISSIONS"
+              ? _c("RolePermissionsFormDialog", {
                   attrs: {
                     visible: _vm.action.isVisible,
                     role: _vm.action.role
@@ -10600,11 +11110,19 @@ var render = function() {
                   _c(
                     "v-card",
                     [
-                      _c("v-card-title", [
-                        _c("span", { staticClass: "text-h6" }, [
-                          _vm._v(_vm._s(_vm.title))
-                        ])
-                      ]),
+                      _c(
+                        "v-toolbar",
+                        {
+                          attrs: {
+                            color: "primary",
+                            dark: "",
+                            flat: "",
+                            dense: ""
+                          }
+                        },
+                        [_c("v-toolbar-title", [_vm._v(_vm._s(_vm.title))])],
+                        1
+                      ),
                       _vm._v(" "),
                       _c(
                         "v-card-text",
@@ -10718,6 +11236,164 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue?vue&type=template&id=8ee73366&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue?vue&type=template&id=8ee73366&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-row",
+    { attrs: { justify: "center" } },
+    [
+      _c(
+        "v-dialog",
+        {
+          attrs: { persistent: "", "max-width": "600px" },
+          model: {
+            value: _vm.visible,
+            callback: function($$v) {
+              _vm.visible = $$v
+            },
+            expression: "visible"
+          }
+        },
+        [
+          _vm.isLoadingGetRolePermissions
+            ? _c("LoadingDialog")
+            : _c(
+                "v-card",
+                [
+                  _c(
+                    "v-toolbar",
+                    {
+                      attrs: { color: "primary", dark: "", flat: "", dense: "" }
+                    },
+                    [_c("v-toolbar-title", [_vm._v("Role's permissions")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    [
+                      _c("v-treeview", {
+                        attrs: {
+                          items: _vm.items,
+                          "selected-color": "primary",
+                          selectable: "",
+                          "return-object": "",
+                          dense: ""
+                        },
+                        model: {
+                          value: _vm.tree,
+                          callback: function($$v) {
+                            _vm.tree = $$v
+                          },
+                          expression: "tree"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-divider", { attrs: { vertical: "" } }),
+                      _vm._v(" "),
+                      _vm.tree.length === 0
+                        ? _c(
+                            "div",
+                            {
+                              staticClass:
+                                "font-weight-light grey--text text-center"
+                            },
+                            [_vm._v("\n          Select permissions\n        ")]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "v-scroll-x-transition",
+                        { attrs: { group: "", "hide-on-leave": "" } },
+                        _vm._l(_vm.tree, function(selection, i) {
+                          return _c(
+                            "v-chip",
+                            {
+                              key: i,
+                              staticClass: "ma-1",
+                              attrs: { color: "grey", dark: "", small: "" }
+                            },
+                            [
+                              _c("v-icon", { attrs: { left: "", small: "" } }, [
+                                _vm._v(
+                                  "\n              mdi-account-check\n            "
+                                )
+                              ]),
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(selection.name) +
+                                  "\n          "
+                              )
+                            ],
+                            1
+                          )
+                        }),
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "secondary", small: "" },
+                          on: { click: _vm.closeDialog }
+                        },
+                        [_vm._v("\n            Cancel\n        ")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: {
+                            loading: false,
+                            color: "primary",
+                            type: "submit",
+                            small: ""
+                          }
+                        },
+                        [_vm._v("\n            Save\n        ")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/roles/dialogs/RoleViewDialog.vue?vue&type=template&id=31f168a0&scoped=true&":
 /*!***************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/roles/dialogs/RoleViewDialog.vue?vue&type=template&id=31f168a0&scoped=true& ***!
@@ -10752,62 +11428,71 @@ var render = function() {
         },
         [
           _c(
-            "v-card",
+            "v-form",
             [
-              _c("v-card-title", [
-                _c("span", { staticClass: "text-h6" }, [
-                  _vm._v(_vm._s(_vm.title))
-                ])
-              ]),
-              _vm._v(" "),
               _c(
-                "v-card-text",
+                "v-card",
                 [
                   _c(
-                    "v-row",
+                    "v-toolbar",
+                    {
+                      attrs: { color: "primary", dark: "", flat: "", dense: "" }
+                    },
+                    [_c("v-toolbar-title", [_vm._v(_vm._s(_vm.title))])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
                     [
                       _c(
-                        "v-col",
-                        { attrs: { cols: "12" } },
+                        "v-row",
                         [
-                          _c("v-text-field", {
-                            attrs: {
-                              label: "Name",
-                              "hide-details": "",
-                              disabled: "",
-                              outlined: "",
-                              dense: ""
-                            },
-                            model: {
-                              value: _vm.form.name,
-                              callback: function($$v) {
-                                _vm.$set(_vm.form, "name", $$v)
-                              },
-                              expression: "form.name"
-                            }
-                          })
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Name",
+                                  "hide-details": "",
+                                  disabled: "",
+                                  outlined: "",
+                                  dense: ""
+                                },
+                                model: {
+                                  value: _vm.form.name,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "name", $$v)
+                                  },
+                                  expression: "form.name"
+                                }
+                              })
+                            ],
+                            1
+                          )
                         ],
                         1
                       )
                     ],
                     1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-card-actions",
-                [
-                  _c("v-spacer"),
+                  ),
                   _vm._v(" "),
                   _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "secondary", small: "" },
-                      on: { click: _vm.closeDialog }
-                    },
-                    [_vm._v("\n            Close\n        ")]
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "secondary", small: "" },
+                          on: { click: _vm.closeDialog }
+                        },
+                        [_vm._v("\n              Close\n          ")]
+                      )
+                    ],
+                    1
                   )
                 ],
                 1
@@ -12481,6 +13166,57 @@ var render = function() {
       _c("v-progress-circular", {
         attrs: { indeterminate: "", color: "primary" }
       })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/base/components/ui/loading/LoadingDialog.vue?vue&type=template&id=2254589a&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/base/components/ui/loading/LoadingDialog.vue?vue&type=template&id=2254589a&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-dialog",
+    {
+      attrs: { value: true, "hide-overlay": "", persistent: "", width: "300" }
+    },
+    [
+      _c(
+        "v-card",
+        { attrs: { color: "primary", dark: "" } },
+        [
+          _c(
+            "v-card-text",
+            [
+              _vm._v("\n     " + _vm._s(_vm.description) + "\n      "),
+              _c("v-progress-linear", {
+                staticClass: "mb-0",
+                attrs: { indeterminate: "", color: "white" }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      )
     ],
     1
   )

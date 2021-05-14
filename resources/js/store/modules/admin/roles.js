@@ -3,10 +3,12 @@ import helperMixins from '../../../helpers/mixins';
 
 const state = {
   roles: null,
+  rolePermissions: null,
 
   isLoadingGetRoles: false,
   isLoadingCreateRole: false,
   isLoadingUpdateRole: false,
+  isLoadingGetRolePermissions: false,
 };
 
 const getters = {
@@ -15,10 +17,12 @@ const getters = {
   isLoadingGetRoles: (state) => state.isLoadingGetRoles,
   isLoadingCreateRole: (state) => state.isLoadingCreateRole,
   isLoadingUpdateRole: (state) => state.isLoadingUpdateRole,
+  isLoadingGetRolePermissions: (state) => state.isLoadingGetRolePermissions,
 };
 
 const mutations = {
   setRoles: (state, data) => state.roles = data,
+  setRolePermissions: (state, data) => state.rolePermissions = data,
 };
 
 const actions = {
@@ -64,6 +68,20 @@ const actions = {
       })
       .finally(() => {
         state.isLoadingUpdateRole = false;
+      });
+  },
+  getRolePermissions({commit, state}, data){
+    state.isLoadingGetRolePermissions = true;
+
+    return httpService.get(`/roles/${data.id}/permissions`)
+      .then((response) => {
+        const { data } = response;
+        commit('setRolePermissions', data);
+
+        return data;
+      })
+      .finally(() => {
+        state.isLoadingGetRolePermissions = false;
       });
   },
 };

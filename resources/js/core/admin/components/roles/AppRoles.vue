@@ -55,7 +55,7 @@
           <template #activator="{ on, attrs }">
             <v-btn
               color="info"
-              @click="handleRoleUpdate(item)"
+              @click="handleRolePermissions(item)"
               v-bind="attrs"
               v-on="on"
               x-small
@@ -74,6 +74,11 @@
         :visible.sync="action.isVisible"
         :role="action.role"
       />
+      <RolePermissionsFormDialog
+        v-else-if="action.type == 'ROLE PERMISSIONS'"
+        :visible.sync="action.isVisible"
+        :role="action.role"
+      />
       <RoleFormDialog 
         v-else
         :visible.sync="action.isVisible" 
@@ -89,6 +94,7 @@
   import AppTable from '../../../base/components/ui/tables/AppTable';
   import RoleFormDialog from './dialogs/RoleFormDialog';
   import RoleViewDialog from './dialogs/RoleViewDialog';
+  import RolePermissionsFormDialog from './dialogs/RolePermissionsFormDialog';
 
   export default {
     name: 'AppRoles',
@@ -96,11 +102,12 @@
       AppTable, 
       RoleFormDialog, 
       RoleViewDialog, 
+      RolePermissionsFormDialog,
     },
     data(){
       return {
         action: {
-          type: null, // ADD, UPDATE, or VIEW
+          type: null, // ADD, UPDATE, VIEW, or ROLE PERMISSIONS
           isVisible: false,
           role: null,
         },
@@ -173,6 +180,19 @@
       handleRoleUpdate(role){
         this.action = {
           type: 'UPDATE',
+          isVisible: true,
+          role,
+        }
+      },
+       /**
+       * Triggered when role's permissions button is clicked
+       * 
+       * @event click
+       * @type {event}
+       */
+      handleRolePermissions(role){
+        this.action = {
+          type: 'ROLE PERMISSIONS',
           isVisible: true,
           role,
         }
