@@ -58,6 +58,22 @@
       }
 
       return urlParams;
-    }
+    },
+
+    /**
+     * Sort array by object's property
+     * 
+     * @param {array} array to be sorted
+     * @param {string} key to be used in sorting
+     * @param {string} orderBy - order by ascending or descending
+     * @returns {array}
+     */
+     sortArrayByKey(array = [], key = null, orderBy = 'asc'){
+      const sortedArray = array.sort((a, b) => {
+        return orderBy == 'asc' ? a[key] - b[key] : b[key] - a[key];
+      });
+
+      return sortedArray;
+  },
   },
 }

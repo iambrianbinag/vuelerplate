@@ -27,6 +27,7 @@
                 v-model="form.permissions"
                 :items="permissions || []"
                 selected-color="primary"
+                @input="handleRolePermissions"
                 selectable
                 return-object
                 dense
@@ -197,6 +198,15 @@
        */
       fetchPermissions(){
         this.getPermissions({ not_paginated: 1 });
+      },
+      /**
+       * Triggered when role's permision in treeview changes
+       * 
+       * @event input
+       * @type {event}
+       */
+      handleRolePermissions(permissions){
+        this.form.permissions = this.sortArrayByKey(permissions, 'order', 'desc');
       },
       /**
        *  Triggered when form is submitted

@@ -3131,6 +3131,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3215,6 +3216,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.getPermissions({
         not_paginated: 1
       });
+    },
+
+    /**
+     * Triggered when role's permision in treeview changes
+     * 
+     * @event input
+     * @type {event}
+     */
+    handleRolePermissions: function handleRolePermissions(permissions) {
+      this.form.permissions = this.sortArrayByKey(permissions, 'order', 'desc');
     },
 
     /**
@@ -5729,6 +5740,24 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }
 
       return urlParams;
+    },
+
+    /**
+     * Sort array by object's property
+     * 
+     * @param {array} array to be sorted
+     * @param {string} key to be used in sorting
+     * @param {string} orderBy - order by ascending or descending
+     * @returns {array}
+     */
+    sortArrayByKey: function sortArrayByKey() {
+      var array = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var orderBy = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'asc';
+      var sortedArray = array.sort(function (a, b) {
+        return orderBy == 'asc' ? a[key] - b[key] : b[key] - a[key];
+      });
+      return sortedArray;
     }
   }
 });
@@ -11444,6 +11473,7 @@ var render = function() {
                                   "return-object": "",
                                   dense: ""
                                 },
+                                on: { input: _vm.handleRolePermissions },
                                 model: {
                                   value: _vm.form.permissions,
                                   callback: function($$v) {
