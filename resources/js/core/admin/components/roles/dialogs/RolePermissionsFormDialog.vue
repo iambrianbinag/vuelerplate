@@ -5,7 +5,7 @@
     <v-dialog
       v-model="visible"
       persistent
-      max-width="600px"
+      max-width="700px"
     >
       <LoadingDialog v-if="isLoadingGetRolePermissions" />
       <v-card v-else>
@@ -18,43 +18,67 @@
           <v-toolbar-title>Role's permissions</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
-          <v-treeview
-            v-model="tree"
-            :items="items"
-            selected-color="primary"
-            selectable
-            return-object
-            dense
-          >
-          </v-treeview>
-          <v-divider vertical></v-divider>
-          <div
-            v-if="tree.length === 0"
-            class="font-weight-light grey--text text-center"
-          >
-            Select permissions
-          </div>
-          <v-scroll-x-transition
-            group
-            hide-on-leave
-          >
-            <v-chip
-              v-for="(selection, i) in tree"
-              :key="i"
-              color="grey"
-              dark
-              small
-              class="ma-1"
+          <v-row>
+            <v-col
+              cols="12"
+              md="6"
             >
-              <v-icon
-                left
-                small
+              <v-treeview
+                v-model="tree"
+                :items="items"
+                selected-color="primary"
+                selectable
+                return-object
+                dense
+              />
+            </v-col>
+            <v-spacer class="hidden-sm-and-down">
+              <v-divider vertical />
+            </v-spacer>
+            <v-col
+              class="hidden-md-and-up"
+              cols="12"
+            >
+              <v-divider/>
+            </v-col>
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <div
+                v-if="tree.length === 0"
+                class="font-weight-light grey--text text-center mt-md-2"
               >
-                mdi-account-check
-              </v-icon>
-              {{ selection.name }}
-            </v-chip>
-          </v-scroll-x-transition>
+                Select permissions
+              </div>
+              <v-scroll-x-transition
+                group
+                hide-on-leave
+              >
+                <v-chip
+                  v-for="(selection, i) in tree"
+                  :key="i"
+                  color="grey"
+                  dark
+                  small
+                  class="ma-1"
+                >
+                  <v-icon
+                    left
+                    small
+                  >
+                    mdi-account-check
+                  </v-icon>
+                  {{ selection.name }}
+                </v-chip>
+              </v-scroll-x-transition>
+            </v-col>
+            <v-col
+              cols="12"
+            >
+              <v-divider></v-divider>
+            </v-col>
+          </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>

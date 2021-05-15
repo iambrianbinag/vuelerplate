@@ -2271,6 +2271,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2421,6 +2426,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2975,6 +2987,30 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10574,11 +10610,19 @@ var render = function() {
                   _c(
                     "v-card",
                     [
-                      _c("v-card-title", [
-                        _c("span", { staticClass: "text-h6" }, [
-                          _vm._v(_vm._s(_vm.title))
-                        ])
-                      ]),
+                      _c(
+                        "v-toolbar",
+                        {
+                          attrs: {
+                            color: "primary",
+                            dark: "",
+                            flat: "",
+                            dense: ""
+                          }
+                        },
+                        [_c("v-toolbar-title", [_vm._v(_vm._s(_vm.title))])],
+                        1
+                      ),
                       _vm._v(" "),
                       _c(
                         "v-card-text",
@@ -10726,62 +10770,71 @@ var render = function() {
         },
         [
           _c(
-            "v-card",
+            "form",
             [
-              _c("v-card-title", [
-                _c("span", { staticClass: "text-h6" }, [
-                  _vm._v(_vm._s(_vm.title))
-                ])
-              ]),
-              _vm._v(" "),
               _c(
-                "v-card-text",
+                "v-card",
                 [
                   _c(
-                    "v-row",
+                    "v-toolbar",
+                    {
+                      attrs: { color: "primary", dark: "", flat: "", dense: "" }
+                    },
+                    [_c("v-toolbar-title", [_vm._v(_vm._s(_vm.title))])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
                     [
                       _c(
-                        "v-col",
-                        { attrs: { cols: "12" } },
+                        "v-row",
                         [
-                          _c("v-text-field", {
-                            attrs: {
-                              label: "Name",
-                              "hide-details": "",
-                              disabled: "",
-                              outlined: "",
-                              dense: ""
-                            },
-                            model: {
-                              value: _vm.form.name,
-                              callback: function($$v) {
-                                _vm.$set(_vm.form, "name", $$v)
-                              },
-                              expression: "form.name"
-                            }
-                          })
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Name",
+                                  "hide-details": "",
+                                  disabled: "",
+                                  outlined: "",
+                                  dense: ""
+                                },
+                                model: {
+                                  value: _vm.form.name,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "name", $$v)
+                                  },
+                                  expression: "form.name"
+                                }
+                              })
+                            ],
+                            1
+                          )
                         ],
                         1
                       )
                     ],
                     1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-card-actions",
-                [
-                  _c("v-spacer"),
+                  ),
                   _vm._v(" "),
                   _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "secondary", small: "" },
-                      on: { click: _vm.closeDialog }
-                    },
-                    [_vm._v("\n            Close\n        ")]
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "secondary", small: "" },
+                          on: { click: _vm.closeDialog }
+                        },
+                        [_vm._v("\n              Close\n          ")]
+                      )
+                    ],
+                    1
                   )
                 ],
                 1
@@ -10789,8 +10842,7 @@ var render = function() {
             ],
             1
           )
-        ],
-        1
+        ]
       )
     ],
     1
@@ -11259,7 +11311,7 @@ var render = function() {
       _c(
         "v-dialog",
         {
-          attrs: { persistent: "", "max-width": "600px" },
+          attrs: { persistent: "", "max-width": "700px" },
           model: {
             value: _vm.visible,
             callback: function($$v) {
@@ -11286,62 +11338,116 @@ var render = function() {
                   _c(
                     "v-card-text",
                     [
-                      _c("v-treeview", {
-                        attrs: {
-                          items: _vm.items,
-                          "selected-color": "primary",
-                          selectable: "",
-                          "return-object": "",
-                          dense: ""
-                        },
-                        model: {
-                          value: _vm.tree,
-                          callback: function($$v) {
-                            _vm.tree = $$v
-                          },
-                          expression: "tree"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("v-divider", { attrs: { vertical: "" } }),
-                      _vm._v(" "),
-                      _vm.tree.length === 0
-                        ? _c(
-                            "div",
-                            {
-                              staticClass:
-                                "font-weight-light grey--text text-center"
-                            },
-                            [_vm._v("\n          Select permissions\n        ")]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
                       _c(
-                        "v-scroll-x-transition",
-                        { attrs: { group: "", "hide-on-leave": "" } },
-                        _vm._l(_vm.tree, function(selection, i) {
-                          return _c(
-                            "v-chip",
-                            {
-                              key: i,
-                              staticClass: "ma-1",
-                              attrs: { color: "grey", dark: "", small: "" }
-                            },
+                        "v-row",
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", md: "6" } },
                             [
-                              _c("v-icon", { attrs: { left: "", small: "" } }, [
-                                _vm._v(
-                                  "\n              mdi-account-check\n            "
-                                )
-                              ]),
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(selection.name) +
-                                  "\n          "
+                              _c("v-treeview", {
+                                attrs: {
+                                  items: _vm.items,
+                                  "selected-color": "primary",
+                                  selectable: "",
+                                  "return-object": "",
+                                  dense: ""
+                                },
+                                model: {
+                                  value: _vm.tree,
+                                  callback: function($$v) {
+                                    _vm.tree = $$v
+                                  },
+                                  expression: "tree"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-spacer",
+                            { staticClass: "hidden-sm-and-down" },
+                            [_c("v-divider", { attrs: { vertical: "" } })],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            {
+                              staticClass: "hidden-md-and-up",
+                              attrs: { cols: "12" }
+                            },
+                            [_c("v-divider")],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", md: "6" } },
+                            [
+                              _vm.tree.length === 0
+                                ? _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "font-weight-light grey--text text-center mt-md-2"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n              Select permissions\n            "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c(
+                                "v-scroll-x-transition",
+                                { attrs: { group: "", "hide-on-leave": "" } },
+                                _vm._l(_vm.tree, function(selection, i) {
+                                  return _c(
+                                    "v-chip",
+                                    {
+                                      key: i,
+                                      staticClass: "ma-1",
+                                      attrs: {
+                                        color: "grey",
+                                        dark: "",
+                                        small: ""
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        { attrs: { left: "", small: "" } },
+                                        [
+                                          _vm._v(
+                                            "\n                  mdi-account-check\n                "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                " +
+                                          _vm._s(selection.name) +
+                                          "\n              "
+                                      )
+                                    ],
+                                    1
+                                  )
+                                }),
+                                1
                               )
                             ],
                             1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12" } },
+                            [_c("v-divider")],
+                            1
                           )
-                        }),
+                        ],
                         1
                       )
                     ],
