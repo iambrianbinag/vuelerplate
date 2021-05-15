@@ -24,7 +24,7 @@
               md="6"
             >
               <v-treeview
-                v-model="tree"
+                v-model="form.permissions"
                 :items="permissions || []"
                 selected-color="primary"
                 selectable
@@ -46,7 +46,7 @@
               md="6"
             >
               <div
-                v-if="tree.length === 0"
+                v-if="form.permissions.length === 0"
                 class="font-weight-light grey--text text-center mt-md-2"
               >
                 Select permissions
@@ -56,8 +56,8 @@
                 hide-on-leave
               >
                 <v-chip
-                  v-for="(selection, i) in tree"
-                  :key="i"
+                  v-for="(permission, index) in form.permissions"
+                  :key="index"
                   color="grey"
                   dark
                   small
@@ -69,7 +69,7 @@
                   >
                     mdi-account-check
                   </v-icon>
-                  {{ selection.name }}
+                  {{ permission.name }}
                 </v-chip>
               </v-scroll-x-transition>
             </v-col>
@@ -137,8 +137,6 @@
     },
     data(){
       return {
-        tree: [],
-
         title: "Role's permissions",
         form: {
           role: null,
@@ -148,12 +146,27 @@
     },
     computed: {
       ...mapGetters('admin.roles', [
+        'rolePermissions',
         'isLoadingGetRolePermissions',
       ]),
       ...mapGetters('admin.permissions', [
         'permissions',
         'isLoadingGetPermissions',
       ]),
+    },
+    watch: {
+      rolePermissions: function(value){
+        if(value){
+          const { id, name, permissions } = value;
+          this.form = {
+            role: {
+              id,
+              name,
+            },
+            permissions,
+          };
+        }
+      },
     },
     methods: {
       ...mapActions('base.system', [

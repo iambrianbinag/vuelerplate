@@ -120,7 +120,12 @@ class RoleController extends Controller
      */
     public function getRolePermissions(Role $role)
     {
-        $roleWithPermissions = $role->load('permissions:id,name');
+        $roleWithPermissions = $role->load([
+            'permissions' => function($query){
+                $query->select('id', 'name', 'order')
+                    ->orderBy('order', 'desc');
+            }
+        ]);
         $roleWithPermissions->permissions->transform(function($permission){
             return $permission->makeHidden('pivot');
         });

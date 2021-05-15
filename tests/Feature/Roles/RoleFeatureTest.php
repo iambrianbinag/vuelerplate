@@ -213,7 +213,8 @@ class RoleFeatureTest extends TestCase
                     ->has('permissions', 5, function($json){
                         $json
                             ->has('id')
-                            ->has('name');
+                            ->has('name')
+                            ->has('order');
                     });
             });
 

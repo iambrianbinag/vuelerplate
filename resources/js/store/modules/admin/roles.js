@@ -13,6 +13,7 @@ const state = {
 
 const getters = {
   roles: (state) => state.roles,
+  rolePermissions: (state) => state.rolePermissions,
 
   isLoadingGetRoles: (state) => state.isLoadingGetRoles,
   isLoadingCreateRole: (state) => state.isLoadingCreateRole,

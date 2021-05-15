@@ -3165,7 +3165,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      tree: [],
       title: "Role's permissions",
       form: {
         role: null,
@@ -3173,7 +3172,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.roles', ['isLoadingGetRolePermissions'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.permissions', ['permissions', 'isLoadingGetPermissions'])),
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.roles', ['rolePermissions', 'isLoadingGetRolePermissions'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.permissions', ['permissions', 'isLoadingGetPermissions'])),
+  watch: {
+    rolePermissions: function rolePermissions(value) {
+      if (value) {
+        var id = value.id,
+            name = value.name,
+            permissions = value.permissions;
+        this.form = {
+          role: {
+            id: id,
+            name: name
+          },
+          permissions: permissions
+        };
+      }
+    }
+  },
   methods: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('base.system', ['showSnackbar'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.roles', ['getRolePermissions'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.permissions', ['getPermissions'])), {}, {
     /**
      * Close dialog
@@ -6511,6 +6526,9 @@ var state = {
 var getters = {
   roles: function roles(state) {
     return state.roles;
+  },
+  rolePermissions: function rolePermissions(state) {
+    return state.rolePermissions;
   },
   isLoadingGetRoles: function isLoadingGetRoles(state) {
     return state.isLoadingGetRoles;
@@ -11427,11 +11445,11 @@ var render = function() {
                                   dense: ""
                                 },
                                 model: {
-                                  value: _vm.tree,
+                                  value: _vm.form.permissions,
                                   callback: function($$v) {
-                                    _vm.tree = $$v
+                                    _vm.$set(_vm.form, "permissions", $$v)
                                   },
-                                  expression: "tree"
+                                  expression: "form.permissions"
                                 }
                               })
                             ],
@@ -11459,7 +11477,7 @@ var render = function() {
                             "v-col",
                             { attrs: { cols: "12", md: "6" } },
                             [
-                              _vm.tree.length === 0
+                              _vm.form.permissions.length === 0
                                 ? _c(
                                     "div",
                                     {
@@ -11477,11 +11495,14 @@ var render = function() {
                               _c(
                                 "v-scroll-x-transition",
                                 { attrs: { group: "", "hide-on-leave": "" } },
-                                _vm._l(_vm.tree, function(selection, i) {
+                                _vm._l(_vm.form.permissions, function(
+                                  permission,
+                                  index
+                                ) {
                                   return _c(
                                     "v-chip",
                                     {
-                                      key: i,
+                                      key: index,
                                       staticClass: "ma-1",
                                       attrs: {
                                         color: "grey",
@@ -11501,7 +11522,7 @@ var render = function() {
                                       ),
                                       _vm._v(
                                         "\n                " +
-                                          _vm._s(selection.name) +
+                                          _vm._s(permission.name) +
                                           "\n              "
                                       )
                                     ],
