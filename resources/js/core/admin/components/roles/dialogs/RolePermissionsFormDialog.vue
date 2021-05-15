@@ -7,7 +7,7 @@
       persistent
       max-width="700px"
     >
-      <LoadingDialog v-if="isLoadingGetRolePermissions" />
+      <LoadingDialog v-if="isLoadingGetRolePermissions || isLoadingGetPermissions" />
       <v-card v-else>
         <v-toolbar
           color="primary"
@@ -25,7 +25,7 @@
             >
               <v-treeview
                 v-model="tree"
-                :items="items"
+                :items="permissions || []"
                 selected-color="primary"
                 selectable
                 return-object
@@ -147,29 +147,12 @@
       }
     },
     computed: {
-      items () {
-        return [
-          { id: 1, name: 'Permission 1' },
-          { id: 2, name: 'Permission 2' },
-          { id: 3, name: 'Permission 3' },
-          { id: 4, name: 'Permission 4' },
-          { id: 5, name: 'Permission 5' },
-          { id: 11, name: 'Permission 11' },
-          { id: 22, name: 'Permission 22' },
-          { id: 33, name: 'Permission 33' },
-          { id: 44, name: 'Permission 44' },
-          { id: 55, name: 'Permission 55' },
-          { id: 111, name: 'Permission 111' },
-          { id: 222, name: 'Permission 222' },
-          { id: 333, name: 'Permission 333' },
-          { id: 444, name: 'Permission 444' },
-          { id: 555, name: 'Permission 555' },
-        ]
-      },
-
-
       ...mapGetters('admin.roles', [
         'isLoadingGetRolePermissions',
+      ]),
+      ...mapGetters('admin.permissions', [
+        'permissions',
+        'isLoadingGetPermissions',
       ]),
     },
     methods: {
@@ -178,6 +161,9 @@
       ]),
       ...mapActions('admin.roles', [
         'getRolePermissions',
+      ]),
+      ...mapActions('admin.permissions', [
+        'getPermissions',
       ]),
       /**
        * Close dialog
@@ -192,6 +178,12 @@
         if(this.role.id){
           this.getRolePermissions({ id: this.role.id });
         }
+      },
+      /**
+       * Get all permissions
+       */
+      fetchPermissions(){
+        this.getPermissions({ not_paginated: 1 });
       },
       /**
        *  Triggered when form is submitted
@@ -220,6 +212,7 @@
     },
     mounted(){
       this.fetchRolePermissions();
+      this.fetchPermissions();
     }
   }
 </script>

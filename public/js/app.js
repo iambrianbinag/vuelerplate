@@ -3134,57 +3134,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread({
-    items: function items() {
-      return [{
-        id: 1,
-        name: 'Permission 1'
-      }, {
-        id: 2,
-        name: 'Permission 2'
-      }, {
-        id: 3,
-        name: 'Permission 3'
-      }, {
-        id: 4,
-        name: 'Permission 4'
-      }, {
-        id: 5,
-        name: 'Permission 5'
-      }, {
-        id: 11,
-        name: 'Permission 11'
-      }, {
-        id: 22,
-        name: 'Permission 22'
-      }, {
-        id: 33,
-        name: 'Permission 33'
-      }, {
-        id: 44,
-        name: 'Permission 44'
-      }, {
-        id: 55,
-        name: 'Permission 55'
-      }, {
-        id: 111,
-        name: 'Permission 111'
-      }, {
-        id: 222,
-        name: 'Permission 222'
-      }, {
-        id: 333,
-        name: 'Permission 333'
-      }, {
-        id: 444,
-        name: 'Permission 444'
-      }, {
-        id: 555,
-        name: 'Permission 555'
-      }];
-    }
-  }, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.roles', ['isLoadingGetRolePermissions'])),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('base.system', ['showSnackbar'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.roles', ['getRolePermissions'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.roles', ['isLoadingGetRolePermissions'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.permissions', ['permissions', 'isLoadingGetPermissions'])),
+  methods: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('base.system', ['showSnackbar'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.roles', ['getRolePermissions'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.permissions', ['getPermissions'])), {}, {
     /**
      * Close dialog
      */
@@ -3201,6 +3152,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           id: this.role.id
         });
       }
+    },
+
+    /**
+     * Get all permissions
+     */
+    fetchPermissions: function fetchPermissions() {
+      this.getPermissions({
+        not_paginated: 1
+      });
     },
 
     /**
@@ -3235,6 +3195,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   mounted: function mounted() {
     this.fetchRolePermissions();
+    this.fetchPermissions();
   }
 });
 
@@ -11318,7 +11279,7 @@ var render = function() {
           }
         },
         [
-          _vm.isLoadingGetRolePermissions
+          _vm.isLoadingGetRolePermissions || _vm.isLoadingGetPermissions
             ? _c("LoadingDialog")
             : _c(
                 "v-card",
@@ -11344,7 +11305,7 @@ var render = function() {
                             [
                               _c("v-treeview", {
                                 attrs: {
-                                  items: _vm.items,
+                                  items: _vm.permissions || [],
                                   "selected-color": "primary",
                                   selectable: "",
                                   "return-object": "",
