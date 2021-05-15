@@ -25,7 +25,7 @@ class GetPermissionsRequest extends FormRequest
     {
         return [
             'per_page' => ['numeric'],
-            'order_by' => ['string', 'in:id,name'],
+            'order_by' => ['string', 'in:id,name,order'],
             'order_direction' => ['string', 'in:asc,desc'],
             'search' => ['string'],
             'not_paginated' => ['boolean'],

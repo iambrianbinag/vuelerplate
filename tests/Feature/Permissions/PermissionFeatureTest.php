@@ -23,7 +23,8 @@ class PermissionFeatureTest extends TestCase
                     ->has('data.0', function($json){ 
                         $json
                             ->has('id')
-                            ->has('name');
+                            ->has('name')
+                            ->has('order');
                     })
                     ->etc();
             });
@@ -43,7 +44,8 @@ class PermissionFeatureTest extends TestCase
                     ->first(function($json){
                         $json
                             ->has('id')
-                            ->has('name');
+                            ->has('name')
+                            ->has('order');
                     });
             });
     }
@@ -63,7 +65,8 @@ class PermissionFeatureTest extends TestCase
                     ->has('data.0', function($json){
                         $json
                             ->has('id')
-                            ->has('name');
+                            ->has('name')
+                            ->has('order');
                     })
                     ->etc();
             });
@@ -81,14 +84,15 @@ class PermissionFeatureTest extends TestCase
             ->assertJson(function(AssertableJson $json) use ($permission){
                 $json
                     ->where('id', $permission->id)
-                    ->where('name', $permission->name);
+                    ->where('name', $permission->name)
+                    ->where('order', $permission->order);
             });
     }
 
     /** @test */
     public function it_can_create_a_permission()
     {
-        $data = ['name' => $this->faker->name];
+        $data = ['name' => $this->faker->name, 'order' => null,];
 
         $this
             ->actingAs($this->user, 'api')
@@ -97,7 +101,8 @@ class PermissionFeatureTest extends TestCase
             ->assertJson(function(AssertableJson $json) use ($data){
                 $json
                     ->has('id')
-                    ->where('name', $data['name']);
+                    ->where('name', $data['name'])
+                    ->where('order', $data['order']);
             });
 
         $this->assertDatabaseHas('permissions', $data);
@@ -108,7 +113,7 @@ class PermissionFeatureTest extends TestCase
     {
         $permission = Permission::factory()->create();
 
-        $update = ['name' => $this->faker->name];
+        $update = ['name' => $this->faker->name, 'order' => null,];
 
         $this
             ->actingAs($this->user, 'api')
@@ -117,7 +122,8 @@ class PermissionFeatureTest extends TestCase
             ->assertJson(function(AssertableJson $json) use ($permission, $update){
                 $json
                     ->where('id', $permission->id)
-                    ->where('name', $update['name']);
+                    ->where('name', $update['name'])
+                    ->where('order', $update['order']);
             });
 
         $this->assertDatabaseHas('permissions', $update);
@@ -135,7 +141,8 @@ class PermissionFeatureTest extends TestCase
             ->assertJson(function(AssertableJson $json) use ($permission){
                 $json
                     ->where('id', $permission->id)
-                    ->where('name', $permission->name);
+                    ->where('name', $permission->name)
+                    ->where('order', $permission->order);
             });
 
         $this->assertDatabaseMissing('permissions', $permission->toArray());

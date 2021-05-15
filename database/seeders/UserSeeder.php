@@ -21,8 +21,8 @@ class UserSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Create permissions
-        $permissions = collect(config('permission_seeder.permissions'))->map(function($permission){
-            return Permission::create(['name' => $permission]);
+        $permissions = collect(config('permission_seeder.permissions'))->map(function($permission, $index){
+            return Permission::create(['name' => $permission, 'order' => $index + 1]);
         });
 
         // Create role and assign all permissions

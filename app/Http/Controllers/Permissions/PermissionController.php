@@ -26,7 +26,7 @@ class PermissionController extends Controller
         $notPaginated = $request->not_paginated;
         $chunkDefault = config('settings.chunk.default');
 
-        $permissions = Permission::select('id', 'name')
+        $permissions = Permission::select('id', 'name', 'order')
             ->when($search, function($query, $search){
                 return $query->where(function($query) use ($search){
                     $query->where('id', 'like', "%$search%")
@@ -62,12 +62,13 @@ class PermissionController extends Controller
      */
     public function store(CreatePermissionRequest $request)
     {
-        $data = $request->only(['name']);
+        $data = $request->only(['name', 'order']);
         $permission = Permission::create($data);
 
         return response()->json([
             'id' => $permission->id,
             'name' => $permission->name,
+            'order' => $permission->order,
         ]);
     }
     
@@ -82,6 +83,7 @@ class PermissionController extends Controller
         return response()->json([
             'id' => $permission->id,
             'name' => $permission->name,
+            'order' => $permission->order,
         ]);
     }
     
@@ -94,12 +96,13 @@ class PermissionController extends Controller
      */
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
-        $data = $request->only(['name']);
+        $data = $request->only(['name', 'order']);
         $permission->update($data);
 
         return response()->json([
             'id' => $permission->id,
             'name' => $permission->name,
+            'order' => $permission->order,
         ]);
     }
     
@@ -116,6 +119,7 @@ class PermissionController extends Controller
         return response()->json([
             'id' => $permission->id,
             'name' => $permission->name,
+            'order' => $permission->order,
         ]);
     }
 }
