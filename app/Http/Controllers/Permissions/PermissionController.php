@@ -23,6 +23,8 @@ class PermissionController extends Controller
         $orderBy = $request->order_by;
         $orderDirection = $request->order_direction ?? config('settings.pagination.order_direction');
         $search = $request->search;
+        $notPaginated = $request->not_paginated;
+        $chunkDefault = config('settings.chunk.default');
 
         $permissions = Permission::select('id', 'name')
             ->when($search, function($query, $search){
@@ -36,7 +38,18 @@ class PermissionController extends Controller
             }, function($query) use ($orderDirection){
                 return $query->orderBy('id', $orderDirection);
             })
-            ->paginate($perPage);
+            ->when($notPaginated, function($query) use ($chunkDefault){
+                $permissionsChunked = [];
+                $query->chunk($chunkDefault, function($permissions) use (&$permissionsChunked){
+                    foreach($permissions as $permission){
+                        array_push($permissionsChunked, $permission);
+                    }
+                });
+
+                return collect($permissionsChunked);
+            }, function($query) use ($perPage){
+                return $query->paginate($perPage);
+            });
 
         return response()->json($permissions);
     }

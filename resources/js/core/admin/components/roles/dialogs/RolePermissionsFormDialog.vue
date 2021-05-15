@@ -15,7 +15,7 @@
           flat
           dense
         >
-          <v-toolbar-title>Role's permissions</v-toolbar-title>
+          <v-toolbar-title>{{ title }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
           <v-row>
@@ -137,12 +137,7 @@
     },
     data(){
       return {
-        breweries: [],
-        isLoading: false,
         tree: [],
-        types: [],
-
-
 
         title: "Role's permissions",
         form: {

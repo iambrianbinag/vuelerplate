@@ -3126,10 +3126,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      breweries: [],
-      isLoading: false,
       tree: [],
-      types: [],
       title: "Role's permissions",
       form: {
         role: null,
@@ -11331,7 +11328,7 @@ var render = function() {
                     {
                       attrs: { color: "primary", dark: "", flat: "", dense: "" }
                     },
-                    [_c("v-toolbar-title", [_vm._v("Role's permissions")])],
+                    [_c("v-toolbar-title", [_vm._v(_vm._s(_vm.title))])],
                     1
                   ),
                   _vm._v(" "),

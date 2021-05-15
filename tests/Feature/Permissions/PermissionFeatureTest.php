@@ -30,6 +30,25 @@ class PermissionFeatureTest extends TestCase
     }
 
     /** @test */
+    public function it_can_return_all_permissions_not_paginated()
+    {
+        Permission::factory()->create();
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->getJson('/api/permissions/?not_paginated=1')
+            ->assertStatus(200)
+            ->assertJson(function(AssertableJson $json){
+                $json
+                    ->first(function($json){
+                        $json
+                            ->has('id')
+                            ->has('name');
+                    });
+            });
+    }
+
+    /** @test */
     public function it_can_search_permissions()
     {
         $permission = Permission::factory()->create();
