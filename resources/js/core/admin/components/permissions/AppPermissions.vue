@@ -19,6 +19,8 @@
       :action="getPermissions"
       :mutation="setPermissions"
       :loading="isLoadingGetPermissions"
+      :orderByDefault="table.orderBy"
+      :orderDirectionDefault="table.orderDirection"
     >
       <template #action="{ item }">
         <v-tooltip top>
@@ -93,6 +95,7 @@
           title: 'Permissions',
           headers: [
             { text: 'Name', value: 'name' },
+            { text: 'Order', value: 'order' },
             {
               text: 'Action',
               align: 'start',
@@ -100,6 +103,8 @@
               value: 'action',
             },
           ],
+          orderBy: 'order',
+          orderDirection: 'desc'
         },
       }
     },

@@ -36,7 +36,7 @@ class PermissionController extends Controller
             ->when($orderBy, function($query, $orderBy) use ($orderDirection){
                 return $query->orderBy($orderBy, $orderDirection);
             }, function($query) use ($orderDirection){
-                return $query->orderBy('id', $orderDirection);
+                return $query->orderBy('order', $orderDirection);
             })
             ->when($notPaginated, function($query) use ($chunkDefault){
                 $permissionsChunked = [];

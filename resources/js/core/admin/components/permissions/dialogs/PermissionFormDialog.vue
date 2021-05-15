@@ -17,7 +17,7 @@
               <v-toolbar-title>{{ title }}</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-row>
+              <v-row dense>
                 <v-col
                   cols="12"
                 >
@@ -33,7 +33,22 @@
                     />
                   </form-group>
                 </v-col>
-                </v-row>
+                <v-col
+                  cols="12"
+                >
+                  <form-group name="order">
+                    <v-text-field
+                      slot-scope="{ attrs }"
+                      v-bind="attrs"
+                      v-model="form.order"
+                      label="Order"
+                      hide-details="auto"
+                      outlined
+                      dense
+                    />
+                  </form-group>
+                </v-col>
+              </v-row>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -62,7 +77,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'; 
-  import { required } from 'vuelidate/lib/validators';
+  import { required, numeric } from 'vuelidate/lib/validators';
 
   export default {
     name: 'PermissionFormDialog',
@@ -94,6 +109,7 @@
         form: {
           id: null,
           name: '',
+          order: null,
         }
       }
     },
@@ -113,6 +129,9 @@
       form: {
         name: { 
           required 
+        },
+        order: {
+          numeric
         },
       }
     },

@@ -16,7 +16,7 @@
             <v-toolbar-title>{{ title }}</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
-            <v-row>
+            <v-row dense>
               <v-col
                 cols="12"
               >
@@ -29,7 +29,19 @@
                   dense
                 />
               </v-col>
-              </v-row>
+              <v-col
+                cols="12"
+              >
+                <v-text-field
+                  v-model="form.order"
+                  label="Order"
+                  hide-details
+                  disabled
+                  outlined
+                  dense
+                />
+              </v-col>
+            </v-row>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -72,6 +84,7 @@
         form: {
           id: null,
           name: '',
+          order: '',
         }
       }
     },

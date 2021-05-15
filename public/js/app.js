@@ -2097,6 +2097,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -2122,11 +2124,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           text: 'Name',
           value: 'name'
         }, {
+          text: 'Order',
+          value: 'order'
+        }, {
           text: 'Action',
           align: 'start',
           sortable: false,
           value: 'action'
-        }]
+        }],
+        orderBy: 'order',
+        orderDirection: 'desc'
       }
     };
   },
@@ -2276,6 +2283,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2309,7 +2331,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       form: {
         id: null,
-        name: ''
+        name: '',
+        order: null
       }
     };
   },
@@ -2325,6 +2348,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     form: {
       name: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
+      },
+      order: {
+        numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.numeric
       }
     }
   },
@@ -2475,6 +2501,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PermissionViewDialog',
   props: {
@@ -2499,7 +2537,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       title: 'View permission',
       form: {
         id: null,
-        name: ''
+        name: '',
+        order: ''
       }
     };
   },
@@ -10367,7 +10406,9 @@ var render = function() {
           data: _vm.permissions,
           action: _vm.getPermissions,
           mutation: _vm.setPermissions,
-          loading: _vm.isLoadingGetPermissions
+          loading: _vm.isLoadingGetPermissions,
+          orderByDefault: _vm.table.orderBy,
+          orderDirectionDefault: _vm.table.orderDirection
         },
         scopedSlots: _vm._u([
           {
@@ -10587,6 +10628,7 @@ var render = function() {
                         [
                           _c(
                             "v-row",
+                            { attrs: { dense: "" } },
                             [
                               _c(
                                 "v-col",
@@ -10619,6 +10661,52 @@ var render = function() {
                                                     )
                                                   },
                                                   expression: "form.name"
+                                                }
+                                              },
+                                              "v-text-field",
+                                              attrs,
+                                              false
+                                            )
+                                          )
+                                        }
+                                      }
+                                    ])
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12" } },
+                                [
+                                  _c("form-group", {
+                                    attrs: { name: "order" },
+                                    scopedSlots: _vm._u([
+                                      {
+                                        key: "default",
+                                        fn: function(ref) {
+                                          var attrs = ref.attrs
+                                          return _c(
+                                            "v-text-field",
+                                            _vm._b(
+                                              {
+                                                attrs: {
+                                                  label: "Order",
+                                                  "hide-details": "auto",
+                                                  outlined: "",
+                                                  dense: ""
+                                                },
+                                                model: {
+                                                  value: _vm.form.order,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.form,
+                                                      "order",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "form.order"
                                                 }
                                               },
                                               "v-text-field",
@@ -10747,6 +10835,7 @@ var render = function() {
                     [
                       _c(
                         "v-row",
+                        { attrs: { dense: "" } },
                         [
                           _c(
                             "v-col",
@@ -10766,6 +10855,30 @@ var render = function() {
                                     _vm.$set(_vm.form, "name", $$v)
                                   },
                                   expression: "form.name"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Order",
+                                  "hide-details": "",
+                                  disabled: "",
+                                  outlined: "",
+                                  dense: ""
+                                },
+                                model: {
+                                  value: _vm.form.order,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "order", $$v)
+                                  },
+                                  expression: "form.order"
                                 }
                               })
                             ],
@@ -11139,6 +11252,7 @@ var render = function() {
                         [
                           _c(
                             "v-row",
+                            { attrs: { dense: "" } },
                             [
                               _c(
                                 "v-col",
@@ -11298,6 +11412,7 @@ var render = function() {
                     [
                       _c(
                         "v-row",
+                        { attrs: { dense: "" } },
                         [
                           _c(
                             "v-col",
@@ -11511,6 +11626,7 @@ var render = function() {
                     [
                       _c(
                         "v-row",
+                        { attrs: { dense: "" } },
                         [
                           _c(
                             "v-col",
