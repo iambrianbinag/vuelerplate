@@ -3132,6 +3132,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3173,7 +3174,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.roles', ['rolePermissions', 'isLoadingGetRolePermissions'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.permissions', ['permissions', 'isLoadingGetPermissions'])),
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.roles', ['rolePermissions', 'isLoadingGetRolePermissions', 'isLoadingSyncRolePermissions'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.permissions', ['permissions', 'isLoadingGetPermissions'])),
   watch: {
     rolePermissions: function rolePermissions(value) {
       if (value) {
@@ -3190,7 +3191,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   },
-  methods: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('base.system', ['showSnackbar'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.roles', ['getRolePermissions'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.permissions', ['getPermissions'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('base.system', ['showSnackbar'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.roles', ['getRolePermissions', 'syncRolePermissions'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.permissions', ['getPermissions'])), {}, {
     /**
      * Close dialog
      */
@@ -3229,28 +3230,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
 
     /**
-     *  Triggered when form is submitted
+     *  Triggered when save button is submitted
      * 
      * @event click
      * @type {event}
      */
-    handleFormSubmit: function handleFormSubmit() {
+    handleSave: function handleSave() {
       var _this = this;
-
-      this.$v.$touch();
-
-      if (this.$v.$invalid) {
-        return;
-      }
 
       var params = _objectSpread({}, this.form);
 
-      this.updateRole(params).then(function (response) {
+      params.id = params.role.id;
+      params.permission_ids = this.pluckArrayByKey(params.permissions, 'id');
+      delete params.role;
+      delete params.permissions;
+      this.syncRolePermissions(params).then(function (response) {
         _this.showSnackbar({
-          message: 'Role updated successfully'
+          message: "Role's permissions updated successfully"
         });
-
-        _this.$v.$reset();
 
         _this.successCallback();
 
@@ -5758,6 +5755,22 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         return orderBy == 'asc' ? a[key] - b[key] : b[key] - a[key];
       });
       return sortedArray;
+    },
+
+    /**
+     *  Pluck array by object key
+     * 
+     * @param {array} array to be plucked 
+     * @param {string} key to be used in pluck
+     * @returns {array}
+     */
+    pluckArrayByKey: function pluckArrayByKey() {
+      var array = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var pluckedArrayByKey = array.map(function (objectValue) {
+        return objectValue[key];
+      });
+      return pluckedArrayByKey;
     }
   }
 });
@@ -6550,7 +6563,8 @@ var state = {
   isLoadingGetRoles: false,
   isLoadingCreateRole: false,
   isLoadingUpdateRole: false,
-  isLoadingGetRolePermissions: false
+  isLoadingGetRolePermissions: false,
+  isLoadingSyncRolePermissions: false
 };
 var getters = {
   roles: function roles(state) {
@@ -6570,6 +6584,9 @@ var getters = {
   },
   isLoadingGetRolePermissions: function isLoadingGetRolePermissions(state) {
     return state.isLoadingGetRolePermissions;
+  },
+  isLoadingSyncRolePermissions: function isLoadingSyncRolePermissions(state) {
+    return state.isLoadingSyncRolePermissions;
   }
 };
 var mutations = {
@@ -6628,6 +6645,19 @@ var actions = {
       return data;
     })["finally"](function () {
       state.isLoadingGetRolePermissions = false;
+    });
+  },
+  syncRolePermissions: function syncRolePermissions(_ref5, data) {
+    var commit = _ref5.commit,
+        state = _ref5.state;
+    state.isLoadingSyncRolePermissions = true;
+    var id = data.id;
+    delete data.id;
+    return _services_http__WEBPACK_IMPORTED_MODULE_0__.default.put("/roles/".concat(id, "/permissions"), data).then(function (response) {
+      var data = response.data;
+      return data;
+    })["finally"](function () {
+      state.isLoadingSyncRolePermissions = false;
     });
   }
 };
@@ -11596,11 +11626,12 @@ var render = function() {
                         "v-btn",
                         {
                           attrs: {
-                            loading: false,
+                            loading: _vm.isLoadingSyncRolePermissions,
                             color: "primary",
                             type: "submit",
                             small: ""
-                          }
+                          },
+                          on: { click: _vm.handleSave }
                         },
                         [_vm._v("\n            Save\n        ")]
                       )

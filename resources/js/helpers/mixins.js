@@ -74,6 +74,20 @@
       });
 
       return sortedArray;
-  },
+    },
+    /**
+     *  Pluck array by object key
+     * 
+     * @param {array} array to be plucked 
+     * @param {string} key to be used in pluck
+     * @returns {array}
+     */
+    pluckArrayByKey(array = [], key = null){
+      const pluckedArrayByKey = array.map((objectValue) => {
+        return objectValue[key];
+      });
+
+      return pluckedArrayByKey;
+    }
   },
 }

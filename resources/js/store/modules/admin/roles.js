@@ -9,6 +9,7 @@ const state = {
   isLoadingCreateRole: false,
   isLoadingUpdateRole: false,
   isLoadingGetRolePermissions: false,
+  isLoadingSyncRolePermissions: false,
 };
 
 const getters = {
@@ -19,6 +20,7 @@ const getters = {
   isLoadingCreateRole: (state) => state.isLoadingCreateRole,
   isLoadingUpdateRole: (state) => state.isLoadingUpdateRole,
   isLoadingGetRolePermissions: (state) => state.isLoadingGetRolePermissions,
+  isLoadingSyncRolePermissions: (state) => state.isLoadingSyncRolePermissions,
 };
 
 const mutations = {
@@ -85,6 +87,22 @@ const actions = {
         state.isLoadingGetRolePermissions = false;
       });
   },
+  syncRolePermissions({commit, state}, data){
+    state.isLoadingSyncRolePermissions = true;
+
+    const id = data.id;
+    delete data.id;
+
+    return httpService.put(`/roles/${id}/permissions`, data)
+      .then((response) => {
+        const { data } = response;
+
+        return data;
+      })
+      .finally(() => {
+        state.isLoadingSyncRolePermissions = false;
+      });
+  }
 };
 
 export default {

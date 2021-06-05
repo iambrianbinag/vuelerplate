@@ -91,9 +91,10 @@
               Cancel
           </v-btn>
           <v-btn
-            :loading="false"
+            :loading="isLoadingSyncRolePermissions"
             color='primary'
             type='submit'
+            @click="handleSave"
             small
           >
               Save
@@ -149,6 +150,7 @@
       ...mapGetters('admin.roles', [
         'rolePermissions',
         'isLoadingGetRolePermissions',
+        'isLoadingSyncRolePermissions',
       ]),
       ...mapGetters('admin.permissions', [
         'permissions',
@@ -175,6 +177,7 @@
       ]),
       ...mapActions('admin.roles', [
         'getRolePermissions',
+        'syncRolePermissions'
       ]),
       ...mapActions('admin.permissions', [
         'getPermissions',
@@ -209,25 +212,24 @@
         this.form.permissions = this.sortArrayByKey(permissions, 'order', 'desc');
       },
       /**
-       *  Triggered when form is submitted
+       *  Triggered when save button is submitted
        * 
        * @event click
        * @type {event}
        */
-      handleFormSubmit(){
-        this.$v.$touch();
-        if(this.$v.$invalid){
-          return;
-        }
-
+      handleSave(){
         const params = {...this.form};
 
-        this.updateRole(params)
+        params.id = params.role.id;
+        params.permission_ids = this.pluckArrayByKey(params.permissions, 'id');
+        delete params.role;
+        delete params.permissions;
+
+        this.syncRolePermissions(params)
           .then((response) => {
             this.showSnackbar({
-              message: 'Role updated successfully'
+              message: `Role's permissions updated successfully`
             });
-            this.$v.$reset();
             this.successCallback();
             this.closeDialog();
           });
