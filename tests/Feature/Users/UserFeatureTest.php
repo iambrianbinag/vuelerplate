@@ -141,5 +141,50 @@ class UserFeatureTest extends TestCase
             });
 
         $this->assertDatabaseHas('users', $user->toArray());
-   } 
+   }
+   
+   /** @test */
+   public function it_can_log_created_user()
+   {
+        $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/users', [
+                'name' => 'John Doe',
+                'email' => 'johndoe@example.com',
+                'password' => 'secret!!!',
+                'role_id' => Role::factory()->create()->id
+            ]);
+
+        $logData = [
+            'log_name' => 'user',
+            'description' => 'created',
+            'subject_id' => $responseData['id'],
+            'causer_id' => $this->user->id
+        ];
+
+        $this->assertDatabaseHas('activity_log', $logData);
+   }
+
+   /** @test */
+   public function it_can_log_updated_user()
+   {
+        $user = User::factory()->create();
+
+        $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->putJson("/api/users/$user->id", [
+                'name' => $this->faker->name,
+                'email' => $this->faker->email,
+                'role_id' => Role::factory()->create()->id
+            ]);
+
+        $logData = [
+            'log_name' => 'user',
+            'description' => 'updated',
+            'subject_id' => $responseData['id'],
+            'causer_id' => $this->user->id
+        ];
+
+        $this->assertDatabaseHas('activity_log', $logData);
+   }
 }
