@@ -59,6 +59,11 @@ class UserController extends Controller
         $user = User::create($data);
         $user->assignRole($request->role_id);
 
+        $data['role'] = $user->role['name'];
+        $logData = ['attributes' => collect($data)->except(['password'])->all()];
+        $user->fillActivity($logData);
+        $user->saveActivity('created');
+
         return response()->json([
             'id' => $user->id,
             'name' => $user->name,
@@ -92,6 +97,15 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        $logData = [
+            'attributes' => [], 
+            'old' => [
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role['name']
+            ],
+        ];
+
         $data = $request->only(['name', 'email', 'password']);
         if($password = isset($data['password'])){
             $data['password'] = Hash::make($password);
@@ -99,6 +113,15 @@ class UserController extends Controller
 
         $user->update($data);
         $user->syncRoles($request->role_id);
+
+        $logData['attributes'] = [
+            'name' => $user->name,
+            'email' => $user->email,
+            'role' => $user->role['name']
+        ];
+
+        $user->fillActivity($logData);
+        $user->saveActivity('updated');
 
         return response()->json([
             'id' => $user->id,

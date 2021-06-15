@@ -2,6 +2,7 @@
 
 namespace App\Models\Users;
 
+use App\Services\Activities\Log\ActivityLog;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,6 +16,16 @@ class User extends Authenticatable implements JWTSubject
     use HasFactory, Notifiable, SoftDeletes, HasRoles;
 
     protected $guard_name ='api';
+
+    private static $logName = 'user';
+
+    private static $submitEmptyLogs = false;
+
+    private static $logOnlyDirty = true;
+
+    private static $activity = [];
+
+    private static $validActivityDescriptions = ['created', 'updated', 'deleted'];
 
     /**
      * The attributes that are mass assignable.
@@ -88,5 +99,38 @@ class User extends Authenticatable implements JWTSubject
         }
 
         return  $role;
+    }
+    
+    /**
+     * Fill activities log
+     *
+     * @param array $activities
+     * @return array
+     */
+    public function fillActivity(array $activities)
+    {
+        $this->activity = $activities;
+        return $this->activity;
+    }
+    
+    /**
+     * Save custom activity log
+     *
+     * @param string $description
+     * @return \Spatie\Activitylog\Contracts\Activity
+     */
+    public function saveActivity(string $description)
+    {
+        $activityLog = new ActivityLog();
+        return $activityLog
+            ->validateDescription($description, self::$validActivityDescriptions)
+            ->setLogName(self::$logName)
+            ->setSubmitEmptyLogs(self::$submitEmptyLogs)
+            ->setLogOnlyDirty(self::$logOnlyDirty)
+            ->setPerformedOn($this)
+            ->setCausedBy(auth()->user())
+            ->setWithProperties($this->activity)
+            ->setDescription($description)
+            ->save();
     }
 }
