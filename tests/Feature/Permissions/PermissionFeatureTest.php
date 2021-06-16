@@ -147,4 +147,46 @@ class PermissionFeatureTest extends TestCase
 
         $this->assertDatabaseMissing('permissions', $permission->toArray());
     }
+
+    /** @test */
+    public function it_can_log_created_permission()
+    {
+        $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/permissions', [
+                'name' => $this->faker->name, 
+                'order' => null,
+            ]);
+
+        $logData = [
+            'log_name' => 'permission',
+            'description' => 'created',
+            'subject_id' => $responseData['id'],
+            'causer_id' => $this->user->id
+        ];
+
+        $this->assertDatabaseHas('activity_log', $logData);
+    }
+
+    /** @test */
+    public function it_can_log_updated_permission()
+    {
+        $permission = Permission::factory()->create();
+
+        $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->putJson("/api/permissions/$permission->id", [
+                'name' => $this->faker->name, 
+                'order' => null,
+            ]);
+
+        $logData = [
+            'log_name' => 'permission',
+            'description' => 'updated',
+            'subject_id' => $responseData['id'],
+            'causer_id' => $this->user->id
+        ];
+
+        $this->assertDatabaseHas('activity_log', $logData);
+    }
 }

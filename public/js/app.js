@@ -10588,7 +10588,7 @@ var render = function() {
                       true
                     )
                   },
-                  [_vm._v(" "), _c("span", [_vm._v("Update role")])]
+                  [_vm._v(" "), _c("span", [_vm._v("Update permission")])]
                 )
               ]
             }

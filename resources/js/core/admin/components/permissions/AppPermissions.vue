@@ -51,7 +51,7 @@
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </template>
-          <span>Update role</span>
+          <span>Update permission</span>
         </v-tooltip>
       </template>
     </AppTable>
