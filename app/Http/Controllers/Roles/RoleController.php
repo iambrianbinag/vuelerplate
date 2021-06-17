@@ -58,6 +58,10 @@ class RoleController extends Controller
         $data = $request->only(['name']);
         $role = Role::create($data);
 
+        $logData = ['attributes' => $data];
+        $role->fillActivity($logData);
+        $role->saveActivity('created');
+
         return response()->json([
             'id' => $role->id,
             'name' => $role->name
@@ -87,8 +91,22 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
+        $logData = [
+            'attributes' => [], 
+            'old' => [
+                'name' => $role->name,
+            ],
+        ];
+
         $data = $request->only(['name']);
         $role->update($data);
+
+        $logData['attributes'] = [
+            'name' => $role->name,
+        ];
+
+        $role->fillActivity($logData);
+        $role->saveActivity('updated');
 
         return response()->json([
             'id' => $role->id,
@@ -167,10 +185,24 @@ class RoleController extends Controller
      */
     public function syncRolePermissions(GiveRolePermissionsRequest $request, Role $role)
     {
+        $logData = [
+            'attributes' => [], 
+            'old' => [
+                'permissions' => $role->permissions,
+            ],
+        ];
+
         $roleWithPermissions = $role->syncPermissions($request->permission_ids);
         $roleWithPermissions->permissions->transform(function($permission){
             return $permission->only(['id', 'name']);
         });
+
+        $logData['attributes'] = [
+            'permissions' => $role->permissions,
+        ];
+
+        $role->fillActivity($logData);
+        $role->saveActivity('updated');
 
         return response()->json([
             'id' => $roleWithPermissions->id,

@@ -221,4 +221,60 @@ class RoleFeatureTest extends TestCase
         $permissionIdsFromResponse = collect($response['permissions'])->pluck('id')->toArray();
         $this->assertEqualsCanonicalizing($permissionIds, $permissionIdsFromResponse);
     }
+
+    /** @test */
+    public function it_can_log_created_role()
+    {
+        $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/roles', ['name' => $this->faker->name]);
+
+        $logData = [
+            'log_name' => 'role',
+            'description' => 'created',
+            'subject_id' => $responseData['id'],
+            'causer_id' => $this->user->id
+        ];
+
+        $this->assertDatabaseHas('activity_log', $logData);
+    }
+
+    /** @test */
+    public function it_can_log_updated_role()
+    {
+        $role = Role::factory()->create();
+
+        $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->putJson("/api/roles/$role->id", ['name' => $this->faker->name]);
+
+        $logData = [
+            'log_name' => 'role',
+            'description' => 'updated',
+            'subject_id' => $responseData['id'],
+            'causer_id' => $this->user->id
+        ];
+
+        $this->assertDatabaseHas('activity_log', $logData);
+    }
+
+    /** @test */
+    public function it_can_log_synced_permissions_to_role()
+    {
+        $permissionIds = Permission::factory(5)->create()->pluck('id')->toArray();
+        $role = Role::factory()->create();
+
+        $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->putJson("/api/roles/$role->id/permissions", ['permission_ids' => $permissionIds]);
+
+        $logData = [
+            'log_name' => 'role',
+            'description' => 'updated',
+            'subject_id' => $responseData['id'],
+            'causer_id' => $this->user->id
+        ];
+
+        $this->assertDatabaseHas('activity_log', $logData);
+    }
 }
