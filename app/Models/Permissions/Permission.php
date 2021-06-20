@@ -17,4 +17,15 @@ class Permission extends SpatiePermission
     protected static $logOnlyDirty = true;
 
     protected static $logAttributes = ['name', 'order'];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'guard_name'
+    ];
 }

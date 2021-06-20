@@ -35,4 +35,21 @@ class Utils
 
     return $outputDiff;
   } 
+
+  
+  /**
+   * Map array and filter the associative array with allowed attributes
+   *
+   * @param array $associativeArray
+   * @param array $onlyKeys
+   * @return array
+   */
+  public static function arrayMapWithAllowedKeys($associativeArray = [], $onlyKeys = []){
+    $mappedArrayWithAllowedKeys = collect($associativeArray)->map(function($array) use ($onlyKeys){
+        return collect($array)->only($onlyKeys)->all();
+      })
+      ->all();
+
+    return $mappedArrayWithAllowedKeys;
+  }
 }

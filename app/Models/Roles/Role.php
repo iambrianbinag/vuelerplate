@@ -21,6 +21,16 @@ class Role extends SpatieRole
     private static $validActivityDescriptions = ['created', 'updated', 'deleted'];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
      * Fill activities log
      *
      * @param array $activities

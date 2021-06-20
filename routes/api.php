@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Activities\ActivityController;
 use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\Auth\UserAuthController;
@@ -20,6 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('/users/login', [UserAuthController::class, 'login']);
 
 Route::group(['middleware' => 'auth:api'], function(){
+    // ACTIVITY LOG
+    Route::get('/activity-log', [ActivityController::class, 'index'])->middleware('permission:view log');
+
     // USERS 
     Route::get('/users', [UserController::class, 'index'])->middleware('permission:view user');
     Route::post('/users', [UserController::class, 'store'])->middleware('permission:create user');
