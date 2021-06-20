@@ -188,7 +188,7 @@ class RoleController extends Controller
         $logData = [
             'attributes' => [], 
             'old' => [
-                'permissions' => $role->permissions,
+                'permissions' => $role->permissions->pluck('name')->all(),
             ],
         ];
 
@@ -198,7 +198,7 @@ class RoleController extends Controller
         });
 
         $logData['attributes'] = [
-            'permissions' => $role->permissions,
+            'permissions' => $role->permissions->pluck('name')->all(),
         ];
 
         $role->fillActivity($logData);
