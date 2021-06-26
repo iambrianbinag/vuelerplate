@@ -2005,6 +2005,181 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../base/components/ui/tables/AppTable */ "./resources/js/core/base/components/ui/tables/AppTable.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'LogViewDialog',
+  components: {
+    AppTable: _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  props: {
+    /**
+     * The log data
+     */
+    logData: {
+      type: Object,
+      "default": function _default() {
+        return {
+          'log_name': null,
+          'subject_id': null
+        };
+      }
+    }
+  },
+  data: function data() {
+    return {
+      title: 'Permission Log',
+      isVisible: false,
+      table: {
+        title: 'Log',
+        headers: [{
+          text: 'Date',
+          value: 'created_at'
+        }, {
+          text: 'Description',
+          value: 'description'
+        }, {
+          text: 'Properties',
+          value: 'changes'
+        }, {
+          text: 'User',
+          value: 'causer'
+        }],
+        orderBy: 'date',
+        orderDirection: 'desc'
+      }
+    };
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('admin.log', ['log', 'isLoadingGetLog'])),
+  watch: {
+    logData: {
+      handler: function handler() {
+        this.fetchLogData();
+      },
+      deep: true
+    }
+  },
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('admin.log', ['getLog'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)('admin.log', ['setLog'])), {}, {
+    /**
+     * Fetch log data
+     */
+    fetchLogData: function fetchLogData() {
+      if (this.logData.subject_id) {
+        this.getLog(this.logData);
+      }
+    },
+
+    /**
+     * Triggered when view log button is clicked
+     * 
+     * @event click
+     * @type {event}
+     */
+    handleViewLog: function handleViewLog() {
+      this.isVisible = true;
+    },
+
+    /**
+    * Close dialog
+    * 
+    * @event click
+    * @type {event}
+    */
+    handleCloseDialog: function handleCloseDialog() {
+      this.isVisible = false;
+    }
+  }),
+  created: function created() {
+    this.setLog(null);
+  },
+  mounted: function mounted() {
+    this.fetchLogData();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/permissions/AppPermissions.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/permissions/AppPermissions.vue?vue&type=script&lang=js& ***!
@@ -2446,6 +2621,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _log_dialogs_LogViewDialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../log/dialogs/LogViewDialog */ "./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2513,8 +2689,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PermissionViewDialog',
+  components: {
+    LogViewDialog: _log_dialogs_LogViewDialog__WEBPACK_IMPORTED_MODULE_0__.default
+  },
   props: {
     /**
      * The permission details
@@ -2539,6 +2723,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         id: null,
         name: '',
         order: ''
+      },
+      logData: {
+        'log_name': 'permission',
+        'subject_id': null
       }
     };
   },
@@ -2556,6 +2744,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     setPermissionPropToForm: function setPermissionPropToForm() {
       if (this.permission) {
         this.form = _objectSpread({}, this.permission);
+        this.logData.subject_id = this.form.id;
       }
     }
   },
@@ -5163,6 +5352,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
 
     /**
+     * The parameters added to the request
+     */
+    params: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    },
+
+    /**
      * Gets called when internal table pagination behavior is changed
      */
     action: {
@@ -5235,33 +5434,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     options: {
       handler: function handler(newValue, oldValue) {
         // Check if there has/have difference in new and old values, if any, then callthe  method that will request in backend
-        var isMustRequestToBackend = false;
+        var isMustBeRequestedToBackend = false;
 
         if (newValue.page !== oldValue.page) {
-          isMustRequestToBackend = true;
+          isMustBeRequestedToBackend = true;
         }
 
         if (newValue.itemsPerPage !== oldValue.itemsPerPage) {
-          isMustRequestToBackend = true;
+          isMustBeRequestedToBackend = true;
         }
 
         if (newValue.sortBy.length !== oldValue.sortBy.length) {
-          isMustRequestToBackend = true;
+          isMustBeRequestedToBackend = true;
         }
 
         if (newValue.sortBy.length && oldValue.sortBy.length && newValue.sortBy[0] !== oldValue.sortBy[0]) {
-          isMustRequestToBackend = true;
+          isMustBeRequestedToBackend = true;
         }
 
         if (newValue.sortDesc.length !== oldValue.sortDesc.length) {
-          isMustRequestToBackend = true;
+          isMustBeRequestedToBackend = true;
         }
 
         if (newValue.sortDesc.length && oldValue.sortDesc.length && newValue.sortDesc[0] !== oldValue.sortDesc[0]) {
-          isMustRequestToBackend = true;
+          isMustBeRequestedToBackend = true;
         }
 
-        if (isMustRequestToBackend) {
+        if (isMustBeRequestedToBackend) {
           this.handleRequest();
         }
       },
@@ -5304,7 +5503,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      * Handle backend request
      */
     handleRequest: function handleRequest() {
-      var params = {};
+      var params = _objectSpread({}, this.params);
+
       var _this$options = this.options,
           page = _this$options.page,
           itemsPerPage = _this$options.itemsPerPage,
@@ -6450,6 +6650,63 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vuex__WEBPACK_IMPORTED_MODULE_2__.d
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_2__.default.Store({
   modules: _modules__WEBPACK_IMPORTED_MODULE_0__.default
 }));
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/admin/log.js":
+/*!*************************************************!*\
+  !*** ./resources/js/store/modules/admin/log.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _services_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../services/http */ "./resources/js/services/http.js");
+/* harmony import */ var _helpers_mixins__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../helpers/mixins */ "./resources/js/helpers/mixins.js");
+
+
+var state = {
+  log: null,
+  isLoadingGetLog: false
+};
+var getters = {
+  log: function log(state) {
+    return state.log;
+  },
+  isLoadingGetLog: function isLoadingGetLog(state) {
+    return state.isLoadingGetLog;
+  }
+};
+var mutations = {
+  setLog: function setLog(state, data) {
+    return state.log = data;
+  }
+};
+var actions = {
+  getLog: function getLog(_ref, data) {
+    var commit = _ref.commit,
+        state = _ref.state;
+    state.isLoadingGetLog = true;
+    var params = _helpers_mixins__WEBPACK_IMPORTED_MODULE_1__.default.methods.generateUrlParams(data);
+    return _services_http__WEBPACK_IMPORTED_MODULE_0__.default.get("/activity-log".concat(params)).then(function (response) {
+      var data = response.data;
+      commit('setLog', data);
+      return data;
+    })["finally"](function () {
+      state.isLoadingGetLog = false;
+    });
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
+});
 
 /***/ }),
 
@@ -8112,6 +8369,45 @@ try {
 
 /***/ }),
 
+/***/ "./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue":
+/*!**************************************************************************!*\
+  !*** ./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _LogViewDialog_vue_vue_type_template_id_3efb980b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LogViewDialog.vue?vue&type=template&id=3efb980b&scoped=true& */ "./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue?vue&type=template&id=3efb980b&scoped=true&");
+/* harmony import */ var _LogViewDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LogViewDialog.vue?vue&type=script&lang=js& */ "./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _LogViewDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _LogViewDialog_vue_vue_type_template_id_3efb980b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _LogViewDialog_vue_vue_type_template_id_3efb980b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "3efb980b",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/core/admin/components/log/dialogs/LogViewDialog.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/core/admin/components/permissions/AppPermissions.vue":
 /*!***************************************************************************!*\
   !*** ./resources/js/core/admin/components/permissions/AppPermissions.vue ***!
@@ -9362,6 +9658,22 @@ component.options.__file = "resources/js/core/base/pages/NotFound.vue"
 
 /***/ }),
 
+/***/ "./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LogViewDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LogViewDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LogViewDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/core/admin/components/permissions/AppPermissions.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************!*\
   !*** ./resources/js/core/admin/components/permissions/AppPermissions.vue?vue&type=script&lang=js& ***!
@@ -9871,6 +10183,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFound_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./NotFound.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/base/pages/NotFound.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFound_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue?vue&type=template&id=3efb980b&scoped=true&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue?vue&type=template&id=3efb980b&scoped=true& ***!
+  \*********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LogViewDialog_vue_vue_type_template_id_3efb980b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LogViewDialog_vue_vue_type_template_id_3efb980b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LogViewDialog_vue_vue_type_template_id_3efb980b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LogViewDialog.vue?vue&type=template&id=3efb980b&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue?vue&type=template&id=3efb980b&scoped=true&");
+
 
 /***/ }),
 
@@ -10435,6 +10764,144 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue?vue&type=template&id=3efb980b&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue?vue&type=template&id=3efb980b&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      !_vm.isVisible
+        ? [
+            _c(
+              "v-tooltip",
+              {
+                attrs: { top: "" },
+                scopedSlots: _vm._u(
+                  [
+                    {
+                      key: "activator",
+                      fn: function(ref) {
+                        var on = ref.on
+                        var attrs = ref.attrs
+                        return [
+                          _c(
+                            "v-btn",
+                            _vm._g(
+                              _vm._b(
+                                {
+                                  attrs: { dark: "", "x-small": "", icon: "" },
+                                  on: { click: _vm.handleViewLog }
+                                },
+                                "v-btn",
+                                attrs,
+                                false
+                              ),
+                              on
+                            ),
+                            [_c("v-icon", [_vm._v("mdi-clock")])],
+                            1
+                          )
+                        ]
+                      }
+                    }
+                  ],
+                  null,
+                  false,
+                  2166643517
+                )
+              },
+              [_vm._v(" "), _c("span", [_vm._v("View log")])]
+            )
+          ]
+        : [
+            _c(
+              "v-row",
+              { attrs: { justify: "center" } },
+              [
+                _c(
+                  "v-dialog",
+                  {
+                    attrs: { value: true, persistent: "", "max-width": "800px" }
+                  },
+                  [
+                    _c(
+                      "v-card",
+                      [
+                        _c(
+                          "v-toolbar",
+                          {
+                            attrs: {
+                              color: "primary",
+                              dark: "",
+                              flat: "",
+                              dense: ""
+                            }
+                          },
+                          [
+                            _c("v-toolbar-title", [_vm._v(_vm._s(_vm.title))]),
+                            _vm._v(" "),
+                            _c("v-spacer"),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: { icon: "", dark: "", small: "" },
+                                on: { click: _vm.handleCloseDialog }
+                              },
+                              [_c("v-icon", [_vm._v("mdi-close")])],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("AppTable", {
+                          attrs: {
+                            title: _vm.table.title,
+                            headers: _vm.table.headers,
+                            data: _vm.log,
+                            params: _vm.logData,
+                            action: _vm.getLog,
+                            mutation: _vm.setLog,
+                            loading: _vm.isLoadingGetLog,
+                            orderByDefault: _vm.table.orderBy,
+                            orderDirectionDefault: _vm.table.orderDirection
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ]
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/permissions/AppPermissions.vue?vue&type=template&id=185131d6&scoped=true&":
 /*!*************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/core/admin/components/permissions/AppPermissions.vue?vue&type=template&id=185131d6&scoped=true& ***!
@@ -10903,7 +11370,13 @@ var render = function() {
                     {
                       attrs: { color: "primary", dark: "", flat: "", dense: "" }
                     },
-                    [_c("v-toolbar-title", [_vm._v(_vm._s(_vm.title))])],
+                    [
+                      _c("v-toolbar-title", [_vm._v(_vm._s(_vm.title))]),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c("LogViewDialog", { attrs: { logData: _vm.logData } })
+                    ],
                     1
                   ),
                   _vm._v(" "),
@@ -78857,6 +79330,7 @@ webpackContext.id = "./resources/js/router/routes sync recursive \\.js$";
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
+	"./admin/log.js": "./resources/js/store/modules/admin/log.js",
 	"./admin/permissions.js": "./resources/js/store/modules/admin/permissions.js",
 	"./admin/roles.js": "./resources/js/store/modules/admin/roles.js",
 	"./admin/users.js": "./resources/js/store/modules/admin/users.js",

@@ -14,6 +14,10 @@
             dense
           >
             <v-toolbar-title>{{ title }}</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <LogViewDialog 
+              :logData="logData"
+            />
           </v-toolbar>
           <v-card-text>
             <v-row dense>
@@ -60,8 +64,13 @@
 </template>
 
 <script>
+  import LogViewDialog from '../../log/dialogs/LogViewDialog';
+
   export default {
     name: 'PermissionViewDialog',
+    components: {
+      LogViewDialog
+    },
     props: {
       /**
        * The permission details
@@ -85,6 +94,10 @@
           id: null,
           name: '',
           order: '',
+        },
+        logData: {
+          'log_name': 'permission',
+          'subject_id': null,
         }
       }
     },
@@ -101,6 +114,7 @@
       setPermissionPropToForm(){
         if(this.permission){
           this.form = { ...this.permission };
+          this.logData.subject_id = this.form.id;
         }
       },
     },
