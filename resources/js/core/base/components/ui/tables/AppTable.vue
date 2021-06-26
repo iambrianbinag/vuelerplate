@@ -83,6 +83,15 @@
         },
       },
       /**
+       * The parameters added to the request
+       */
+      params: {
+        type: Object,
+        default: function(){
+          return {};
+        },
+      },
+      /**
        * Gets called when internal table pagination behavior is changed
        */
       action: {
@@ -214,7 +223,7 @@
        * Handle backend request
        */
       handleRequest(){
-        const params = {};
+        const params = {...this.params};
         let { page, itemsPerPage, sortBy, sortDesc } = this.options;
         
         params.page = page;
