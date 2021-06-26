@@ -75,7 +75,9 @@
                 </v-chip>
               </template>
               <template #causer="{ item }">
-                {{ item.causer.name | capitalize }}
+                <template v-if="item.causer">
+                  {{ item.causer.name | capitalize }}
+                </template>
               </template>
             </AppTable>
           </v-card>

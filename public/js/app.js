@@ -2111,6 +2111,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -10993,13 +10995,19 @@ var render = function() {
                               fn: function(ref) {
                                 var item = ref.item
                                 return [
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(
-                                        _vm._f("capitalize")(item.causer.name)
-                                      ) +
-                                      "\n            "
-                                  )
+                                  item.causer
+                                    ? [
+                                        _vm._v(
+                                          "\n                " +
+                                            _vm._s(
+                                              _vm._f("capitalize")(
+                                                item.causer.name
+                                              )
+                                            ) +
+                                            "\n              "
+                                        )
+                                      ]
+                                    : _vm._e()
                                 ]
                               }
                             }
