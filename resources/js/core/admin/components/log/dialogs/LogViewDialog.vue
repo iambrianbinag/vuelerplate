@@ -4,7 +4,6 @@
       <v-tooltip top>
         <template #activator="{ on, attrs }">
           <v-btn
-            dark
             @click="handleViewLog"
             v-bind="attrs"
             v-on="on"
@@ -62,6 +61,7 @@
               <template #changes="{ item }">
                 <v-chip
                   color="primary"
+                  small
                   dark
                 >
                   New: {{ item.changes.attributes }}
@@ -69,6 +69,7 @@
                 <v-chip
                   v-if="item.changes.old"
                   color="secondary"
+                  small
                   dark
                 >
                    Old: {{ item.changes.old }}

@@ -2113,6 +2113,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4064,9 +4065,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _base_components_ui_headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../base/components/ui/headers/AppHeader */ "./resources/js/core/base/components/ui/headers/AppHeader.vue");
 /* harmony import */ var _base_components_ui_loading_AppLoading__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../base/components/ui/loading/AppLoading */ "./resources/js/core/base/components/ui/loading/AppLoading.vue");
+/* harmony import */ var _log_dialogs_LogViewDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../log/dialogs/LogViewDialog */ "./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -4131,6 +4133,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -4138,7 +4151,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: 'UserView',
   components: {
     AppHeader: _base_components_ui_headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__.default,
-    AppLoading: _base_components_ui_loading_AppLoading__WEBPACK_IMPORTED_MODULE_1__.default
+    AppLoading: _base_components_ui_loading_AppLoading__WEBPACK_IMPORTED_MODULE_1__.default,
+    LogViewDialog: _log_dialogs_LogViewDialog__WEBPACK_IMPORTED_MODULE_2__.default
   },
   data: function data() {
     return {
@@ -4150,11 +4164,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         email: '',
         role: '',
         password: ''
+      },
+      logData: {
+        'log_name': 'user',
+        'subject_id': null
       }
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)('admin.users', ['isLoadingGetUser'])),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('admin.users', ['getUser'])), {}, {
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)('admin.users', ['isLoadingGetUser'])),
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapActions)('admin.users', ['getUser'])), {}, {
     /**
      * Get id in route's params
      */
@@ -4172,6 +4190,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         id: this.getIdParam()
       }).then(function (data) {
         _this.form = _objectSpread(_objectSpread({}, _this.form), data);
+        _this.logData.subject_id = _this.form.id;
       });
     }
   }),
@@ -10856,7 +10875,7 @@ var render = function() {
                             _vm._g(
                               _vm._b(
                                 {
-                                  attrs: { dark: "", "x-small": "", icon: "" },
+                                  attrs: { "x-small": "", icon: "" },
                                   on: { click: _vm.handleViewLog }
                                 },
                                 "v-btn",
@@ -10874,7 +10893,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  2166643517
+                  3852004535
                 )
               },
               [_vm._v(" "), _c("span", [_vm._v("View log")])]
@@ -10974,7 +10993,13 @@ var render = function() {
                                 return [
                                   _c(
                                     "v-chip",
-                                    { attrs: { color: "primary", dark: "" } },
+                                    {
+                                      attrs: {
+                                        color: "primary",
+                                        small: "",
+                                        dark: ""
+                                      }
+                                    },
                                     [
                                       _vm._v(
                                         "\n                New: " +
@@ -10990,6 +11015,7 @@ var render = function() {
                                         {
                                           attrs: {
                                             color: "secondary",
+                                            small: "",
                                             dark: ""
                                           }
                                         },
@@ -12884,6 +12910,19 @@ var render = function() {
                 "v-row",
                 { attrs: { dense: "" } },
                 [
+                  _c("v-col", { attrs: { cols: "12" } }, [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-end mt-2" },
+                      [
+                        _c("LogViewDialog", {
+                          attrs: { title: "User Log", logData: _vm.logData }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "v-col",
                     { attrs: { cols: "12", sm: "6" } },

@@ -14,6 +14,16 @@
       <v-row dense>
         <v-col
           cols="12"
+        >
+          <div class="d-flex justify-end mt-2">
+            <LogViewDialog
+              title="User Log" 
+              :logData="logData"
+            />
+          </div>
+        </v-col>
+        <v-col
+          cols="12"
           sm="6"
         >
           <v-text-field
@@ -60,10 +70,11 @@
   import { mapGetters, mapActions } from 'vuex';
   import AppHeader from '../../../base/components/ui/headers/AppHeader';
   import AppLoading from '../../../base/components/ui/loading/AppLoading';
+  import LogViewDialog from '../log/dialogs/LogViewDialog';
 
   export default {
     name: 'UserView',
-    components: { AppHeader, AppLoading },
+    components: { AppHeader, AppLoading, LogViewDialog },
     data(){
       return {
         headerTitle: 'User information',
@@ -74,7 +85,11 @@
           email: '',
           role: '',
           password: '',
-        }
+        },
+        logData: {
+          'log_name': 'user',
+          'subject_id': null,
+        },
       }
     },
     computed: {
@@ -99,6 +114,7 @@
         this.getUser({ id: this.getIdParam() })
           .then((data) => {
             this.form = {...this.form, ...data};
+            this.logData.subject_id = this.form.id;
           });
       },
     },
