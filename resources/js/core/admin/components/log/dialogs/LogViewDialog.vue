@@ -52,7 +52,32 @@
                 :loading="isLoadingGetLog"
                 :orderByDefault="table.orderBy"
                 :orderDirectionDefault="table.orderDirection"
-              />
+            >
+              <template #created_at="{ item }">
+                {{ $moment(item.created_at).format('YYYY-MM-DD hh:mm A') }}
+              </template>
+              <template #description="{ item }">
+                {{ item.description | capitalize }}
+              </template>
+              <template #changes="{ item }">
+                <v-chip
+                  color="primary"
+                  dark
+                >
+                  New: {{ item.changes.attributes }}
+                </v-chip>
+                <v-chip
+                  v-if="item.changes.old"
+                  color="secondary"
+                  dark
+                >
+                   Old: {{ item.changes.old }}
+                </v-chip>
+              </template>
+              <template #causer="{ item }">
+                {{ item.causer.name | capitalize }}
+              </template>
+            </AppTable>
           </v-card>
         </v-dialog>
       </v-row>
@@ -70,6 +95,10 @@
       AppTable, 
     },
     props: {
+      title: {
+        type: String,
+        required: true
+      },
       /**
        * The log data
        */
@@ -85,17 +114,16 @@
     },
     data(){
       return {
-        title: 'Permission Log',
         isVisible: false,
         table: {
           title: 'Log',
           headers: [
-            { text: 'Date', value: 'created_at' },
-            { text: 'Description', value: 'description' },
-            { text: 'Properties', value: 'changes' },
-            { text: 'User', value: 'causer' },
+            { text: 'Date', value: 'created_at', },
+            { text: 'Description', value: 'description', },
+            { text: 'Properties', value: 'changes', sortable: false, },
+            { text: 'User', value: 'causer', sortable: false, },
           ],
-          orderBy: 'date',
+          orderBy: 'created_at',
           orderDirection: 'desc'
         },
       }
@@ -133,6 +161,7 @@
        */
       handleViewLog(){
         this.isVisible = true;
+        this.fetchLogData();
       },
        /**
        * Close dialog

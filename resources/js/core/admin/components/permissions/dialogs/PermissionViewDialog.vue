@@ -15,7 +15,8 @@
           >
             <v-toolbar-title>{{ title }}</v-toolbar-title>
             <v-spacer></v-spacer>
-            <LogViewDialog 
+            <LogViewDialog
+              title="Permission Log" 
               :logData="logData"
             />
           </v-toolbar>

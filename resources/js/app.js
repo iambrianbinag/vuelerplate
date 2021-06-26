@@ -5,6 +5,7 @@ import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import Vuelidate from 'vuelidate';
 import VuelidateErrorExtractor, { templates } from 'vuelidate-error-extractor';
+import VueMoment from 'vue-moment';
 
 import { validation, attributes, validationKeys } from './lang/en/validation';
 
@@ -17,6 +18,7 @@ Vue.use(VuelidateErrorExtractor, {
     validationKeys : validationKeys,
     attributes: attributes,
 });
+Vue.use(VueMoment);
 
 import store from './store';
 import router from './router';

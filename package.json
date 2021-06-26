@@ -23,6 +23,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "vue-moment": "^4.1.0",
         "vue-router": "^3.5.1",
         "vuelidate": "^0.7.6",
         "vuelidate-error-extractor": "^2.4.1",
