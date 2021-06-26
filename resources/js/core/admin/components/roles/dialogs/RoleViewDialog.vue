@@ -14,6 +14,11 @@
             dense
           >
             <v-toolbar-title>{{ title }}</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <LogViewDialog
+              title="Role Log" 
+              :logData="logData"
+            />
           </v-toolbar>
           <v-card-text>
             <v-row dense>
@@ -48,8 +53,13 @@
 </template>
 
 <script>
+  import LogViewDialog from '../../log/dialogs/LogViewDialog';
+
   export default {
     name: 'RoleViewDialog',
+    components: {
+      LogViewDialog
+    },
     props: {
       /**
        * The role details
@@ -72,7 +82,11 @@
         form: {
           id: null,
           name: '',
-        }
+        },
+        logData: {
+          'log_name': 'role',
+          'subject_id': null,
+        },
       }
     },
     methods: {
@@ -88,6 +102,7 @@
       setRolePropToForm(){
         if(this.role){
           this.form = { ...this.role };
+          this.logData.subject_id = this.form.id;
         }
       },
     },

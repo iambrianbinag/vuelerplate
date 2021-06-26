@@ -99,7 +99,7 @@
         logData: {
           'log_name': 'permission',
           'subject_id': null,
-        }
+        },
       }
     },
     methods: {
