@@ -152,32 +152,32 @@
       options: {
         handler (newValue, oldValue) {
           // Check if there has/have difference in new and old values, if any, then callthe  method that will request in backend
-          let isMustRequestToBackend = false;
+          let isMustBeRequestedToBackend = false;
 
           if(newValue.page !== oldValue.page){
-            isMustRequestToBackend = true;
+            isMustBeRequestedToBackend = true;
           }
           if(newValue.itemsPerPage !== oldValue.itemsPerPage){
-            isMustRequestToBackend = true;
+            isMustBeRequestedToBackend = true;
           }
           if(newValue.sortBy.length !== oldValue.sortBy.length){
-            isMustRequestToBackend = true;
+            isMustBeRequestedToBackend = true;
           }
           if((newValue.sortBy.length && oldValue.sortBy.length) 
              && (newValue.sortBy[0] !== oldValue.sortBy[0])
           ){
-            isMustRequestToBackend = true;
+            isMustBeRequestedToBackend = true;
           }
           if(newValue.sortDesc.length !== oldValue.sortDesc.length){
-            isMustRequestToBackend = true;
+            isMustBeRequestedToBackend = true;
           }
           if((newValue.sortDesc.length && oldValue.sortDesc.length) 
              && (newValue.sortDesc[0] !== oldValue.sortDesc[0])
           ){
-            isMustRequestToBackend = true;
+            isMustBeRequestedToBackend = true;
           }
 
-          if(isMustRequestToBackend){
+          if(isMustBeRequestedToBackend){
             this.handleRequest();
           }
         },
