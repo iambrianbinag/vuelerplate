@@ -5,6 +5,7 @@ namespace App\Models\Roles;
 use App\Services\Activities\Log\ActivityLog;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Models\Role as SpatieRole;
+use DateTimeInterface;
 
 class Role extends SpatieRole
 {
@@ -29,6 +30,17 @@ class Role extends SpatieRole
         'created_at',
         'updated_at',
     ];
+
+    /**
+     * Prepare a date for array / JSON serialization.
+     *
+     * @param  \DateTimeInterface  $date
+     * @return string
+     */
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 
     /**
      * Fill activities log
