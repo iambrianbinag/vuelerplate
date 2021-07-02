@@ -18,11 +18,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/users/login', [UserAuthController::class, 'login']);
+Route::group(['prefix' => '/users'], function(){
+    Route::post('/login', [UserAuthController::class, 'login']);
+});
 
 Route::group(['middleware' => 'auth:api'], function(){
-    // ACTIVITY LOG
-    Route::get('/activity-log', [ActivityController::class, 'index'])->middleware('permission:view log');
+    Route::group(['prefix' => '/activity-log'], function(){
+        Route::get('/', [ActivityController::class, 'index'])->middleware('permission:view log');
+    });
 
     Route::group(['prefix' => '/users'], function(){
         Route::get('/', [UserController::class, 'index'])->middleware('permission:view user');
