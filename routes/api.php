@@ -24,30 +24,33 @@ Route::group(['middleware' => 'auth:api'], function(){
     // ACTIVITY LOG
     Route::get('/activity-log', [ActivityController::class, 'index'])->middleware('permission:view log');
 
-    // USERS 
-    Route::get('/users', [UserController::class, 'index'])->middleware('permission:view user');
-    Route::post('/users', [UserController::class, 'store'])->middleware('permission:create user');
-    Route::get('/users/{user}', [UserController::class, 'show'])->middleware('permission:view user');
-    Route::put('/users/{user}', [UserController::class, 'update'])->middleware('permission:update user');
-    Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('permission:delete user');
-    Route::post('/users/logout', [UserAuthController::class, 'logout']);
-    Route::post('/users/refresh', [UserAuthController::class, 'refresh']);
-    Route::post('/users/me', [UserAuthController::class, 'me']);
+    Route::group(['prefix' => '/users'], function(){
+        Route::get('/', [UserController::class, 'index'])->middleware('permission:view user');
+        Route::post('/', [UserController::class, 'store'])->middleware('permission:create user');
+        Route::get('/{user}', [UserController::class, 'show'])->middleware('permission:view user');
+        Route::put('/{user}', [UserController::class, 'update'])->middleware('permission:update user');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->middleware('permission:delete user');
+        Route::post('/logout', [UserAuthController::class, 'logout']);
+        Route::post('/refresh', [UserAuthController::class, 'refresh']);
+        Route::post('/me', [UserAuthController::class, 'me']);
+    });
 
-    // PERMISSIONS
-    Route::get('/permissions', [PermissionController::class, 'index'])->middleware('permission:view permission');
-    Route::post('/permissions', [PermissionController::class, 'store'])->middleware('permission:create permission');
-    Route::get('/permissions/{permission}', [PermissionController::class, 'show'])->middleware('permission:view permission');
-    Route::put('/permissions/{permission}', [PermissionController::class, 'update'])->middleware('permission:update permission');
-    Route::delete('/permissions/{permission}', [PermissionController::class, 'destroy'])->middleware('permission:delete permission');
+    Route::group(['prefix' => '/permissions'], function(){
+        Route::get('/', [PermissionController::class, 'index'])->middleware('permission:view permission');
+        Route::post('/', [PermissionController::class, 'store'])->middleware('permission:create permission');
+        Route::get('/{permission}', [PermissionController::class, 'show'])->middleware('permission:view permission');
+        Route::put('/{permission}', [PermissionController::class, 'update'])->middleware('permission:update permission');
+        Route::delete('/{permission}', [PermissionController::class, 'destroy'])->middleware('permission:delete permission');
+    });
 
-    // ROLES
-    Route::get('/roles', [RoleController::class, 'index'])->middleware('permission:view role');
-    Route::post('/roles', [RoleController::class, 'store'])->middleware('permission:create role');
-    Route::get('/roles/{role}', [RoleController::class, 'show'])->middleware('permission:view role');
-    Route::put('/roles/{role}', [RoleController::class, 'update'])->middleware('permission:update role');
-    Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->middleware('permission:delete role');
-    Route::get('/roles/{role}/permissions', [RoleController::class, 'getRolePermissions'])->middleware('permission:get role permissions');
-    Route::post('/roles/{role}/permissions', [RoleController::class, 'giveRolePermissions'])->middleware('permission:give role permissions');
-    Route::put('/roles/{role}/permissions', [RoleController::class, 'syncRolePermissions'])->middleware('permission:sync role permissions');
+    Route::group(['prefix' => '/roles'], function(){
+        Route::get('/', [RoleController::class, 'index'])->middleware('permission:view role');
+        Route::post('/', [RoleController::class, 'store'])->middleware('permission:create role');
+        Route::get('/{role}', [RoleController::class, 'show'])->middleware('permission:view role');
+        Route::put('/{role}', [RoleController::class, 'update'])->middleware('permission:update role');
+        Route::delete('/{role}', [RoleController::class, 'destroy'])->middleware('permission:delete role');
+        Route::get('/{role}/permissions', [RoleController::class, 'getRolePermissions'])->middleware('permission:get role permissions');
+        Route::post('/{role}/permissions', [RoleController::class, 'giveRolePermissions'])->middleware('permission:give role permissions');
+        Route::put('/{role}/permissions', [RoleController::class, 'syncRolePermissions'])->middleware('permission:sync role permissions');
+    });
 });
