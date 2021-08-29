@@ -3,7 +3,7 @@
 namespace App\Models\Users;
 
 use App\Events\Users\UserCreated;
-use App\Services\Activities\Log\ActivityLog;
+use App\Services\Logs\LogService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -135,8 +135,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function saveActivity(string $description)
     {
-        $activityLog = new ActivityLog();
-        return $activityLog
+        return (new LogService())
             ->validateDescription($description, self::$validActivityDescriptions)
             ->setLogName(self::$logName)
             ->setSubmitEmptyLogs(self::$submitEmptyLogs)

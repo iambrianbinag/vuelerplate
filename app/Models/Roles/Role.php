@@ -2,7 +2,7 @@
 
 namespace App\Models\Roles;
 
-use App\Services\Activities\Log\ActivityLog;
+use App\Services\Logs\LogService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Models\Role as SpatieRole;
 use DateTimeInterface;
@@ -62,8 +62,7 @@ class Role extends SpatieRole
      */
     public function saveActivity(string $description)
     {
-        $activityLog = new ActivityLog();
-        return $activityLog
+        return (new LogService())
             ->validateDescription($description, self::$validActivityDescriptions)
             ->setLogName(self::$logName)
             ->setSubmitEmptyLogs(self::$submitEmptyLogs)

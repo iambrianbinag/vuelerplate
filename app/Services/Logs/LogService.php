@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Services\Activities\Log;
+namespace App\Services\Logs;
 
-use App\Services\Activities\Log\Exceptions\InvalidDescriptionLogException;
-use App\Services\Activities\Log\Exceptions\InvalidPropertyLogKeyException;
+use App\Services\Logs\Exceptions\InvalidDescriptionLogException;
+use App\Services\Logs\Exceptions\InvalidPropertyLogKeyException;
 use App\Utilities\Utils;
 use Spatie\Activitylog\Contracts\Activity;
 use Illuminate\Database\Eloquent\Model;
 
-class ActivityLog 
+class LogService 
 { 
   /** @var string */
   private $logName;
