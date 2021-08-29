@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Users;
 
+use App\Events\Users\UserCreated;
 use App\Models\Roles\Role;
 use App\Models\Users\User;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
@@ -95,6 +97,18 @@ class UserFeatureTest extends TestCase
 
         $this->assertDatabaseHas('users', $created->all());
    }
+
+   /** @test */
+   public function it_can_return_user_from_created_event()
+   {
+       Event::fake();
+
+       User::factory()->create();
+
+       Event::assertDispatched(function(UserCreated $event){
+            return $event->user instanceof User;
+       });
+   } 
 
    /** @test */
    public function it_can_update_a_user()
