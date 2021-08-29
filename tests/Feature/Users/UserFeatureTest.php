@@ -99,7 +99,14 @@ class UserFeatureTest extends TestCase
    /** @test */
    public function it_can_update_a_user()
    {
-        $user = User::factory()->create();
+        $user = $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/users', [
+                'name' => 'John Doe',
+                'email' => 'johndoe@example.com',
+                'password' => 'secret!!!',
+                'role_id' => Role::factory()->create()->id
+            ]);
 
         $update = [
             'name' => $this->faker->name,
@@ -109,11 +116,11 @@ class UserFeatureTest extends TestCase
 
         $this
             ->actingAs($this->user, 'api')
-            ->putJson("/api/users/$user->id", $update)
+            ->putJson("/api/users/{$user['id']}", $update)
             ->assertStatus(200)
             ->assertJson(function(AssertableJson $json) use ($user, $update){
                 $json
-                    ->where('id', $user->id)
+                    ->where('id', $user['id'])
                     ->where('name', $update['name'])
                     ->where('email', $update['email'])
                     ->where('role.id', $update['role_id']);
@@ -168,11 +175,18 @@ class UserFeatureTest extends TestCase
    /** @test */
    public function it_can_log_updated_user()
    {
-        $user = User::factory()->create();
+        $user = $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/users', [
+                'name' => 'John Doe',
+                'email' => 'johndoe@example.com',
+                'password' => 'secret!!!',
+                'role_id' => Role::factory()->create()->id
+            ]);
 
         $responseData = $this
             ->actingAs($this->user, 'api')
-            ->putJson("/api/users/$user->id", [
+            ->putJson("/api/users/{$user['id']}", [
                 'name' => $this->faker->name,
                 'email' => $this->faker->email,
                 'role_id' => Role::factory()->create()->id
