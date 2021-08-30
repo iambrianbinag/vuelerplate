@@ -4,7 +4,7 @@ namespace App\Services\Logs;
 
 use App\Services\Logs\Exceptions\InvalidDescriptionLogException;
 use App\Services\Logs\Exceptions\InvalidPropertyLogKeyException;
-use App\Utilities\Utils;
+use App\Utils\Util;
 use Spatie\Activitylog\Contracts\Activity;
 use Illuminate\Database\Eloquent\Model;
 
@@ -141,12 +141,12 @@ class LogService
     }
     
     if(!is_null($oldProperties) && !is_null($newProperties)){
-      $changes = Utils::arrayRecursiveDiff($oldProperties, $newProperties);
+      $changes = Util::arrayRecursiveDiff($oldProperties, $newProperties);
       foreach($oldProperties as $oldPropertyKey => $oldPropertyValue){
         $newPropertyValue = $newProperties[$oldPropertyKey] ?? null;
         if(is_array($oldPropertyValue) && is_array($newPropertyValue)){
-          $changesFromOld = Utils::arrayRecursiveDiff($oldPropertyValue, $newPropertyValue);
-          $changesFromNew = Utils::arrayRecursiveDiff($newPropertyValue, $oldPropertyValue);
+          $changesFromOld = Util::arrayRecursiveDiff($oldPropertyValue, $newPropertyValue);
+          $changesFromNew = Util::arrayRecursiveDiff($newPropertyValue, $oldPropertyValue);
           if(count($changesFromOld) !== count($changesFromNew)){
             $changes[$oldPropertyKey] = array_merge($changesFromOld, $changesFromNew);
           }

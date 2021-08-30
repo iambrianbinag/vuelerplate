@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Activities;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Activities\GetActivitiesRequest;
 use App\Models\Activities\Activity;
-use App\Utilities\Utils;
+use App\Utils\Util;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -64,9 +64,9 @@ class ActivityController extends Controller
         ];
 
         if($notPaginated){
-           $activityLog = Utils::arrayMapWithAllowedKeys($activityLog, $onlyAttributes);
+           $activityLog = Util::arrayMapWithAllowedKeys($activityLog, $onlyAttributes);
         } else {
-            $activityLog['data'] = Utils::arrayMapWithAllowedKeys($activityLog['data'], $onlyAttributes);
+            $activityLog['data'] = Util::arrayMapWithAllowedKeys($activityLog['data'], $onlyAttributes);
         }
         
         return response()->json($activityLog);

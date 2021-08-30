@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Utilities;
+namespace App\Utils;
 
-class Utils 
+class Util 
 {  
   /**
    * Get array difference recursively
