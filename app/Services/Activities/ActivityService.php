@@ -3,42 +3,24 @@
 namespace App\Services\Activities;
 
 use App\Models\Activities\Activity;
+use App\Services\Service;
 use App\Utils\Util;
 
-class ActivityService 
+class ActivityService extends Service
 {          
     /**
      * @var Activity
      */
     protected $activity;
-
-    /**
-     * @var int
-     */
-    public $paginationPerPageDefault;
-    
-    /**
-     * @var string
-     */
-    public $paginationOrderDirectionDefault;
-    
-    /**
-     * @var int
-     */
-    public $queryChunkDefault;
     
     /**
      *  ActivityService constructor
      */
     public function __construct(Activity $activity)
     {
+        parent::__construct();
+
         $this->activity = $activity;
-
-        $this->paginationPerPageDefault = config('settings.pagination.per_page');
-
-        $this->paginationOrderDirectionDefault = config('settings.pagination.order_direction');
-
-        $this->queryChunkDefault = config('settings.chunk.default');
     }
     
     /**
