@@ -31,7 +31,7 @@ class ActivityService extends Service
      * @param string $search
      * @param string $orderBy
      * @param string $orderDirection
-     * @param $notPaginated 
+     * @param bool $notPaginated 
      * @param int $perPage
      * @param int $queryChunk
      *
