@@ -141,6 +141,19 @@ class PermissionFeatureTest extends TestCase
     }
 
     /** @test */
+    public function it_cannot_update_a_permission()
+    {
+        $invalidPermissionId = 'invalid';
+
+        $update = ['name' => $this->faker->name, 'order' => null,];
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->putJson("/api/permissions/$invalidPermissionId", $update)
+            ->assertStatus(404);
+    }
+
+    /** @test */
     public function it_can_delete_a_permission()
     {
         $permission = Permission::factory()->create();

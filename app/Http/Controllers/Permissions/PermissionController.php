@@ -74,7 +74,7 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        $permission = $this->permissionService->showPermission($id);
+        $permission = $this->permissionService->getPermission($id);
 
         return response()->json([
             'id' => $permission->id,
@@ -87,13 +87,16 @@ class PermissionController extends Controller
      * Update a permission
      *
      * @param UpdatePermissionRequest $request
-     * @param Permission $permission
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdatePermissionRequest $request, Permission $permission)
+    public function update(UpdatePermissionRequest $request, $id)
     {
+        $permission = $this->permissionService->getPermission($id);
+
         $data = $request->only(['name', 'order']);
-        $permission->update($data);
+
+        $permission = $this->permissionService->updatePermission($permission, $data);
 
         return response()->json([
             'id' => $permission->id,

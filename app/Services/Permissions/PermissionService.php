@@ -96,9 +96,23 @@ class PermissionService extends Service
      * @param $id
      * @return Permission
      */
-    public function showPermission($id)
+    public function getPermission($id)
     {
         $permission = $this->permission::findOrFail($id);
+
+        return $permission;
+    }
+    
+    /**
+     * Update a permission
+     *
+     * @param Permission $permission
+     * @param array $data
+     * @return Permission
+     */
+    public function updatePermission(Permission $permission, array $data)
+    {
+        $permission->update($data);
 
         return $permission;
     }
