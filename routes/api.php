@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth:api'], function(){
         Route::post('/', [PermissionController::class, 'store'])->middleware('permission:create permission');
         Route::get('/{id}', [PermissionController::class, 'show'])->middleware('permission:view permission');
         Route::put('/{id}', [PermissionController::class, 'update'])->middleware('permission:update permission');
-        Route::delete('/{permission}', [PermissionController::class, 'destroy'])->middleware('permission:delete permission');
+        Route::delete('/{id}', [PermissionController::class, 'destroy'])->middleware('permission:delete permission');
     });
 
     Route::group(['prefix' => '/roles'], function(){

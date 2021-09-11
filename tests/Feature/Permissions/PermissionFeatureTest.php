@@ -173,6 +173,17 @@ class PermissionFeatureTest extends TestCase
     }
 
     /** @test */
+    public function it_cannot_delete_a_permission()
+    {
+        $invalidPermissionId = 'invalid';
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->deleteJson("/api/permissions/$invalidPermissionId")
+            ->assertStatus(404);
+    }
+
+    /** @test */
     public function it_can_log_created_permission()
     {
         $responseData = $this

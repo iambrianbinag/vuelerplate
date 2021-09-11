@@ -108,12 +108,13 @@ class PermissionController extends Controller
     /**
      * Delete a role
      *
-     * @param Permission $permission
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Permission $permission)
+    public function destroy($id)
     {
-        $permission->delete();
+        $permission = $this->permissionService->getPermission($id);
+        $this->permissionService->deletePermission($permission);
 
         return response()->json([
             'id' => $permission->id,

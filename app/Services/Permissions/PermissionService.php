@@ -116,4 +116,17 @@ class PermissionService extends Service
 
         return $permission;
     }
+    
+    /**
+     * Delete a permission
+     *
+     * @param Permission $permission
+     * @return Permission
+     */
+    public function deletePermission(Permission $permission)
+    {
+        $permission->delete();
+
+        return $permission;
+    }
 }
