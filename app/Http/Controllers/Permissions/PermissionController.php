@@ -69,11 +69,13 @@ class PermissionController extends Controller
     /**
      * Show a permission
      *
-     * @param Permission $role
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Permission $permission)
+    public function show($id)
     {
+        $permission = $this->permissionService->showPermission($id);
+
         return response()->json([
             'id' => $permission->id,
             'name' => $permission->name,

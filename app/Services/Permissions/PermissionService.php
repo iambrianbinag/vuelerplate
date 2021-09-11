@@ -89,5 +89,17 @@ class PermissionService extends Service
 
         return $permission;
     }
-    
+        
+    /**
+     * Show a permission
+     *
+     * @param $id
+     * @return Permission
+     */
+    public function showPermission($id)
+    {
+        $permission = $this->permission::findOrFail($id);
+
+        return $permission;
+    }
 }

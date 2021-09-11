@@ -90,6 +90,17 @@ class PermissionFeatureTest extends TestCase
     }
 
     /** @test */
+    public function it_cannot_find_a_permission_by_id()
+    {
+        $invalidPermissionId = 'invalid';
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/permissions/$invalidPermissionId")
+            ->assertStatus(404);
+    }
+
+    /** @test */
     public function it_can_create_a_permission()
     {
         $data = ['name' => $this->faker->name, 'order' => null,];
