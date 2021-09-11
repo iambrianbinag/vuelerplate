@@ -7,10 +7,27 @@ use App\Http\Requests\Permissions\CreatePermissionRequest;
 use App\Http\Requests\Permissions\GetPermissionsRequest;
 use App\Http\Requests\Permissions\UpdatePermissionRequest;
 use App\Models\Permissions\Permission;
+use App\Services\Permissions\PermissionService;
 use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {    
+    
+    /**
+     * @var PermissionService
+     */
+    protected $permissionService;
+    
+    /**
+     * PermissionController constructor
+     *
+     * @param PermissionService $permissionService
+     */
+    public function __construct(PermissionService $permissionService)
+    {
+        $this->permissionService = $permissionService;
+    }
+
     /**
      * Get all permissions
      *
@@ -19,37 +36,14 @@ class PermissionController extends Controller
      */
     public function index(GetPermissionsRequest $request)
     {
-        $perPage = $request->per_page ?? config('settings.pagination.per_page');
-        $orderBy = $request->order_by;
-        $orderDirection = $request->order_direction ?? config('settings.pagination.order_direction');
-        $search = $request->search;
-        $notPaginated = $request->not_paginated;
-        $chunkDefault = config('settings.chunk.default');
-
-        $permissions = Permission::select('id', 'name', 'order')
-            ->when($search, function($query, $search){
-                return $query->where(function($query) use ($search){
-                    $query->where('id', 'like', "%$search%")
-                        ->orWhere('name', 'like', "%$search%");
-                });
-            })
-            ->when($orderBy, function($query, $orderBy) use ($orderDirection){
-                return $query->orderBy($orderBy, $orderDirection);
-            }, function($query) use ($orderDirection){
-                return $query->orderBy('order', $orderDirection);
-            })
-            ->when($notPaginated, function($query) use ($chunkDefault){
-                $permissionsChunked = [];
-                $query->chunk($chunkDefault, function($permissions) use (&$permissionsChunked){
-                    foreach($permissions as $permission){
-                        array_push($permissionsChunked, $permission);
-                    }
-                });
-
-                return collect($permissionsChunked);
-            }, function($query) use ($perPage){
-                return $query->paginate($perPage);
-            });
+        $permissions = $this->permissionService->getPermissions(
+            $request->search,
+            $request->per_page,
+            $request->order_by,
+            $request->order_direction,
+            $request->not_paginated,
+            null
+        );       
 
         return response()->json($permissions);
     }
@@ -63,7 +57,7 @@ class PermissionController extends Controller
     public function store(CreatePermissionRequest $request)
     {
         $data = $request->only(['name', 'order']);
-        $permission = Permission::create($data);
+        $permission = $this->permissionService->createPermission($data);
 
         return response()->json([
             'id' => $permission->id,
