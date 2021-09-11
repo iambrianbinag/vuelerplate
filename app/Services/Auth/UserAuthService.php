@@ -3,8 +3,9 @@
 namespace App\Services\Auth;
 
 use App\Services\Auth\Exceptions\InvalidCredentialsException;
+use App\Services\Service;
 
-class UserAuthService
+class UserAuthService extends Service
 {    
     /**
      * Get a JWT via given credentials.

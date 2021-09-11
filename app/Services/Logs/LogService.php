@@ -4,11 +4,12 @@ namespace App\Services\Logs;
 
 use App\Services\Logs\Exceptions\InvalidDescriptionLogException;
 use App\Services\Logs\Exceptions\InvalidPropertyLogKeyException;
+use App\Services\Service;
 use App\Utils\Util;
 use Spatie\Activitylog\Contracts\Activity;
 use Illuminate\Database\Eloquent\Model;
 
-class LogService 
+class LogService extends Service
 { 
   /** @var string */
   private $logName;
