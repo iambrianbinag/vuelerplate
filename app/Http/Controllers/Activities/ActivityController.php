@@ -43,7 +43,6 @@ class ActivityController extends Controller
             null
         );
 
-        
         return response()->json($activityLog);
     }
 }
