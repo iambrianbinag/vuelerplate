@@ -4,6 +4,8 @@ namespace App\Services\Roles;
 
 use App\Models\Roles\Role;
 use App\Services\Service;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class RoleService extends Service
 {    
@@ -33,7 +35,7 @@ class RoleService extends Service
      * @param string $orderDirection
      * @param bool $notPaginated
      * 
-     * @return void
+     * @return LengthAwarePaginator|Collection
      */
     public function getRoles(
         ?string $search,
