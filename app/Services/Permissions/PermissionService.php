@@ -81,6 +81,7 @@ class PermissionService extends Service
      * Create a permission
      *
      * @param array $data
+     * 
      * @return Permission
      */
     public function createPermission(array $data)
@@ -91,9 +92,10 @@ class PermissionService extends Service
     }
         
     /**
-     * Show a permission
+     * Get a permission
      *
      * @param $id
+     * 
      * @return Permission
      */
     public function getPermission($id)
@@ -108,6 +110,7 @@ class PermissionService extends Service
      *
      * @param Permission $permission
      * @param array $data
+     * 
      * @return Permission
      */
     public function updatePermission(Permission $permission, array $data)
@@ -121,6 +124,7 @@ class PermissionService extends Service
      * Delete a permission
      *
      * @param Permission $permission
+     * 
      * @return Permission
      */
     public function deletePermission(Permission $permission)

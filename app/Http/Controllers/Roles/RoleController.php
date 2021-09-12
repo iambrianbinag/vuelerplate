@@ -8,41 +8,42 @@ use App\Http\Requests\Roles\GetRolesRequest;
 use App\Http\Requests\Roles\GiveRolePermissionsRequest;
 use App\Http\Requests\Roles\UpdateRoleRequest;
 use App\Models\Roles\Role;
+use App\Services\Roles\RoleService;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
-{    
+{        
+    /**
+     * @var RoleService
+     */
+    protected $roleService;
+    
+    /**
+     * RoleController constructor
+     *
+     * @param RoleService $roleService
+     */
+    public function __construct(RoleService $roleService)
+    {
+        $this->roleService = $roleService;
+    }
+
     /**
      * Get all roles
      *
      * @param GetRolesRequest $request
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(GetRolesRequest $request)
     {
-        $perPage = $request->per_page ?? config('settings.pagination.per_page');
-        $orderBy = $request->order_by;
-        $orderDirection = $request->order_direction ?? config('settings.pagination.order_direction');
-        $search = $request->search;
-        $notPaginated = $request->not_paginated;
-
-        $roles = Role::select('id', 'name')
-            ->when($search, function($query, $search){
-                return $query->where(function($query) use ($search){
-                    $query->where('id', 'like', "%$search%")
-                        ->orWhere('name', 'like', "%$search%");
-                });
-            })
-            ->when($orderBy, function($query, $orderBy) use ($orderDirection){
-                return $query->orderBy($orderBy, $orderDirection);
-            }, function($query) use ($orderDirection){
-                return $query->orderBy('id', $orderDirection);
-            })
-            ->when($notPaginated, function($query){
-                return $query->get();
-            }, function($query) use ($perPage){
-                return $query->paginate($perPage);
-            });
+        $roles = $this->roleService->getRoles(
+            $request->search,
+            $request->per_page,
+            $request->order_by,
+            $request->order_direction,
+            $request->not_paginated
+        );
 
         return response()->json($roles);
     }
@@ -51,16 +52,13 @@ class RoleController extends Controller
      * Create a role
      *
      * @param CreateRoleRequest $request
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateRoleRequest $request)
     {
         $data = $request->only(['name']);
-        $role = Role::create($data);
-
-        $logData = ['attributes' => $data];
-        $role->fillActivity($logData);
-        $role->saveActivity('created');
+        $role = $this->roleService->createRole($data);
 
         return response()->json([
             'id' => $role->id,
@@ -71,11 +69,14 @@ class RoleController extends Controller
     /**
      * Show a role
      *
-     * @param Role $role
+     * @param $id
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Role $role)
+    public function show($id)
     {
+        $role = $this->roleService->getRole($id);
+
         return response()->json([
             'id' => $role->id,
             'name' => $role->name
@@ -86,27 +87,17 @@ class RoleController extends Controller
      * Update a role
      *
      * @param UpdateRoleRequest $request
-     * @param Role $role
+     * @param $id
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateRoleRequest $request, Role $role)
+    public function update(UpdateRoleRequest $request, $id)
     {
-        $logData = [
-            'attributes' => [], 
-            'old' => [
-                'name' => $role->name,
-            ],
-        ];
+        $role = $this->roleService->getRole($id);
 
         $data = $request->only(['name']);
-        $role->update($data);
-
-        $logData['attributes'] = [
-            'name' => $role->name,
-        ];
-
-        $role->fillActivity($logData);
-        $role->saveActivity('updated');
+        
+        $role = $this->roleService->updateRole($role, $data);
 
         return response()->json([
             'id' => $role->id,
@@ -117,12 +108,14 @@ class RoleController extends Controller
     /**
      * Delete a role
      *
-     * @param Role $role
+     * @param $id
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Role $role)
+    public function destroy($id)
     {
-        $role->delete();
+        $role = $this->roleService->getRole($id);
+        $this->roleService->deleteRole($role);
 
         return response()->json([
             'id' => $role->id,
@@ -133,20 +126,14 @@ class RoleController extends Controller
     /**
      * Get role's attached permissions
      *
-     * @param Role $role
+     * @param $id
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getRolePermissions(Role $role)
+    public function getRolePermissions($id)
     {
-        $roleWithPermissions = $role->load([
-            'permissions' => function($query){
-                $query->select('id', 'name', 'order')
-                    ->orderBy('order', 'desc');
-            }
-        ]);
-        $roleWithPermissions->permissions->transform(function($permission){
-            return $permission->makeHidden('pivot');
-        });
+        $role = $this->roleService->getRole($id);
+        $roleWithPermissions = $this->roleService->getRolePermissions($role);
 
         return response()->json([
             'id' => $roleWithPermissions->id,
@@ -159,15 +146,14 @@ class RoleController extends Controller
      * Give permissions to role
      *
      * @param GiveRolePermissionsRequest $request
-     * @param Role $role
+     * @param $id
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function giveRolePermissions(GiveRolePermissionsRequest $request, Role $role)
+    public function giveRolePermissions(GiveRolePermissionsRequest $request, $id)
     {
-        $roleWithPermissions = $role->givePermissionTo($request->permission_ids);
-        $roleWithPermissions->permissions->transform(function($permission){
-           return $permission->only(['id', 'name']);
-        });
+        $role = $this->roleService->getRole($id);
+        $roleWithPermissions = $this->roleService->giveRolePermissions($role, $request->permission_ids);
 
         return response()->json([
             'id' => $roleWithPermissions->id,
@@ -180,29 +166,14 @@ class RoleController extends Controller
      * Sync permissions to role
      *
      * @param GiveRolePermissionsRequest $request
-     * @param Role $role
+     * @param $id
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function syncRolePermissions(GiveRolePermissionsRequest $request, Role $role)
+    public function syncRolePermissions(GiveRolePermissionsRequest $request, $id)
     {
-        $logData = [
-            'attributes' => [], 
-            'old' => [
-                'permissions' => $role->permissions->pluck('name')->all(),
-            ],
-        ];
-
-        $roleWithPermissions = $role->syncPermissions($request->permission_ids);
-        $roleWithPermissions->permissions->transform(function($permission){
-            return $permission->only(['id', 'name']);
-        });
-
-        $logData['attributes'] = [
-            'permissions' => $role->permissions->pluck('name')->all(),
-        ];
-
-        $role->fillActivity($logData);
-        $role->saveActivity('updated');
+        $role = $this->roleService->getRole($id);
+        $roleWithPermissions = $this->roleService->syncRolePermissions($role, $request->permission_ids);
 
         return response()->json([
             'id' => $roleWithPermissions->id,

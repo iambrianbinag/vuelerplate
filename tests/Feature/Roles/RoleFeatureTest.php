@@ -87,6 +87,17 @@ class RoleFeatureTest extends TestCase
     }
 
     /** @test */
+    public function it_cannot_find_a_role_by_id()
+    {
+        $invalidRoleId = 'invalid';
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/roles/$invalidRoleId")
+            ->assertStatus(404);
+    }
+
+    /** @test */
     public function it_can_create_role()
     {
         $data = ['name' => $this->faker->name];
@@ -125,6 +136,19 @@ class RoleFeatureTest extends TestCase
     }
 
     /** @test */
+    public function it_cannot_update_a_role()
+    {
+        $invalidRoleId = 'invalid';
+
+        $update = ['name' => $this->faker->name];
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->putJson("/api/roles/$invalidRoleId", $update)
+            ->assertStatus(404);
+    }
+
+    /** @test */
     public function it_can_delete_a_role()
     {
         $role = Role::factory()->create();
@@ -141,6 +165,18 @@ class RoleFeatureTest extends TestCase
 
         $this->assertDatabaseMissing('roles', $role->toArray());
     }
+
+    /** @test */
+    public function it_cannot_delete_a_role()
+    {
+        $invalidRoleId = 'invalid';
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->deleteJson("/api/roles/$invalidRoleId")
+            ->assertStatus(404);
+    }
+
 
     /** @test */
     public function it_can_give_permissions_to_role()
@@ -163,6 +199,19 @@ class RoleFeatureTest extends TestCase
                             ->has('name');
                     });
             });
+    }
+
+    /** @test */
+    public function it_cannot_give_permissions_to_role()
+    {
+        $permissions = Permission::factory(5)->create();
+        $permissionIds = $permissions->pluck('id')->toArray();
+        $invalidRoleId = 'invalid';
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->postJson("/api/roles/$invalidRoleId/permissions", ['permission_ids' => $permissionIds])
+            ->assertStatus(404);
     }
 
     /** @test */
@@ -189,6 +238,19 @@ class RoleFeatureTest extends TestCase
 
         $permissionIdsFromResponse = collect($response['permissions'])->pluck('id')->toArray();
         $this->assertEqualsCanonicalizing($permissionIds, $permissionIdsFromResponse);
+    }
+
+    /** @test */
+    public function it_cannot_sync_permissions_to_role()
+    {
+        $permissions = Permission::factory(5)->create();
+        $permissionIds = $permissions->pluck('id')->toArray();
+        $invalidRoleId = 'invalid';
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->putJson("/api/roles/$invalidRoleId/permissions", ['permission_ids' => $permissionIds])
+            ->assertStatus(404);
     }
 
     /** @test */
@@ -220,6 +282,17 @@ class RoleFeatureTest extends TestCase
 
         $permissionIdsFromResponse = collect($response['permissions'])->pluck('id')->toArray();
         $this->assertEqualsCanonicalizing($permissionIds, $permissionIdsFromResponse);
+    }
+
+    /** @test */
+    public function it_cannot_list_permissions_of_role()
+    {
+        $invalidRoleId = 'invalid';
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/roles/$invalidRoleId/permissions")
+            ->assertStatus(404);
     }
 
     /** @test */
