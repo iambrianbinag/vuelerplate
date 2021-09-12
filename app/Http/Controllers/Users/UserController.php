@@ -10,7 +10,6 @@ use App\Models\Users\User;
 use App\Services\Users\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {        
@@ -55,18 +54,8 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        $data = $request->only(['name', 'email', 'password']);
-        if($password = isset($data['password'])){
-            $data['password'] = Hash::make($password);
-        }
-        
-        $user = User::create($data);
-        $user->assignRole($request->role_id);
-
-        $data['role'] = $user->role['name'];
-        $logData = ['attributes' => collect($data)->except(['password'])->all()];
-        $user->fillActivity($logData);
-        $user->saveActivity('created');
+        $data = $request->all();
+        $user = $this->userService->createUser($data);
 
         return response()->json([
             'id' => $user->id,
@@ -79,11 +68,13 @@ class UserController extends Controller
     /**
      * Show a user
      *
-     * @param User $user
+     * @param $id
      * @return JsonResponse
      */
-    public function show(User $user)
+    public function show($id)
     {
+        $user = $this->userService->getUser($id);
+
         return response()->json([
             'id' => $user->id,
             'name' => $user->name,
@@ -96,36 +87,16 @@ class UserController extends Controller
      * Update a user
      *
      * @param UpdateUserRequest $request
-     * @param User $user
+     * @param $id
      * @return JsonResponse
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, $id)
     {
-        $logData = [
-            'attributes' => [], 
-            'old' => [
-                'name' => $user->name,
-                'email' => $user->email,
-                'role' => $user->role['name']
-            ],
-        ];
+        $user = $this->userService->getUser($id);
 
-        $data = $request->only(['name', 'email', 'password']);
-        if($password = isset($data['password'])){
-            $data['password'] = Hash::make($password);
-        }
+        $data = $request->all();  
 
-        $user->update($data);
-        $user->syncRoles($request->role_id);
-
-        $logData['attributes'] = [
-            'name' => $user->name,
-            'email' => $user->email,
-            'role' => $user->role['name']
-        ];
-
-        $user->fillActivity($logData);
-        $user->saveActivity('updated');
+        $user = $this->userService->updateUser($user, $data);
 
         return response()->json([
             'id' => $user->id,

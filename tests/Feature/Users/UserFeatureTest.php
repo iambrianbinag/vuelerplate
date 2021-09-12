@@ -72,6 +72,17 @@ class UserFeatureTest extends TestCase
    }
 
    /** @test */
+   public function it_cannot_find_a_user_by_id()
+   {
+       $invalidUserId = 'invalid';
+
+       $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/users/$invalidUserId")
+            ->assertStatus(404);
+   }
+
+   /** @test */
    public function it_can_create_a_user()
    {
         $data = [
@@ -143,6 +154,23 @@ class UserFeatureTest extends TestCase
         $updated = collect($update)->except(['role_id']);
 
         $this->assertDatabaseHas('users', $updated->all());
+   }
+
+   /** @test */
+   public function it_cannot_update_a_user()
+   {
+        $invalidUserId = 'invalid';
+
+        $update = [
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'role_id' => Role::factory()->create()->id
+        ];
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->putJson("/api/users/$invalidUserId", $update)
+            ->assertStatus(404);
    }
 
    /** @test */
