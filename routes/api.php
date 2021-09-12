@@ -32,7 +32,7 @@ Route::group(['middleware' => 'auth:api'], function(){
         Route::post('/', [UserController::class, 'store'])->middleware('permission:create user');
         Route::get('/{id}', [UserController::class, 'show'])->middleware('permission:view user');
         Route::put('/{id}', [UserController::class, 'update'])->middleware('permission:update user');
-        Route::delete('/{user}', [UserController::class, 'destroy'])->middleware('permission:delete user');
+        Route::delete('/{id}', [UserController::class, 'destroy'])->middleware('permission:delete user');
         Route::post('/logout', [UserAuthController::class, 'logout']);
         Route::post('/refresh', [UserAuthController::class, 'refresh']);
         Route::post('/me', [UserAuthController::class, 'me']);

@@ -142,4 +142,17 @@ class UserService extends Service
 
         return $user;
     }
+    
+    /**
+     * Delete a user
+     *
+     * @param User $user
+     * @return User
+     */
+    public function deleteUser(User $user)
+    {
+        $user->delete();
+
+        return $user;
+    }
 }

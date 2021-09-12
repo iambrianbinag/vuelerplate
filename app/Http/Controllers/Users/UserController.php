@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\CreateUserRequest;
 use App\Http\Requests\Users\GetUsersRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
-use App\Models\Users\User;
 use App\Services\Users\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -109,12 +108,13 @@ class UserController extends Controller
     /**
      * Delete a user
      *
-     * @param User $user
+     * @param $id
      * @return JsonResponse
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user->delete();
+        $user = $this->userService->getUser($id);
+        $this->userService->deleteUser($user);
 
         return response()->json([
             'id' => $user->id,

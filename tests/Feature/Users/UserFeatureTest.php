@@ -191,6 +191,17 @@ class UserFeatureTest extends TestCase
 
         $this->assertDatabaseHas('users', $user->toArray());
    }
+
+   /** @test */
+   public function it_cannot_soft_delete_a_user()
+   {
+       $invalidUserId = 'invalid';
+
+       $this
+            ->actingAs($this->user, 'api')
+            ->deleteJson("/api/users/$invalidUserId")
+            ->assertStatus(404);
+   }
    
    /** @test */
    public function it_can_log_created_user()
