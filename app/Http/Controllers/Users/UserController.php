@@ -7,38 +7,42 @@ use App\Http\Requests\Users\CreateUserRequest;
 use App\Http\Requests\Users\GetUsersRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
 use App\Models\Users\User;
+use App\Services\Users\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
-{    
+{        
+    /**
+     * @var UserService
+     */
+    protected $userService;
+    
+    /**
+     * UserController constructor
+     *
+     * @param UserService $userService
+     */
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * Get all users
      *
      * @param GetUsersRequest $request
-     * @return void
+     * 
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(GetUsersRequest $request)
     {
-        $perPage = $request->per_page ?? config('settings.pagination.per_page');
-        $orderBy = $request->order_by;
-        $orderDirection = $request->order_direction ?? config('settings.pagination.order_direction');
-        $search = $request->search;
-
-        $users = User::select('id', 'name', 'email')
-            ->when($search, function($query, $search){
-                return $query->where(function($query) use ($search){
-                    $query->where('id', 'like', "%$search%")
-                        ->orWhere('name', 'like', "%$search%")
-                        ->orWhere('email', 'like', "%$search%");
-                });
-            })
-            ->when($orderBy, function($query, $orderBy) use ($orderDirection){
-                return $query->orderBy($orderBy, $orderDirection);   
-            }, function($query) use ($orderDirection){
-                return $query->orderBy('id', $orderDirection);
-            })
-            ->paginate($perPage);
+        $users = $this->userService->getUsers(
+            $request->search,
+            $request->per_page,
+            $request->order_by,
+            $request->order_direction
+        );
 
         return response()->json($users);
     }
@@ -47,7 +51,8 @@ class UserController extends Controller
      * Create a user
      *
      * @param CreateUserRequest $request
-     * @return void
+     * 
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateUserRequest $request)
     {
@@ -76,6 +81,7 @@ class UserController extends Controller
      * Show a user
      *
      * @param User $user
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(User $user)
@@ -93,6 +99,7 @@ class UserController extends Controller
      *
      * @param UpdateUserRequest $request
      * @param User $user
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateUserRequest $request, User $user)
@@ -135,6 +142,7 @@ class UserController extends Controller
      * Delete a user
      *
      * @param User $user
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(User $user)
