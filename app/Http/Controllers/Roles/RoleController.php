@@ -7,7 +7,6 @@ use App\Http\Requests\Roles\CreateRoleRequest;
 use App\Http\Requests\Roles\GetRolesRequest;
 use App\Http\Requests\Roles\GiveRolePermissionsRequest;
 use App\Http\Requests\Roles\UpdateRoleRequest;
-use App\Models\Roles\Role;
 use App\Services\Roles\RoleService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

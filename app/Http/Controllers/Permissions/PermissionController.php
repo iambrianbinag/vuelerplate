@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Permissions\CreatePermissionRequest;
 use App\Http\Requests\Permissions\GetPermissionsRequest;
 use App\Http\Requests\Permissions\UpdatePermissionRequest;
-use App\Models\Permissions\Permission;
 use App\Services\Permissions\PermissionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
