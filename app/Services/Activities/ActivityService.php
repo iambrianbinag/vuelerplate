@@ -34,7 +34,6 @@ class ActivityService extends Service
      * @param bool $notPaginated 
      * @param int $perPage
      * @param int $queryChunk
-     *
      * @return array
      */
     public function getActivities(

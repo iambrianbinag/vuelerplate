@@ -33,7 +33,6 @@ class UserService extends Service
      * @param int $perPage
      * @param string $orderBy
      * @param string $orderDirection
-     * 
      * @return LengthAwarePaginator|Collection
      */
     public function getUsers(
