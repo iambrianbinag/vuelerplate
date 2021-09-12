@@ -8,6 +8,7 @@ use App\Http\Requests\Permissions\GetPermissionsRequest;
 use App\Http\Requests\Permissions\UpdatePermissionRequest;
 use App\Models\Permissions\Permission;
 use App\Services\Permissions\PermissionService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PermissionController extends Controller
@@ -32,7 +33,7 @@ class PermissionController extends Controller
      * Get all permissions
      *
      * @param GetPermissionsRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index(GetPermissionsRequest $request)
     {
@@ -52,7 +53,7 @@ class PermissionController extends Controller
      * Create a permission
      *
      * @param CreatePermissionRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(CreatePermissionRequest $request)
     {
@@ -70,7 +71,7 @@ class PermissionController extends Controller
      * Show a permission
      *
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function show($id)
     {
@@ -88,7 +89,7 @@ class PermissionController extends Controller
      *
      * @param UpdatePermissionRequest $request
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function update(UpdatePermissionRequest $request, $id)
     {
@@ -109,7 +110,7 @@ class PermissionController extends Controller
      * Delete a role
      *
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function destroy($id)
     {

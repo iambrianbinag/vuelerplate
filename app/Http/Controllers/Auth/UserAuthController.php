@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginUserRequest;
 use App\Services\Auth\Exceptions\InvalidCredentialsException;
 use App\Services\Auth\UserAuthService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class UserAuthController extends Controller
@@ -29,7 +30,7 @@ class UserAuthController extends Controller
      * Get a JWT via given credentials.
      *
      * @param LoginUserRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function login(LoginUserRequest $request)
     {
@@ -47,7 +48,7 @@ class UserAuthController extends Controller
     /**
      * Get the authenticated User.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function me()
     {
@@ -59,7 +60,7 @@ class UserAuthController extends Controller
     /**
      * Log the user out (Invalidate the token).
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function logout()
     {
@@ -71,7 +72,7 @@ class UserAuthController extends Controller
     /**
      * Refresh a token.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function refresh()
     {

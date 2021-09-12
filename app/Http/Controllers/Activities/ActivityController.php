@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Activities;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Activities\GetActivitiesRequest;
 use App\Services\Activities\ActivityService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -28,7 +29,7 @@ class ActivityController extends Controller
      * Get all activity log
      *
      * @param GetActivitiesRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index(GetActivitiesRequest $request)
     {
