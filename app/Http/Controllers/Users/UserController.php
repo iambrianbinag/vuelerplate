@@ -32,7 +32,6 @@ class UserController extends Controller
      * Get all users
      *
      * @param GetUsersRequest $request
-     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(GetUsersRequest $request)
@@ -51,7 +50,6 @@ class UserController extends Controller
      * Create a user
      *
      * @param CreateUserRequest $request
-     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateUserRequest $request)
@@ -81,7 +79,6 @@ class UserController extends Controller
      * Show a user
      *
      * @param User $user
-     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(User $user)
@@ -99,7 +96,6 @@ class UserController extends Controller
      *
      * @param UpdateUserRequest $request
      * @param User $user
-     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateUserRequest $request, User $user)
@@ -142,7 +138,6 @@ class UserController extends Controller
      * Delete a user
      *
      * @param User $user
-     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(User $user)

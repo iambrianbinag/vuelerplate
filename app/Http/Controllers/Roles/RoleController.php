@@ -32,7 +32,6 @@ class RoleController extends Controller
      * Get all roles
      *
      * @param GetRolesRequest $request
-     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(GetRolesRequest $request)
@@ -52,7 +51,6 @@ class RoleController extends Controller
      * Create a role
      *
      * @param CreateRoleRequest $request
-     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateRoleRequest $request)
@@ -70,7 +68,6 @@ class RoleController extends Controller
      * Show a role
      *
      * @param $id
-     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
@@ -88,7 +85,6 @@ class RoleController extends Controller
      *
      * @param UpdateRoleRequest $request
      * @param $id
-     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateRoleRequest $request, $id)
@@ -109,7 +105,6 @@ class RoleController extends Controller
      * Delete a role
      *
      * @param $id
-     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
@@ -127,7 +122,6 @@ class RoleController extends Controller
      * Get role's attached permissions
      *
      * @param $id
-     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function getRolePermissions($id)
@@ -147,7 +141,6 @@ class RoleController extends Controller
      *
      * @param GiveRolePermissionsRequest $request
      * @param $id
-     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function giveRolePermissions(GiveRolePermissionsRequest $request, $id)
@@ -167,7 +160,6 @@ class RoleController extends Controller
      *
      * @param GiveRolePermissionsRequest $request
      * @param $id
-     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function syncRolePermissions(GiveRolePermissionsRequest $request, $id)
