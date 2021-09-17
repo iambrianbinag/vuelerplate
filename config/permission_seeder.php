@@ -10,6 +10,7 @@ return [
     'update user',
     'view user',
     'delete user',
+    'get total user',
 
     // PERMISSIONS
     'create permission',

@@ -122,4 +122,18 @@ class UserController extends Controller
             'email' => $user->email,
         ]);
     }
+    
+    /**
+     * Get the total user
+     *
+     * @return JsonResponse
+     */
+    public function getTotalUser()
+    {
+        $userTotal = $this->userService->getTotalUser();
+
+        return response()->json([
+            'total' => $userTotal
+        ]);
+    }
 }

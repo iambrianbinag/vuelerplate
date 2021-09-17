@@ -7,6 +7,7 @@ use App\Services\Service;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
+use App\Services\Cache\Interfaces\CacheInterface;
 
 class UserService extends Service
 {    
@@ -16,15 +17,22 @@ class UserService extends Service
     protected $user;
     
     /**
+     * @var CacheInterface
+     */
+    protected $cacheService;
+    
+    /**
      * UserService constructor
      *
      * @param User $user
      */
-    public function __construct(User $user)
+    public function __construct(User $user, CacheInterface $cacheService)
     {
         parent::__construct();
 
         $this->user = $user;
+
+        $this->cacheService = $cacheService;
     }
     
     /**
@@ -154,5 +162,22 @@ class UserService extends Service
         $user->delete();
 
         return $user;
+    }
+    
+    /**
+     * Get the total user
+     *
+     * @return int
+     */
+    public function getTotalUser()
+    {   
+        $totalUser = $this->cacheService->command('HGET', ['total', 'user']);
+        
+        if(is_null($totalUser)){
+            $totalUser = $this->user->count();
+            $this->cacheService->command('HSET', ['total', 'user', $totalUser]);
+        }
+
+        return $totalUser;
     }
 }

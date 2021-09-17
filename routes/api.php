@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::group(['prefix' => '/users'], function(){
         Route::get('/', [UserController::class, 'index'])->middleware('permission:view user');
         Route::post('/', [UserController::class, 'store'])->middleware('permission:create user');
+        Route::get('/total', [UserController::class, 'getTotalUser'])->middleware('permission:get total user');
         Route::get('/{id}', [UserController::class, 'show'])->middleware('permission:view user');
         Route::put('/{id}', [UserController::class, 'update'])->middleware('permission:update user');
         Route::delete('/{id}', [UserController::class, 'destroy'])->middleware('permission:delete user');

@@ -254,4 +254,15 @@ class UserFeatureTest extends TestCase
 
         $this->assertDatabaseHas('activity_log', $logData);
    }
+
+   /** @test */
+   public function it_can_count_total_of_users()
+   {
+        $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/users/total")
+            ->assertStatus(200);
+
+       $this->assertDatabaseCount('users', $responseData['total']); 
+   }
 }
