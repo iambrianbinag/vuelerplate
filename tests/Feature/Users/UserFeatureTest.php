@@ -256,7 +256,7 @@ class UserFeatureTest extends TestCase
    }
 
    /** @test */
-   public function it_can_count_total_of_users()
+   public function it_can_get_the_total_of_user()
    {
         $responseData = $this
             ->actingAs($this->user, 'api')
