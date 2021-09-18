@@ -7,6 +7,7 @@ use App\Models\Roles\Role;
 use App\Models\Permissions\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use App\Services\Cache\Interfaces\CacheInterface;
 use Faker\Factory as Faker;
 
 abstract class TestCase extends BaseTestCase
@@ -40,6 +41,9 @@ abstract class TestCase extends BaseTestCase
 
     public function tearDown() : void
     {
+        $cacheService =  app(CacheInterface::class);
+        $cacheService->command('FLUSHALL');
+
         parent::tearDown();
     }
 }
