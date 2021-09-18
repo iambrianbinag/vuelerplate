@@ -288,4 +288,32 @@ class UserFeatureTest extends TestCase
 
         $this->assertDatabaseCount("users", $responseData['total']);
    }
+
+   /** @test */
+   public function it_can_get_the_total_of_user_after_a_user_soft_deleted()
+   {
+        $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/users/total");
+
+        $user =  $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/users', [
+                'name' => 'John Doe',
+                'email' => 'johndoe@example.com',
+                'password' => 'secret!!!',
+                'role_id' => Role::factory()->create()->id
+            ]);
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->deleteJson("/api/users/{$user['id']}");
+
+        $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/users/total");
+
+
+        $this->assertEquals(User::count(), $responseData['total']);
+   }
 }

@@ -95,7 +95,7 @@ class UserService extends Service
         $user->fillActivity($logData);
         $user->saveActivity('created');
 
-        $this->setTotalUser($this->getTotalUser() + 1);
+        $this->setTotalUserFromCache($this->getTotalUser() + 1);
 
         return $user;
     }
@@ -163,6 +163,8 @@ class UserService extends Service
     {
         $user->delete();
 
+        $this->setTotalUserFromCache($this->getTotalUser() - 1);
+
         return $user;
     }
     
@@ -173,14 +175,24 @@ class UserService extends Service
      */
     public function getTotalUser()
     {   
-        $totalUser = $this->cacheService->command('HGET', ['total', 'user']);
+        $totalUser = $this->getTotalUserFromCache();
         
         if(is_null($totalUser)){
             $totalUser = $this->user->count();
-            $this->setTotalUser($totalUser);
+            $this->setTotalUserFromCache($totalUser);
         }
 
         return $totalUser;
+    }
+    
+    /**
+     * Get the total user from cache
+     *
+     * @return string|null
+     */
+    private function getTotalUserFromCache()
+    {
+        return $this->cacheService->command('HGET', ['total', 'user']);
     }
 
     /**
@@ -189,7 +201,7 @@ class UserService extends Service
      * @param int $total
      * @return int
      */
-    public function setTotalUser(int $total)
+    private function setTotalUserFromCache(int $total)
     {
         return $this->cacheService->command('HSET', ['total', 'user', $total]);
     }
