@@ -6,6 +6,7 @@ use App\Models\Roles\Role;
 use App\Services\Service;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use App\Services\Cache\Interfaces\CacheInterface;
 
 class RoleService extends Service
 {    
@@ -15,15 +16,22 @@ class RoleService extends Service
     protected $role;
     
     /**
+     * @var CacheInterface
+     */
+    protected $cacheService;
+    
+    /**
      * RoleService constructor
      *
      * @param Role $role
      */
-    public function __construct(Role $role)
+    public function __construct(Role $role, CacheInterface $cacheService)
     {
         parent::__construct();
 
         $this->role = $role;
+
+        $this->cacheService = $cacheService;
     }
     
     /**
@@ -82,6 +90,8 @@ class RoleService extends Service
         $role->fillActivity($logData);
         $role->saveActivity('created');
 
+        $this->setTotalRoleFromCache($this->getTotalRole() + 1);
+
         return $role;
     }
     
@@ -135,6 +145,8 @@ class RoleService extends Service
     public function deleteRole(Role $role)
     {
         $role->delete();
+
+        $this->setTotalRoleFromCache($this->getTotalRole() - 1);
 
         return $role;
     }
@@ -206,5 +218,43 @@ class RoleService extends Service
         $role->saveActivity('updated');
 
         return $roleWithPermissions;
+    }
+
+    /**
+     * Get the total role
+     *
+     * @return int
+     */
+    public function getTotalRole()
+    {   
+        $totalRole = $this->getTotalRoleFromCache();
+        
+        if(is_null($totalRole)){
+            $totalRole = $this->role->count();
+            $this->setTotalRoleFromCache($totalRole);
+        }
+
+        return $totalRole;
+    }
+
+    /**
+     * Get the total role from cache
+     *
+     * @return string|null
+     */
+    private function getTotalRoleFromCache()
+    {
+        return $this->cacheService->command('HGET', ['total', 'role']);
+    }
+
+    /**
+     * Set the total role from cache
+     *
+     * @param int $total
+     * @return int
+     */
+    private function setTotalRoleFromCache(int $total)
+    {
+        return $this->cacheService->command('HSET', ['total', 'role', $total]);
     }
 }

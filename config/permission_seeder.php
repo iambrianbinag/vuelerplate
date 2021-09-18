@@ -25,6 +25,7 @@ return [
     'delete role',
     'get role permissions',
     'give role permissions',
-    'sync role permissions'
+    'sync role permissions',
+    'get total role',
   ]
 ];

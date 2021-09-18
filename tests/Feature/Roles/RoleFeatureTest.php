@@ -350,4 +350,60 @@ class RoleFeatureTest extends TestCase
 
         $this->assertDatabaseHas('activity_log', $logData);
     }
+
+    /** @test */
+    public function it_can_get_the_total_of_role()
+    {
+        $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/roles/total")
+            ->assertStatus(200);
+
+        $this->assertDatabaseCount('roles', $responseData['total']);
+    }
+
+    /** @test */
+   public function it_can_get_the_total_of_role_after_a_role_created()
+   {
+        $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/roles/total");
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/roles', [
+                'name' => $this->faker->name
+            ]);
+
+       $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/roles/total");
+
+        $this->assertDatabaseCount("roles", $responseData['total']);
+   }
+
+   /** @test */
+   public function it_can_get_the_total_of_role_after_a_role_soft_deleted()
+   {
+        $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/roles/total");
+
+        $role =  $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/roles', [
+                'name' => $this->faker->name
+            ]);
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->deleteJson("/api/users/{$role['id']}");
+
+        $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/roles/total");
+
+
+        $this->assertEquals(Role::count(), $responseData['total']);
+   }
 }

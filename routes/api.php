@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::group(['prefix' => '/roles'], function(){
         Route::get('/', [RoleController::class, 'index'])->middleware('permission:view role');
         Route::post('/', [RoleController::class, 'store'])->middleware('permission:create role');
+        Route::get('/total', [RoleController::class, 'getTotalRole'])->middleware('permission:get total role');
         Route::get('/{id}', [RoleController::class, 'show'])->middleware('permission:view role');
         Route::put('/{id}', [RoleController::class, 'update'])->middleware('permission:update role');
         Route::delete('/{id}', [RoleController::class, 'destroy'])->middleware('permission:delete role');

@@ -173,4 +173,18 @@ class RoleController extends Controller
             'permissions' => $roleWithPermissions->permissions
         ]);
     }
+    
+    /**
+     * Get the total role
+     *
+     * @return JsonResponse
+     */
+    public function getTotalRole()
+    {
+        $roleTotal = $this->roleService->getTotalRole();
+
+        return response()->json([
+            'total' => $roleTotal
+        ]);
+    }
 }

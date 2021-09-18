@@ -196,7 +196,7 @@ class UserService extends Service
     }
 
     /**
-     * Set the total user
+     * Set the total user from cache
      *
      * @param int $total
      * @return int
