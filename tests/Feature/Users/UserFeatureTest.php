@@ -265,4 +265,27 @@ class UserFeatureTest extends TestCase
 
        $this->assertDatabaseCount('users', $responseData['total']); 
    }
+
+   /** @test */
+   public function it_can_get_the_total_of_user_after_a_user_created()
+   {
+        $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/users/total");
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/users', [
+                'name' => 'John Doe',
+                'email' => 'johndoe@example.com',
+                'password' => 'secret!!!',
+                'role_id' => Role::factory()->create()->id
+            ]);
+
+       $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/users/total");
+
+        $this->assertDatabaseCount("users", $responseData['total']);
+   }
 }

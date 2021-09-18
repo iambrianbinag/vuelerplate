@@ -95,6 +95,8 @@ class UserService extends Service
         $user->fillActivity($logData);
         $user->saveActivity('created');
 
+        $this->setTotalUser($this->getTotalUser() + 1);
+
         return $user;
     }
     
@@ -175,9 +177,21 @@ class UserService extends Service
         
         if(is_null($totalUser)){
             $totalUser = $this->user->count();
-            $this->cacheService->command('HSET', ['total', 'user', $totalUser]);
+            $this->setTotalUser($totalUser);
         }
 
         return $totalUser;
     }
+
+    /**
+     * Set the total user
+     *
+     * @param int $total
+     * @return int
+     */
+    public function setTotalUser(int $total)
+    {
+        return $this->cacheService->command('HSET', ['total', 'user', $total]);
+    }
+      
 }
