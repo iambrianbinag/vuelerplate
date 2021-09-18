@@ -11,5 +11,5 @@ interface CacheInterface
      * @param  array $parameters
      * @return mixed
      */
-    public function command(string $name, array $parameters);
+    public function command(string $name, array $parameters = []);
 }

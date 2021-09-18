@@ -29,7 +29,7 @@ class RedisService implements CacheInterface
      * @param array $parameters
      * @return mixed
      */
-    public function command(string $name, array $parameters)
+    public function command(string $name, array $parameters = [])
     {
         return $this->redis->command($name, $parameters);
     }
