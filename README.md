@@ -15,7 +15,7 @@ Vuelerplate is a dashboard boilerplate built on Laravel and Vue. It includes aut
 Project setup
 
 ```bash
-$ git clone https://github.com/iambrianbinag/yhk-web.git project
+$ git clone https://github.com/iambrianbinag/vuelerplate.git project
 $ cd project
 $ composer install
 $ npm install

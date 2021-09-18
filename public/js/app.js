@@ -5885,7 +5885,7 @@ __webpack_require__.r(__webpack_exports__);
  * Frontend configuration
  */
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  APP_NAME: "YHK" || 0,
+  APP_NAME: "Vuelerplate" || 0,
   TOKEN_TO_BE_REFRESHED_SECONDS: "1200" || 0
 });
 
