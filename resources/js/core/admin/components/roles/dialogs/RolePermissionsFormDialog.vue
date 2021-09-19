@@ -107,7 +107,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import LoadingDialog from '../../../../base/components/ui/loading/LoadingDialog';
+  import LoadingDialog from 'base/components/ui/loading/LoadingDialog';
 
   export default {
     name: 'RolePermissionsFormDialog',

@@ -91,7 +91,7 @@
 
 <script>
   import { mapGetters, mapActions, mapMutations } from 'vuex';
-  import AppTable from '../../../base/components/ui/tables/AppTable';
+  import AppTable from 'base/components/ui/tables/AppTable';
   import RoleFormDialog from './dialogs/RoleFormDialog';
   import RoleViewDialog from './dialogs/RoleViewDialog';
   import RolePermissionsFormDialog from './dialogs/RolePermissionsFormDialog';

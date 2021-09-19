@@ -105,8 +105,8 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import AppHeader from '../../../base/components/ui/headers/AppHeader';
-  import AppLoading from '../../../base/components/ui/loading/AppLoading';
+  import AppHeader from 'base/components/ui/headers/AppHeader';
+  import AppLoading from 'base/components/ui/loading/AppLoading';
   import { required, email, minLength, requiredUnless } from 'vuelidate/lib/validators';
 
   export default {

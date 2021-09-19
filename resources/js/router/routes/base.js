@@ -1,5 +1,5 @@
-import AppLogin from '../../core/base/pages/AppLogin';
-import NotFound from '../../core/base/pages/NotFound';
+import AppLogin from 'base/pages/AppLogin';
+import NotFound from 'base/pages/NotFound';
 
 const routes = [
   {

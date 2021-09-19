@@ -2017,7 +2017,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../base/components/ui/tables/AppTable */ "./resources/js/core/base/components/ui/tables/AppTable.vue");
+/* harmony import */ var base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! base/components/ui/tables/AppTable */ "./resources/js/core/base/components/ui/tables/AppTable.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2119,7 +2119,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'LogViewDialog',
   components: {
-    AppTable: _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__.default
+    AppTable: base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
     title: {
@@ -2227,7 +2227,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../base/components/ui/tables/AppTable */ "./resources/js/core/base/components/ui/tables/AppTable.vue");
+/* harmony import */ var base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! base/components/ui/tables/AppTable */ "./resources/js/core/base/components/ui/tables/AppTable.vue");
 /* harmony import */ var _dialogs_PermissionFormDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dialogs/PermissionFormDialog */ "./resources/js/core/admin/components/permissions/dialogs/PermissionFormDialog.vue");
 /* harmony import */ var _dialogs_PermissionViewDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dialogs/PermissionViewDialog */ "./resources/js/core/admin/components/permissions/dialogs/PermissionViewDialog.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -2316,7 +2316,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AppRoles',
   components: {
-    AppTable: _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__.default,
+    AppTable: base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__.default,
     PermissionFormDialog: _dialogs_PermissionFormDialog__WEBPACK_IMPORTED_MODULE_1__.default,
     PermissionViewDialog: _dialogs_PermissionViewDialog__WEBPACK_IMPORTED_MODULE_2__.default
   },
@@ -2803,7 +2803,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../base/components/ui/tables/AppTable */ "./resources/js/core/base/components/ui/tables/AppTable.vue");
+/* harmony import */ var base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! base/components/ui/tables/AppTable */ "./resources/js/core/base/components/ui/tables/AppTable.vue");
 /* harmony import */ var _dialogs_RoleFormDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dialogs/RoleFormDialog */ "./resources/js/core/admin/components/roles/dialogs/RoleFormDialog.vue");
 /* harmony import */ var _dialogs_RoleViewDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dialogs/RoleViewDialog */ "./resources/js/core/admin/components/roles/dialogs/RoleViewDialog.vue");
 /* harmony import */ var _dialogs_RolePermissionsFormDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dialogs/RolePermissionsFormDialog */ "./resources/js/core/admin/components/roles/dialogs/RolePermissionsFormDialog.vue");
@@ -2912,7 +2912,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AppRoles',
   components: {
-    AppTable: _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__.default,
+    AppTable: base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__.default,
     RoleFormDialog: _dialogs_RoleFormDialog__WEBPACK_IMPORTED_MODULE_1__.default,
     RoleViewDialog: _dialogs_RoleViewDialog__WEBPACK_IMPORTED_MODULE_2__.default,
     RolePermissionsFormDialog: _dialogs_RolePermissionsFormDialog__WEBPACK_IMPORTED_MODULE_3__.default
@@ -3244,7 +3244,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _base_components_ui_loading_LoadingDialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../base/components/ui/loading/LoadingDialog */ "./resources/js/core/base/components/ui/loading/LoadingDialog.vue");
+/* harmony import */ var base_components_ui_loading_LoadingDialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! base/components/ui/loading/LoadingDialog */ "./resources/js/core/base/components/ui/loading/LoadingDialog.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3363,7 +3363,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'RolePermissionsFormDialog',
   components: {
-    LoadingDialog: _base_components_ui_loading_LoadingDialog__WEBPACK_IMPORTED_MODULE_0__.default
+    LoadingDialog: base_components_ui_loading_LoadingDialog__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
     /**
@@ -3633,7 +3633,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../base/components/ui/tables/AppTable */ "./resources/js/core/base/components/ui/tables/AppTable.vue");
+/* harmony import */ var base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! base/components/ui/tables/AppTable */ "./resources/js/core/base/components/ui/tables/AppTable.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3705,7 +3705,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AppUsers',
   components: {
-    AppTable: _base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__.default
+    AppTable: base_components_ui_tables_AppTable__WEBPACK_IMPORTED_MODULE_0__.default
   },
   data: function data() {
     return {
@@ -3797,8 +3797,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _base_components_ui_headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../base/components/ui/headers/AppHeader */ "./resources/js/core/base/components/ui/headers/AppHeader.vue");
-/* harmony import */ var _base_components_ui_loading_AppLoading__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../base/components/ui/loading/AppLoading */ "./resources/js/core/base/components/ui/loading/AppLoading.vue");
+/* harmony import */ var base_components_ui_headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! base/components/ui/headers/AppHeader */ "./resources/js/core/base/components/ui/headers/AppHeader.vue");
+/* harmony import */ var base_components_ui_loading_AppLoading__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! base/components/ui/loading/AppLoading */ "./resources/js/core/base/components/ui/loading/AppLoading.vue");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -3918,8 +3918,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'UserForm',
   components: {
-    AppHeader: _base_components_ui_headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__.default,
-    AppLoading: _base_components_ui_loading_AppLoading__WEBPACK_IMPORTED_MODULE_1__.default
+    AppHeader: base_components_ui_headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__.default,
+    AppLoading: base_components_ui_loading_AppLoading__WEBPACK_IMPORTED_MODULE_1__.default
   },
   data: function data() {
     return {
@@ -4066,8 +4066,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _base_components_ui_headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../base/components/ui/headers/AppHeader */ "./resources/js/core/base/components/ui/headers/AppHeader.vue");
-/* harmony import */ var _base_components_ui_loading_AppLoading__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../base/components/ui/loading/AppLoading */ "./resources/js/core/base/components/ui/loading/AppLoading.vue");
+/* harmony import */ var base_components_ui_headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! base/components/ui/headers/AppHeader */ "./resources/js/core/base/components/ui/headers/AppHeader.vue");
+/* harmony import */ var base_components_ui_loading_AppLoading__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! base/components/ui/loading/AppLoading */ "./resources/js/core/base/components/ui/loading/AppLoading.vue");
 /* harmony import */ var _log_dialogs_LogViewDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../log/dialogs/LogViewDialog */ "./resources/js/core/admin/components/log/dialogs/LogViewDialog.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -4150,8 +4150,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'UserView',
   components: {
-    AppHeader: _base_components_ui_headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__.default,
-    AppLoading: _base_components_ui_loading_AppLoading__WEBPACK_IMPORTED_MODULE_1__.default,
+    AppHeader: base_components_ui_headers_AppHeader__WEBPACK_IMPORTED_MODULE_0__.default,
+    AppLoading: base_components_ui_loading_AppLoading__WEBPACK_IMPORTED_MODULE_1__.default,
     LogViewDialog: _log_dialogs_LogViewDialog__WEBPACK_IMPORTED_MODULE_2__.default
   },
   data: function data() {
@@ -5780,9 +5780,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
 /* harmony import */ var _services_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/http */ "./resources/js/services/http.js");
 /* harmony import */ var _helpers_mixins__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./helpers/mixins */ "./resources/js/helpers/mixins.js");
-/* harmony import */ var _core_base_pages_AppIndex__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./core/base/pages/AppIndex */ "./resources/js/core/base/pages/AppIndex.vue");
-/* harmony import */ var _core_base_components_ui_validations_FormGroup__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./core/base/components/ui/validations/FormGroup */ "./resources/js/core/base/components/ui/validations/FormGroup.vue");
-/* harmony import */ var _core_base_components_ui_validations_FormSummary__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./core/base/components/ui/validations/FormSummary */ "./resources/js/core/base/components/ui/validations/FormSummary.vue");
+/* harmony import */ var base_pages_AppIndex__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! base/pages/AppIndex */ "./resources/js/core/base/pages/AppIndex.vue");
+/* harmony import */ var base_components_ui_validations_FormGroup__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! base/components/ui/validations/FormGroup */ "./resources/js/core/base/components/ui/validations/FormGroup.vue");
+/* harmony import */ var base_components_ui_validations_FormSummary__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! base/components/ui/validations/FormSummary */ "./resources/js/core/base/components/ui/validations/FormSummary.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -5812,9 +5812,9 @@ vue__WEBPACK_IMPORTED_MODULE_4__.default.use((vue_moment__WEBPACK_IMPORTED_MODUL
 
 
 vue__WEBPACK_IMPORTED_MODULE_4__.default.mixin(_helpers_mixins__WEBPACK_IMPORTED_MODULE_12__.default);
-vue__WEBPACK_IMPORTED_MODULE_4__.default.component('AppIndex', _core_base_pages_AppIndex__WEBPACK_IMPORTED_MODULE_13__.default);
-vue__WEBPACK_IMPORTED_MODULE_4__.default.component('FormGroup', _core_base_components_ui_validations_FormGroup__WEBPACK_IMPORTED_MODULE_14__.default);
-vue__WEBPACK_IMPORTED_MODULE_4__.default.component('FormSummary', _core_base_components_ui_validations_FormSummary__WEBPACK_IMPORTED_MODULE_15__.default);
+vue__WEBPACK_IMPORTED_MODULE_4__.default.component('AppIndex', base_pages_AppIndex__WEBPACK_IMPORTED_MODULE_13__.default);
+vue__WEBPACK_IMPORTED_MODULE_4__.default.component('FormGroup', base_components_ui_validations_FormGroup__WEBPACK_IMPORTED_MODULE_14__.default);
+vue__WEBPACK_IMPORTED_MODULE_4__.default.component('FormSummary', base_components_ui_validations_FormSummary__WEBPACK_IMPORTED_MODULE_15__.default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('FormWrapper', vuelidate_error_extractor__WEBPACK_IMPORTED_MODULE_1__.templates.FormWrapper);
 /**
  * Initialize HTTP service
@@ -6438,8 +6438,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _core_base_pages_AppLogin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/base/pages/AppLogin */ "./resources/js/core/base/pages/AppLogin.vue");
-/* harmony import */ var _core_base_pages_NotFound__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/base/pages/NotFound */ "./resources/js/core/base/pages/NotFound.vue");
+/* harmony import */ var base_pages_AppLogin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! base/pages/AppLogin */ "./resources/js/core/base/pages/AppLogin.vue");
+/* harmony import */ var base_pages_NotFound__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! base/pages/NotFound */ "./resources/js/core/base/pages/NotFound.vue");
 
 
 var routes = [{
@@ -6450,14 +6450,14 @@ var routes = [{
 }, {
   path: '/login',
   name: 'login',
-  component: _core_base_pages_AppLogin__WEBPACK_IMPORTED_MODULE_0__.default,
+  component: base_pages_AppLogin__WEBPACK_IMPORTED_MODULE_0__.default,
   meta: {
     requiresAuth: false
   }
 }, {
   path: '*',
   name: '404',
-  component: _core_base_pages_NotFound__WEBPACK_IMPORTED_MODULE_1__.default,
+  component: base_pages_NotFound__WEBPACK_IMPORTED_MODULE_1__.default,
   meta: {
     requiresAuth: false
   }

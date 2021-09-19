@@ -60,7 +60,7 @@
 
 <script>
   import { mapGetters, mapActions, mapMutations } from 'vuex';
-  import AppTable from '../../../base/components/ui/tables/AppTable';
+  import AppTable from 'base/components/ui/tables/AppTable';
 
   export default {
     name: 'AppUsers',

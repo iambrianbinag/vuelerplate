@@ -27,9 +27,9 @@ import router from './router';
 import httpService from './services/http';
 import mixins from './helpers/mixins';
 
-import AppIndex from './core/base/pages/AppIndex';
-import FormGroup from './core/base/components/ui/validations/FormGroup';
-import FormSummary from './core/base/components/ui/validations/FormSummary';
+import AppIndex from 'base/pages/AppIndex';
+import FormGroup from 'base/components/ui/validations/FormGroup';
+import FormSummary from 'base/components/ui/validations/FormSummary';
 
 Vue.mixin(mixins);
 Vue.component('AppIndex', AppIndex);
