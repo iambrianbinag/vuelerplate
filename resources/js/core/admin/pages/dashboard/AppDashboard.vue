@@ -1,10 +1,12 @@
 <template>
-  <h3>I'm from Dashboard</h3>
+  <AppDashboardComponent/>
 </template>
 
 <script>
+  import AppDashboard from '../../components/dashboard/AppDashboard.vue';
 
   export default {
-    name: 'AppDashboard'
+    name: 'AppDashboard',
+    components: { 'AppDashboardComponent':  AppDashboard }
   }
 </script>
