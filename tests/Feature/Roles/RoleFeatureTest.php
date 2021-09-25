@@ -383,7 +383,7 @@ class RoleFeatureTest extends TestCase
    }
 
    /** @test */
-   public function it_can_get_the_total_of_role_after_a_role_soft_deleted()
+   public function it_can_get_the_total_of_role_after_a_role_deleted()
    {
         $this
             ->actingAs($this->user, 'api')
@@ -397,7 +397,7 @@ class RoleFeatureTest extends TestCase
 
         $this
             ->actingAs($this->user, 'api')
-            ->deleteJson("/api/users/{$role['id']}");
+            ->deleteJson("/api/roles/{$role['id']}");
 
         $responseData = $this
             ->actingAs($this->user, 'api')
