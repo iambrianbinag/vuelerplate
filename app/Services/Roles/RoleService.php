@@ -24,6 +24,7 @@ class RoleService extends Service
      * RoleService constructor
      *
      * @param Role $role
+     * @param CacheInterface $cacheService
      */
     public function __construct(Role $role, CacheInterface $cacheService)
     {
