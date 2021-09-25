@@ -224,4 +224,61 @@ class PermissionFeatureTest extends TestCase
 
         $this->assertDatabaseHas('activity_log', $logData);
     }
+
+    /** @test */
+    public function it_can_get_the_total_of_permissions()
+    {
+        $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/permissions/total")
+            ->assertStatus(200);
+
+        $this->assertDatabaseCount('permissions', $responseData['total']);
+    }
+
+    /** @test */
+    public function it_can_get_the_total_of_permissions_after_a_permission_created()
+    {
+        $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/permissions/total");
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/permissions', [
+                'name' => $this->faker->name, 
+                'order' => null,
+            ]);
+
+       $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/permissions/total");
+
+        $this->assertDatabaseCount("permissions", $responseData['total']);
+    }
+
+    /** @test */
+    public function it_can_get_the_total_of_permissions_after_a_permission_deleted()
+    {
+        $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/permissions/total");
+
+        $permission =  $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/permissions', [
+                'name' => $this->faker->name, 
+                'order' => null,
+            ]);
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->deleteJson("/api/permissions/{$permission['id']}");
+
+        $responseData = $this
+            ->actingAs($this->user, 'api')
+            ->getJson("/api/permissions/total");
+
+        $this->assertDatabaseCount('permissions', $responseData['total']);
+    }
 }

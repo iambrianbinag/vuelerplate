@@ -107,4 +107,18 @@ class PermissionController extends Controller
 
         return new PermissionResource($permission);
     }
+    
+    /**
+     * Get the total permission
+     *
+     * @return JsonResponse
+     */
+    public function getTotalPermission()
+    {
+        $permissionTotal = $this->permissionService->getTotalPermission();
+
+        return response()->json([
+            'total' => $permissionTotal
+        ]);
+    }
 }

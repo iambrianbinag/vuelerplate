@@ -6,6 +6,7 @@ use App\Models\Permissions\Permission;
 use App\Services\Service;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use App\Services\Cache\Interfaces\CacheInterface;
 
 class PermissionService extends Service
 {    
@@ -15,13 +16,23 @@ class PermissionService extends Service
     protected $permission;
     
     /**
-     * PermissionService constructor
+     * @var CacheInterface
      */
-    public function __construct(Permission $permission)
+    protected $cacheService;
+    
+    /**
+     * PermissionService constructor
+     * 
+     * @param Permission $permission
+     * @param CacheInterface $cacheService
+     */
+    public function __construct(Permission $permission, CacheInterface $cacheService)
     {
         parent::__construct();
 
         $this->permission = $permission;
+
+        $this->cacheService = $cacheService;
     }
     
     /**
@@ -85,6 +96,7 @@ class PermissionService extends Service
     public function createPermission(array $data)
     {
         $permission = $this->permission::create($data);
+        $this->setTotalPermissionFromCache($this->getTotalPermission() + 1);
 
         return $permission;
     }
@@ -126,6 +138,46 @@ class PermissionService extends Service
     {
         $permission->delete();
 
+        $this->setTotalPermissionFromCache($this->getTotalPermission() - 1);
+
         return $permission;
+    }
+    
+    /**
+     * Get the total permission
+     *
+     * @return int
+     */
+    public function getTotalPermission()
+    {
+        $totalPermission = $this->getTotalPermissionFromCache();
+
+        if(is_null($totalPermission)){
+            $totalPermission = $this->permission->count();
+            $this->setTotalPermissionFromCache($totalPermission);
+        }
+
+        return $totalPermission;
+    }
+    
+    /**
+     * Get the total permission from cache
+     *
+     * @return string|null
+     */
+    private function getTotalPermissionFromCache()
+    {
+        return $this->cacheService->command('HGET', ['total', 'permission']);
+    }
+    
+    /**
+     * Set the total permission from cache
+     *
+     * @param int $total
+     * @return int
+     */
+    private function setTotalPermissionFromCache(int $total)
+    {
+        return $this->cacheService->command('HSET', ['total', 'permission', $total]);
     }
 }
