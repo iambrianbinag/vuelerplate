@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Permissions\CreatePermissionRequest;
 use App\Http\Requests\Permissions\GetPermissionsRequest;
 use App\Http\Requests\Permissions\UpdatePermissionRequest;
+use App\Http\Resources\Permissions\PermissionResource;
 use App\Services\Permissions\PermissionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -59,11 +60,7 @@ class PermissionController extends Controller
         $data = $request->only(['name', 'order']);
         $permission = $this->permissionService->createPermission($data);
 
-        return response()->json([
-            'id' => $permission->id,
-            'name' => $permission->name,
-            'order' => $permission->order,
-        ]);
+        return new PermissionResource($permission);
     }
     
     /**
@@ -76,11 +73,7 @@ class PermissionController extends Controller
     {
         $permission = $this->permissionService->getPermission($id);
 
-        return response()->json([
-            'id' => $permission->id,
-            'name' => $permission->name,
-            'order' => $permission->order,
-        ]);
+        return new PermissionResource($permission);
     }
     
     /**
@@ -98,11 +91,7 @@ class PermissionController extends Controller
 
         $permission = $this->permissionService->updatePermission($permission, $data);
 
-        return response()->json([
-            'id' => $permission->id,
-            'name' => $permission->name,
-            'order' => $permission->order,
-        ]);
+        return new PermissionResource($permission);
     }
     
     /**
@@ -116,10 +105,6 @@ class PermissionController extends Controller
         $permission = $this->permissionService->getPermission($id);
         $this->permissionService->deletePermission($permission);
 
-        return response()->json([
-            'id' => $permission->id,
-            'name' => $permission->name,
-            'order' => $permission->order,
-        ]);
+        return new PermissionResource($permission);
     }
 }

@@ -108,7 +108,7 @@ class PermissionFeatureTest extends TestCase
         $this
             ->actingAs($this->user, 'api')
             ->postJson('/api/permissions', $data)
-            ->assertStatus(200)
+            ->assertStatus(201)
             ->assertJson(function(AssertableJson $json) use ($data){
                 $json
                     ->has('id')
