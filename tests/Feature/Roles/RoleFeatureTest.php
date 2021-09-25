@@ -403,7 +403,6 @@ class RoleFeatureTest extends TestCase
             ->actingAs($this->user, 'api')
             ->getJson("/api/roles/total");
 
-
-        $this->assertEquals(Role::count(), $responseData['total']);
+        $this->assertDatabaseCount('roles', $responseData['total']);
    }
 }
