@@ -7,6 +7,7 @@ use App\Http\Requests\Roles\CreateRoleRequest;
 use App\Http\Requests\Roles\GetRolesRequest;
 use App\Http\Requests\Roles\GiveRolePermissionsRequest;
 use App\Http\Requests\Roles\UpdateRoleRequest;
+use App\Http\Resources\Roles\RoleResource;
 use App\Services\Roles\RoleService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -58,10 +59,7 @@ class RoleController extends Controller
         $data = $request->only(['name']);
         $role = $this->roleService->createRole($data);
 
-        return response()->json([
-            'id' => $role->id,
-            'name' => $role->name
-        ]);
+        return new RoleResource($role);
     }
     
     /**
@@ -74,10 +72,7 @@ class RoleController extends Controller
     {
         $role = $this->roleService->getRole($id);
 
-        return response()->json([
-            'id' => $role->id,
-            'name' => $role->name
-        ]);
+        return new RoleResource($role);
     }
     
     /**
@@ -95,10 +90,7 @@ class RoleController extends Controller
         
         $role = $this->roleService->updateRole($role, $data);
 
-        return response()->json([
-            'id' => $role->id,
-            'name' => $role->name
-        ]);
+        return new RoleResource($role);
     }
     
     /**
@@ -112,10 +104,7 @@ class RoleController extends Controller
         $role = $this->roleService->getRole($id);
         $this->roleService->deleteRole($role);
 
-        return response()->json([
-            'id' => $role->id,
-            'name' => $role->name
-        ]);
+        return new RoleResource($role);
     }
     
     /**
@@ -129,11 +118,7 @@ class RoleController extends Controller
         $role = $this->roleService->getRole($id);
         $roleWithPermissions = $this->roleService->getRolePermissions($role);
 
-        return response()->json([
-            'id' => $roleWithPermissions->id,
-            'name' => $roleWithPermissions->name,
-            'permissions' => $roleWithPermissions->permissions
-        ]);
+        return new RoleResource($roleWithPermissions);
     }
     
     /**
@@ -148,11 +133,7 @@ class RoleController extends Controller
         $role = $this->roleService->getRole($id);
         $roleWithPermissions = $this->roleService->giveRolePermissions($role, $request->permission_ids);
 
-        return response()->json([
-            'id' => $roleWithPermissions->id,
-            'name' => $roleWithPermissions->name,
-            'permissions' => $roleWithPermissions->permissions
-        ]);
+        return new RoleResource($roleWithPermissions);
     }
     
     /**
@@ -167,11 +148,7 @@ class RoleController extends Controller
         $role = $this->roleService->getRole($id);
         $roleWithPermissions = $this->roleService->syncRolePermissions($role, $request->permission_ids);
 
-        return response()->json([
-            'id' => $roleWithPermissions->id,
-            'name' => $roleWithPermissions->name,
-            'permissions' => $roleWithPermissions->permissions
-        ]);
+        return new RoleResource($roleWithPermissions);
     }
     
     /**
