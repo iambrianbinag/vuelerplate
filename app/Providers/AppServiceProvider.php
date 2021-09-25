@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\Cache\Interfaces\CacheInterface;
 use App\Services\Cache\RedisService;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(125);
+        JsonResource::withoutWrapping();
     }
 }

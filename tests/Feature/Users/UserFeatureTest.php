@@ -95,7 +95,7 @@ class UserFeatureTest extends TestCase
         $this
             ->actingAs($this->user, 'api')
             ->postJson('/api/users', $data)
-            ->assertStatus(200)
+            ->assertStatus(201)
             ->assertJson(function(AssertableJson $json) use ($data){
                 $json
                     ->has('id')
@@ -186,7 +186,8 @@ class UserFeatureTest extends TestCase
                 $json
                     ->where('id', $user->id)
                     ->where('name', $user->name)
-                    ->where('email', $user->email);
+                    ->where('email', $user->email)
+                    ->etc();
             });
 
         $this->assertDatabaseHas('users', $user->toArray());

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\CreateUserRequest;
 use App\Http\Requests\Users\GetUsersRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
+use App\Http\Resources\Users\UserResource;
 use App\Services\Users\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -56,12 +57,7 @@ class UserController extends Controller
         $data = $request->all();
         $user = $this->userService->createUser($data);
 
-        return response()->json([
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'role' => $user->role,
-        ]);
+        return new UserResource($user);
     }
     
     /**
@@ -74,12 +70,7 @@ class UserController extends Controller
     {
         $user = $this->userService->getUser($id);
 
-        return response()->json([
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'role' => $user->role
-        ]);
+        return new UserResource($user);
     }
         
     /**
@@ -97,12 +88,7 @@ class UserController extends Controller
 
         $user = $this->userService->updateUser($user, $data);
 
-        return response()->json([
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'role' => $user->role,
-        ]);
+        return new UserResource($user);
     }
     
     /**
@@ -116,11 +102,7 @@ class UserController extends Controller
         $user = $this->userService->getUser($id);
         $this->userService->deleteUser($user);
 
-        return response()->json([
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-        ]);
+        return new UserResource($user);
     }
     
     /**
