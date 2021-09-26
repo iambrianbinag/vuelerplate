@@ -7,29 +7,41 @@
         <div v-else>
             <v-row dense>
                 <v-col 
+                    v-for="(item, index) in totalItems"
+                    :key="index"
                     cols="12"
-                    md="6"
+                    md="4"
                 >
                     <v-card 
                         class="text-xs-center" 
                         height="100%"
                     >
-                        <v-card-text>
-                            <div class="display-1 mb-2">20</div>Total users
+                        <v-card-text class="d-flex justify-space-between">
+                            <div>
+                                <div class="text-h4 mb-2">{{ item.value }}</div>{{ item.label }}
+                            </div>
+                            <div>
+                                <v-icon size="70">
+                                    {{`mdi-${item.icon}`}}
+                                </v-icon>
+                            </div>
                         </v-card-text>
-                    </v-card>
-                </v-col>
-                <v-col 
-                    cols="12"
-                    md="6"
-                >
-                    <v-card 
-                        class="text-xs-center" 
-                        height="100%"
-                    >
-                        <v-card-text>
-                            <div class="display-1 mb-2">26</div>Total roles
-                        </v-card-text>
+                        <v-card-actions class="primary">
+                            <v-spacer></v-spacer>
+                            <div class="subtitle-2">
+                                 <v-btn
+                                    color="white" 
+                                    text 
+                                    small
+                                >
+                                    More Info
+                                    <v-icon large>
+                                        mdi-chevron-right
+                                    </v-icon>
+                                </v-btn>
+                            </div> 
+                            <v-spacer></v-spacer>
+                        </v-card-actions>
                     </v-card>
                 </v-col>
             </v-row>
@@ -41,7 +53,7 @@
                         class="text-xs-center" 
                         height="100%"
                     >
-                        <v-card-title class="primary">Activity Log</v-card-title>
+                        <v-card-title class="primary white--text">Activity Log</v-card-title>
                         <v-timeline dense>
                             <v-slide-x-reverse-transition
                                 group
@@ -94,6 +106,23 @@
         components: { AppLoading },
         data(){
             return {
+                totalItems: [
+                    {
+                        'label': 'Total Users',
+                        'value': 10,
+                        'icon': 'account-group-outline',
+                    },
+                    {
+                        'label': 'Total Roles',
+                        'value': 20,
+                        'icon': 'account-lock-outline',
+                    },
+                    {
+                        'label': 'Total Permissions',
+                        'value': 20,
+                        'icon': 'account-check-outline',
+                    },
+                ],
                 stats: [
                     {
                         number: '42',
@@ -107,9 +136,9 @@
                 interval: null,
                 items: [
                     {
-                    id: 1,
-                    color: 'info',
-                    icon: ICONS.info,
+                        id: 1,
+                        color: 'info',
+                        icon: ICONS.info,
                     },
                 ],
                 nonce: 2,
