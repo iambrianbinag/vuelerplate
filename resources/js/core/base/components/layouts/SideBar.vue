@@ -150,12 +150,12 @@
           {
             path: '/audit-trail',
             label: 'Audit Trail',
-            icon: 'cogs',
+            icon: 'magnify-plus',
             children: [
               {
                 path: '/system-log',
                 label: 'System Log',
-                icon: 'cogs'
+                icon: 'magnify-minus-outline',
               }
             ],
           },
