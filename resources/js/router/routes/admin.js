@@ -16,6 +16,10 @@ import AppRoles from '../../core/admin/pages/roles/AppRoles';
  * PERMISSIONS
  */
 import AppPermissions from '../../core/admin/pages/permissions/AppPermissions';
+/**
+ * AUDIT TRAIL
+ */
+import SystemLog from '../../core/admin/pages/audit-trail/SystemLog';
 
 const routes = [
   /**
@@ -93,6 +97,24 @@ const routes = [
       requiresAuth: true,
     },
   },
+  /**
+   * AUDIT TRAIL
+   */
+  {
+    path: '/audit-trail',
+    name: 'audit-trail',
+    redirect: {
+      name: 'system-log-list'
+    }
+  },
+  {
+    path: '/audit-trail/system-log',
+    name: 'system-log-list',
+    component: SystemLog,
+    meta: {
+      requiresAuth: true,
+    }
+  }
 ];
 
 export default routes;

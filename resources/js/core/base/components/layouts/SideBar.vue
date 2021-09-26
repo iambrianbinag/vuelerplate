@@ -145,6 +145,21 @@
             ]
           },
           /**
+           * AUDIT TRAIL
+           */
+          {
+            path: '/audit-trail',
+            label: 'Audit Trail',
+            icon: 'cogs',
+            children: [
+              {
+                path: '/system-log',
+                label: 'System Log',
+                icon: 'cogs'
+              }
+            ],
+          },
+          /**
            * SETTINGS
            */
           {
