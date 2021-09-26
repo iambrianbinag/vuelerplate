@@ -17,6 +17,7 @@ return [
     'update permission',
     'view permission',
     'delete permission',
+    'get total permission',
     
     // ROLES
     'create role',
