@@ -43,7 +43,6 @@
             </v-toolbar>
             <SystemLogTable
               :logData="logData"
-              :params="logData"
               :isFilteredByLogName="true" 
             />
           </v-card>
@@ -54,7 +53,6 @@
 </template>
 
 <script>
-  import { mapActions, mapMutations } from 'vuex';
   import SystemLogTable from '../../system-log/tables/SystemLogTable';
 
   export default {
@@ -83,25 +81,7 @@
         isVisible: false,
       }
     },
-    watch: {
-      logData: {
-        handler(){
-          this.fetchLogData();
-        },
-        deep: true,
-      },
-    },
     methods: {
-      ...mapActions('admin.log', ['getLog']),
-      ...mapMutations('admin.log', ['setLog']),
-      /**
-       * Fetch log data
-       */
-      fetchLogData(){
-        if(this.logData.subject_id){
-          this.getLog(this.logData);
-        }
-      },
       /**
        * Triggered when view log button is clicked
        * 
@@ -110,7 +90,6 @@
        */
       handleViewLog(){
         this.isVisible = true;
-        this.fetchLogData();
       },
        /**
        * Close dialog
@@ -121,12 +100,6 @@
       handleCloseDialog(){
         this.isVisible = false;
       },
-    },
-    created(){
-      this.setLog(null);
-    },
-    mounted(){
-      this.fetchLogData();
     },
   }
 </script>
