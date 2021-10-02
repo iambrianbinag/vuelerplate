@@ -15,7 +15,7 @@
           >
             <v-toolbar-title>{{ title }}</v-toolbar-title>
             <v-spacer></v-spacer>
-            <LogViewDialog
+            <SystemLogDialog
               title="Permission Log" 
               :logData="logData"
             />
@@ -65,13 +65,11 @@
 </template>
 
 <script>
-  import LogViewDialog from '../../log/dialogs/LogViewDialog';
+  import SystemLogDialog from '../../system-log/dialogs/SystemLogDialog';
 
   export default {
     name: 'PermissionViewDialog',
-    components: {
-      LogViewDialog
-    },
+    components: { SystemLogDialog },
     props: {
       /**
        * The permission details

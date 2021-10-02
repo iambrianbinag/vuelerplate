@@ -16,7 +16,7 @@
           cols="12"
         >
           <div class="d-flex justify-end mt-2">
-            <LogViewDialog
+            <SystemLogDialog
               title="User Log" 
               :logData="logData"
             />
@@ -70,11 +70,15 @@
   import { mapGetters, mapActions } from 'vuex';
   import AppHeader from 'base/components/ui/headers/AppHeader';
   import AppLoading from 'base/components/ui/loading/AppLoading';
-  import LogViewDialog from '../log/dialogs/LogViewDialog';
+  import SystemLogDialog from '../system-log/dialogs/SystemLogDialog';
 
   export default {
     name: 'UserView',
-    components: { AppHeader, AppLoading, LogViewDialog },
+    components: { 
+      AppHeader, 
+      AppLoading, 
+      SystemLogDialog,
+    },
     data(){
       return {
         headerTitle: 'User information',

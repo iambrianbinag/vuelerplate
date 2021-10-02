@@ -53,7 +53,7 @@
 </template>
 
 <script>
-  import SystemLogTable from '../../system-log/tables/SystemLogTable';
+  import SystemLogTable from '../tables/SystemLogTable';
 
   export default {
     name: 'LogViewDialog',
