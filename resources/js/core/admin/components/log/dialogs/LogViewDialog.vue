@@ -42,6 +42,7 @@
               </v-btn>
             </v-toolbar>
             <SystemLogTable
+              :logData="logData"
               :params="logData"
               :isFilteredByLogName="true" 
             />
