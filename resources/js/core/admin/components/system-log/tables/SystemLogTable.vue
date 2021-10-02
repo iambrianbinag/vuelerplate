@@ -68,8 +68,8 @@
         type: Object,
         default: function(){
           return {
-            'log_name': null,
-            'subject_id': null,
+            'log_name': '',
+            'subject_id': '',
           };
         },
       },
@@ -99,7 +99,7 @@
     watch: {
       logData: {
         handler(){
-          this.getLog();
+          this.fetchLogData();
         },
         deep: true,
       },
@@ -110,6 +110,12 @@
     methods: {
       ...mapActions('admin.log', ['getLog']),
       ...mapMutations('admin.log', ['setLog']),
+      /**
+       * Fetch log data
+       */
+      fetchLogData(){
+        this.getLog(this.logData);
+      },
       /**
        * Set whether to remove log_name column in table
        */
@@ -124,7 +130,7 @@
     },
     mounted(){
       this.setWhetherToRemoveLogNameColumnInTable();
-      this.getLog();
+      this.fetchLogData();
     },
   }
 </script>
