@@ -3,6 +3,7 @@
       :title="table.title"
       :headers="table.headers"
       :data="log"
+      :params="logData"
       :action="getLog"
       :mutation="setLog"
       :loading="isLoadingGetLog"
@@ -52,6 +53,27 @@
     components: { 
       AppTable, 
     },
+    props: {
+      /**
+       * Boolean whether to remove log_name column
+       */
+      isFilteredByLogName: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * The log data
+       */
+      logData: {
+        type: Object,
+        default: function(){
+          return {
+            'log_name': null,
+            'subject_id': null,
+          };
+        },
+      },
+    },
     data(){
       return {
         table: {
@@ -74,14 +96,34 @@
         'isLoadingGetLog',
       ]),
     },
+    watch: {
+      logData: {
+        handler(){
+          this.getLog();
+        },
+        deep: true,
+      },
+      isFilteredByLogName: function(value){
+        this.setWhetherToRemoveLogNameColumnInTable();
+      },
+    },
     methods: {
       ...mapActions('admin.log', ['getLog']),
       ...mapMutations('admin.log', ['setLog']),
+      /**
+       * Set whether to remove log_name column in table
+       */
+      setWhetherToRemoveLogNameColumnInTable(){
+        if(this.isFilteredByLogName){
+          this.table.headers = this.table.headers.filter(header => header.value !== 'log_name');
+        }
+      }
     },
     created(){
       this.setLog(null);
     },
     mounted(){
+      this.setWhetherToRemoveLogNameColumnInTable();
       this.getLog();
     },
   }

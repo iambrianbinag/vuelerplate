@@ -41,46 +41,10 @@
                 <v-icon>mdi-close</v-icon>
               </v-btn>
             </v-toolbar>
-            <AppTable
-                :title="table.title"
-                :headers="table.headers"
-                :data="log"
-                :params="logData"
-                :action="getLog"
-                :mutation="setLog"
-                :loading="isLoadingGetLog"
-                :orderByDefault="table.orderBy"
-                :orderDirectionDefault="table.orderDirection"
-            >
-              <template #created_at="{ item }">
-                {{ $moment(item.created_at).format('YYYY-MM-DD hh:mm A') }}
-              </template>
-              <template #description="{ item }">
-                {{ item.description | capitalize }}
-              </template>
-              <template #changes="{ item }">
-                <v-chip
-                  color="primary"
-                  small
-                  dark
-                >
-                  New: {{ item.changes.attributes }}
-                </v-chip>
-                <v-chip
-                  v-if="item.changes.old"
-                  color="secondary"
-                  small
-                  dark
-                >
-                   Old: {{ item.changes.old }}
-                </v-chip>
-              </template>
-              <template #causer="{ item }">
-                <template v-if="item.causer">
-                  {{ item.causer.name | capitalize }}
-                </template>
-              </template>
-            </AppTable>
+            <SystemLogTable
+              :params="logData"
+              :isFilteredByLogName="true" 
+            />
           </v-card>
         </v-dialog>
       </v-row>
@@ -89,14 +53,12 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions, mapMutations } from 'vuex';
-  import AppTable from 'base/components/ui/tables/AppTable';
+  import { mapActions, mapMutations } from 'vuex';
+  import SystemLogTable from '../../system-log/tables/SystemLogTable';
 
   export default {
     name: 'LogViewDialog',
-    components: { 
-      AppTable, 
-    },
+    components: { SystemLogTable },
     props: {
       title: {
         type: String,
@@ -118,24 +80,7 @@
     data(){
       return {
         isVisible: false,
-        table: {
-          title: 'Log',
-          headers: [
-            { text: 'Date', value: 'created_at', },
-            { text: 'Description', value: 'description', },
-            { text: 'Properties', value: 'changes', sortable: false, },
-            { text: 'User', value: 'causer', sortable: false, },
-          ],
-          orderBy: 'created_at',
-          orderDirection: 'desc'
-        },
       }
-    },
-    computed: {
-      ...mapGetters('admin.log', [
-        'log',
-        'isLoadingGetLog',
-      ]),
     },
     watch: {
       logData: {
