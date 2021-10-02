@@ -19,7 +19,7 @@ import AppPermissions from '../../core/admin/pages/permissions/AppPermissions';
 /**
  * AUDIT TRAIL
  */
-import SystemLog from '../../core/admin/pages/audit-trail/SystemLog';
+import SystemLog from '../../core/admin/pages/system-log/SystemLog';
 
 const routes = [
   /**

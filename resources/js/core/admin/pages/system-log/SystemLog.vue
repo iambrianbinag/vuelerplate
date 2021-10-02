@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import SystemLog from '../../components/audit-trail/SystemLog';
+    import SystemLog from '../../components/system-log/SystemLog';
 
     export default {
         name: 'SystemLog',
