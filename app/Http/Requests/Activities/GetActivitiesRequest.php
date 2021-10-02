@@ -25,7 +25,7 @@ class GetActivitiesRequest extends FormRequest
     {
         return [
             'per_page' => ['numeric'],
-            'order_by' => ['string', 'in:id,name,order,description,created_at'],
+            'order_by' => ['string', 'in:id,name,log_name,order,description,created_at'],
             'order_direction' => ['string', 'in:asc,desc'],
             'search' => ['string'],
             'not_paginated' => ['boolean'],
