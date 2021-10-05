@@ -17,9 +17,10 @@ Project setup
 ```bash
 $ git clone https://github.com/iambrianbinag/vuelerplate.git project
 $ cd project
+$ cp .env.example .env # THEN EDIT YOUR NEW FILE ACCORDING TO YOUR OWN SETTINGS.
 $ composer install
 $ npm install
-$ cp .env.example .env # THEN EDIT YOUR NEW FILE ACCORDING TO YOUR OWN SETTINGS.
+$ npm run dev
 $ php artisan migrate
 $ php artisan db:seed
 $ php artisan serve
