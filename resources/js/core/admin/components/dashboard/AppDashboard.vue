@@ -46,9 +46,7 @@
                 </v-col>
             </v-row>
             <v-row dense>
-                <v-col
-                    cols="12"
-                >
+                <v-col cols="12">
                     <v-card 
                         class="text-xs-center" 
                         height="100%"
@@ -63,17 +61,21 @@
                                 v-for="item in items"
                                 :key="item.id"
                                 :color="item.color"
+                                :icon="item.icon"
                                 small
                                 fill-dot
                             >
-                                <v-alert
-                                    :value="true"
+                                <v-card
                                     :color="item.color"
-                                    :icon="item.icon"
-                                    class="white--text"
+                                    dark
                                 >
-                                Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an salutandi sententiae.
-                                </v-alert>
+                                    <v-card-title class="text-subtitle-1 pa-2">
+                                        Admin created a user
+                                    </v-card-title>
+                                    <v-card-text class="white text--primary pa-2">
+                                        <SystemLogChanges/>
+                                    </v-card-text>
+                                </v-card>
                             </v-timeline-item>
                             </v-slide-x-reverse-transition>
                         </v-timeline>
@@ -87,6 +89,7 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import AppLoading from 'base/components/ui/loading/AppLoading';
+    import SystemLogChanges from '../system-log/lists/SystemLogChanges';
 
     const COLORS = [
         'info',
@@ -103,7 +106,10 @@
 
     export default {
         name: 'AppDashboard',
-        components: { AppLoading },
+        components: { 
+            AppLoading,
+            SystemLogChanges,
+        },
         data(){
             return {
                 totalItems: [

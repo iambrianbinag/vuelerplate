@@ -42,8 +42,8 @@
               </v-btn>
             </v-toolbar>
             <SystemLogTable
-              :logData="logData"
-              :isFilteredByLogName="true" 
+              :systemLogData="systemLogData"
+              :isFilteredBySystemLogName="true" 
             />
           </v-card>
         </v-dialog>
@@ -66,7 +66,7 @@
       /**
        * The log data
        */
-      logData: {
+      systemLogData: {
         type: Object,
         default: function(){
           return {

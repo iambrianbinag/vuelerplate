@@ -17,7 +17,7 @@
             <v-spacer></v-spacer>
             <SystemLogDialog
               title="Role Log" 
-              :logData="logData"
+              :systemLogData="systemLogData"
             />
           </v-toolbar>
           <v-card-text>
@@ -81,7 +81,7 @@
           id: null,
           name: '',
         },
-        logData: {
+        systemLogData: {
           'log_name': 'role',
           'subject_id': null,
         },
@@ -100,7 +100,7 @@
       setRolePropToForm(){
         if(this.role){
           this.form = { ...this.role };
-          this.logData.subject_id = this.form.id;
+          this.systemLogData.subject_id = this.form.id;
         }
       },
     },

@@ -18,7 +18,7 @@
           <div class="d-flex justify-end mt-2">
             <SystemLogDialog
               title="User Log" 
-              :logData="logData"
+              :systemLogData="systemLogData"
             />
           </div>
         </v-col>
@@ -90,7 +90,7 @@
           role: '',
           password: '',
         },
-        logData: {
+        systemLogData: {
           'log_name': 'user',
           'subject_id': null,
         },
@@ -118,7 +118,7 @@
         this.getUser({ id: this.getIdParam() })
           .then((data) => {
             this.form = {...this.form, ...data};
-            this.logData.subject_id = this.form.id;
+            this.systemLogData.subject_id = this.form.id;
           });
       },
     },

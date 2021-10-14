@@ -2,11 +2,11 @@
     <AppTable
       :title="table.title"
       :headers="table.headers"
-      :data="log"
-      :params="logData"
-      :action="getLog"
-      :mutation="setLog"
-      :loading="isLoadingGetLog"
+      :data="systemLog"
+      :params="systemLogData"
+      :action="getSystemLog"
+      :mutation="setSystemLog"
+      :loading="isLoadingGetSystemLog"
       :orderByDefault="table.orderBy"
       :orderDirectionDefault="table.orderDirection"
     >
@@ -36,7 +36,7 @@
   import SystemLogChanges from '../lists/SystemLogChanges';
 
   export default {
-    name: 'LogViewDialog',
+    name: 'SystemLogTable',
     components: { 
       AppTable,
       SystemLogChanges, 
@@ -45,14 +45,14 @@
       /**
        * Boolean whether to remove log_name column
        */
-      isFilteredByLogName: {
+      isFilteredBySystemLogName: {
         type: Boolean,
         default: false
       },
       /**
        * The log data
        */
-      logData: {
+      systemLogData: {
         type: Object,
         default: function(){
           return {
@@ -79,46 +79,46 @@
       }
     },
     computed: {
-      ...mapGetters('admin.log', [
-        'log',
-        'isLoadingGetLog',
+      ...mapGetters('admin.system-log', [
+        'systemLog',
+        'isLoadingGetSystemLog',
       ]),
     },
     watch: {
-      logData: {
+      systemLogData: {
         handler(){
-          this.fetchLogData();
+          this.fetchSystemLogData();
         },
         deep: true,
       },
-      isFilteredByLogName: function(value){
+      isFilteredBySystemLogName: function(value){
         this.setWhetherToRemoveLogNameColumnInTable();
       },
     },
     methods: {
-      ...mapActions('admin.log', ['getLog']),
-      ...mapMutations('admin.log', ['setLog']),
+      ...mapActions('admin.system-log', ['getSystemLog']),
+      ...mapMutations('admin.system-log', ['setSystemLog']),
       /**
        * Fetch log data
        */
-      fetchLogData(){
-        this.getLog(this.logData);
+      fetchSystemLogData(){
+        this.getSystemLog(this.systemLogData);
       },
       /**
        * Set whether to remove log_name column in table
        */
       setWhetherToRemoveLogNameColumnInTable(){
-        if(this.isFilteredByLogName){
+        if(this.isFilteredBySystemLogName){
           this.table.headers = this.table.headers.filter(header => header.value !== 'log_name');
         }
       }
     },
     created(){
-      this.setLog(null);
+      this.setSystemLog(null);
     },
     mounted(){
       this.setWhetherToRemoveLogNameColumnInTable();
-      this.fetchLogData();
+      this.fetchSystemLogData();
     },
   }
 </script>

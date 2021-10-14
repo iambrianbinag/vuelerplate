@@ -17,7 +17,7 @@
             <v-spacer></v-spacer>
             <SystemLogDialog
               title="Permission Log" 
-              :logData="logData"
+              :systemLogData="systemLogData"
             />
           </v-toolbar>
           <v-card-text>
@@ -94,7 +94,7 @@
           name: '',
           order: '',
         },
-        logData: {
+        systemLogData: {
           'log_name': 'permission',
           'subject_id': null,
         },
@@ -113,7 +113,7 @@
       setPermissionPropToForm(){
         if(this.permission){
           this.form = { ...this.permission };
-          this.logData.subject_id = this.form.id;
+          this.systemLogData.subject_id = this.form.id;
         }
       },
     },

@@ -2,35 +2,35 @@ import httpService from '../../../services/http';
 import helperMixins from '../../../helpers/mixins';
 
 const state = {
-  log: null,
+  systemLog: null,
 
-  isLoadingGetLog: false,
+  isLoadingGetSystemLog: false,
 };
 
 const getters = {
-  log: (state) => state.log,
+  systemLog: (state) => state.systemLog,
 
-  isLoadingGetLog: (state) => state.isLoadingGetLog,
+  isLoadingGetSystemLog: (state) => state.isLoadingGetSystemLog,
 };
 
 const mutations = {
-  setLog: (state, data) => state.log = data,
+  setSystemLog: (state, data) => state.systemLog = data,
 };
 
 const actions = {
-  getLog({commit, state}, data){
-    state.isLoadingGetLog = true;
+  getSystemLog({commit, state}, data){
+    state.isLoadingGetSystemLog = true;
 
     const params = helperMixins.methods.generateUrlParams(data);
     return httpService.get(`/activity-log${params}`)
       .then((response) => {
         const { data } = response;
-        commit('setLog', data);
+        commit('setSystemLog', data);
 
         return data;
       })
       .finally(() => {
-        state.isLoadingGetLog = false;
+        state.isLoadingGetSystemLog = false;
       });
   },
 };
