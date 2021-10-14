@@ -2,6 +2,7 @@
   <div class="pa-2">
     <v-expansion-panels
       v-for="(propertyGroupValue, propertyGroupName, index) in propertiesData"
+      :value="isExpansionPanelComponentOpen"
       :key="index"
       class="mb-2" 
       accordion 
@@ -73,7 +74,19 @@
             }
           }
         },
-      }
+      },
+      /**
+       * Set if all panels are open initally
+       */
+      isExpansionPanelsOpen: {
+        type: Boolean,
+        default: false,
+      },
+    },
+    computed: {
+      isExpansionPanelComponentOpen: function(){
+        return this.isExpansionPanelsOpen ? 0 : -1; // If true then set open the first panel which is zero index 
+      },
     },
     methods: {
       /**
