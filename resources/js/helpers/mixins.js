@@ -17,6 +17,15 @@
       
       return value.charAt(0).toUpperCase() + value.slice(1);
     },
+    /**
+     * Set string to uppercase
+     * 
+     * @param {string} value to be set to uppercase
+     * @returns {string}
+     */
+    upperCase: function(value){
+      return value.toUpperCase();
+    }
   },
   methods: {
     /**
