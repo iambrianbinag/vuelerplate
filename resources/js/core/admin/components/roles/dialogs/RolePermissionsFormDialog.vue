@@ -47,7 +47,7 @@
               md="6"
             >
               <div
-                v-if="form.permissions.length === 0"
+                v-if="form.permisions && form.permissions.length === 0"
                 class="font-weight-light grey--text text-center mt-md-2"
               >
                 Select permissions
