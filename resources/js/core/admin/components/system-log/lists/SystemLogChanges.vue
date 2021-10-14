@@ -4,6 +4,7 @@
       v-for="(propertyGroupValue, propertyGroupName, index) in propertiesData"
       :value="isExpansionPanelComponentOpen"
       :key="index"
+      :light="isLight"
       class="mb-2" 
       accordion 
       focusable
@@ -81,6 +82,13 @@
       isExpansionPanelsOpen: {
         type: Boolean,
         default: false,
+      },
+      /**
+       * Set if expansion panel background is light
+       */
+      isLight: {
+        type: Boolean,
+        default: true,
       },
     },
     computed: {

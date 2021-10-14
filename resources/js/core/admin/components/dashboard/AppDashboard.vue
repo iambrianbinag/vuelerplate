@@ -73,7 +73,10 @@
                                         Admin created a user
                                     </v-card-title>
                                     <v-card-text class="white text--primary pa-2">
-                                        <SystemLogChanges/>
+                                        <SystemLogChanges
+                                            :propertiesData="testChangesData"
+                                            :isExpansionPanelsOpen="true"
+                                        />
                                     </v-card-text>
                                 </v-card>
                             </v-timeline-item>
@@ -112,6 +115,18 @@
         },
         data(){
             return {
+                testChangesData:{
+                    old: {
+                        name: "dsadsa", 
+                        email: "admin@example.coms",
+                        tae: ['ABC', 'DEF', 'DASDSAD', 'DSADasdasdASDA']
+                    },
+                    attributes: {
+                        name: "dsadsass", 
+                        email: "admin@example.comsss"
+                    },
+                },
+
                 totalItems: [
                     {
                         'label': 'Total Users',
@@ -129,16 +144,6 @@
                         'icon': 'account-check-outline',
                     },
                 ],
-                stats: [
-                    {
-                        number: '42',
-                        label: 'New leads this week',
-                    },
-                    {
-                        number: '$8,312',
-                        label: 'Sales this week',
-                    },
-                ],
                 interval: null,
                 items: [
                     {
@@ -150,16 +155,14 @@
                 nonce: 2,
             }
         },
-
-        mounted(){
-            this.start();
+        computed: {
+            ...mapGetters('admin.system-log', [
+                'systemLog',
+                'isLoadingGetSystemLog',
+            ]),
         },
-
-        beforeDestroy () {
-            this.stop();
-        },
-
         methods: {
+            ...mapActions('admin.system-log', ['getSystemLog']),
             addEvent () {
                 let { color, icon } = this.genAlert()
 
@@ -200,6 +203,12 @@
                 clearInterval(this.interval)
                 this.interval = null
             },
+        },
+        mounted(){
+            this.start();
+        },
+        beforeDestroy () {
+            this.stop();
         },
     }
 </script>
