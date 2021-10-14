@@ -20,21 +20,7 @@
         {{ item.description | capitalize }}
       </template>
       <template #changes="{ item }">
-        <v-chip
-          color="primary"
-          small
-          dark
-        >
-          New: {{ item.changes.attributes }}
-        </v-chip>
-        <v-chip
-          v-if="item.changes.old"
-          color="secondary"
-          small
-          dark
-        >
-            Old: {{ item.changes.old }}
-        </v-chip>
+        <SystemLogChanges :propertiesData="item.changes" />
       </template>
       <template #causer="{ item }">
         <template v-if="item.causer">
@@ -47,11 +33,13 @@
 <script>
   import { mapGetters, mapActions, mapMutations } from 'vuex';
   import AppTable from 'base/components/ui/tables/AppTable';
+  import SystemLogChanges from '../lists/SystemLogChanges';
 
   export default {
     name: 'LogViewDialog',
     components: { 
-      AppTable, 
+      AppTable,
+      SystemLogChanges, 
     },
     props: {
       /**
