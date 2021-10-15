@@ -91,6 +91,22 @@
                             </v-timeline-item>
                             </v-slide-x-reverse-transition>
                         </v-timeline>
+                        <v-card-actions class="primary">
+                            <v-spacer></v-spacer>
+                            <div class="subtitle-2">
+                                 <v-btn
+                                    color="white" 
+                                    text 
+                                    small
+                                >
+                                    More Info
+                                    <v-icon large>
+                                        mdi-chevron-right
+                                    </v-icon>
+                                </v-btn>
+                            </div> 
+                            <v-spacer></v-spacer>
+                        </v-card-actions>
                     </v-card>
                 </v-col>
             </v-row>
@@ -132,7 +148,7 @@
                     },
                     attributes: {
                         name: "dsadsass", 
-                        email: "admin@example.comsss"
+                        email: "admin@example.comssshabbahababababba"
                     },
                 },
 
