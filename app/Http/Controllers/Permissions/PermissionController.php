@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Permissions;
 
+use App\Events\Permissions\PermissionCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Permissions\CreatePermissionRequest;
 use App\Http\Requests\Permissions\GetPermissionsRequest;
@@ -59,6 +60,7 @@ class PermissionController extends Controller
     {
         $data = $request->only(['name', 'order']);
         $permission = $this->permissionService->createPermission($data);
+        broadcast(new PermissionCreated($permission))->toOthers();
 
         return new PermissionResource($permission);
     }
