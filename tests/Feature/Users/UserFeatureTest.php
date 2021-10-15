@@ -123,7 +123,6 @@ class UserFeatureTest extends TestCase
                 'password' => $this->faker->password,
                 'role_id' => Role::factory()->create()->id,
             ]);
-    
 
        Event::assertDispatched(function(UserCreated $event){
             return $event->user instanceof User;
