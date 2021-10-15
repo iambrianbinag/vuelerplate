@@ -27,7 +27,7 @@
                 <div class="mr-1">
                   {{ `${propertyName}: ` | capitalize }}
                 </div>
-                <div>
+                <div style="word-break: break-word;">
                   <template v-if="Array.isArray(propertyValue)" >
                     <v-chip
                       v-for="(propertyArrayValue, index) in propertyValue"
