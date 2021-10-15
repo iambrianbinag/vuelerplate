@@ -2,7 +2,9 @@
 
 namespace Tests\Feature\Permissions;
 
+use App\Events\Permissions\PermissionCreated;
 use App\Models\Permissions\Permission;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
@@ -117,6 +119,20 @@ class PermissionFeatureTest extends TestCase
             });
 
         $this->assertDatabaseHas('permissions', $data);
+    }
+
+    /** @test */
+    public function it_can_return_permission_from_created_event()
+    {
+        Event::fake();
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/permissions', ['name' => $this->faker->name, 'order' => null,]);
+
+        Event::assertDispatched(function(PermissionCreated $event){
+            return $event->permission instanceof Permission;
+        });
     }
 
     /** @test */
