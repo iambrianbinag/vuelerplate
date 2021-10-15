@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Roles;
 
+use App\Events\Roles\RoleCreated;
 use App\Models\Permissions\Permission;
 use App\Models\Roles\Role;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
@@ -113,6 +115,20 @@ class RoleFeatureTest extends TestCase
             });
 
         $this->assertDatabaseHas('roles', $data);
+    }
+
+    /** @test */
+    public function it_can_return_role_from_created_event()
+    {
+        Event::fake();
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/roles', ['name' => $this->faker->name]);
+
+        Event::assertDispatched(function(RoleCreated $event){
+            return $event->role instanceof Role;
+        });
     }
 
     /** @test */
