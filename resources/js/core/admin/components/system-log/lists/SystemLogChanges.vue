@@ -1,7 +1,7 @@
 <template>
   <div class="pa-2">
     <v-expansion-panels
-      v-for="(propertyGroupValue, propertyGroupName, index) in propertiesData"
+      v-for="(propertyGroupValue, propertyGroupName, index) in propertiesInAlphabeticalOrder"
       :value="isExpansionPanelComponentOpen"
       :key="index"
       :light="isLight"
@@ -92,6 +92,9 @@
       },
     },
     computed: {
+      propertiesInAlphabeticalOrder: function(){
+        return this.sortObjectByKey(this.propertiesData);
+      },
       isExpansionPanelComponentOpen: function(){
         return this.isExpansionPanelsOpen ? 0 : -1; // If true then set open the first panel which is zero index 
       },

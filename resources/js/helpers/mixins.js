@@ -85,6 +85,23 @@
       return sortedArray;
     },
     /**
+     * Sort object by property
+     * 
+     * @param {object} object to be sorted 
+     * @param {string} orderBy - order by ascending or descending
+     * @returns {object}
+     */
+    sortObjectByKey(object = {}, orderBy = 'asc'){
+      let sortedObject = Object.keys(object).sort();
+      if(orderBy == 'desc'){
+        sortedObject = sortedObject.reverse();
+      }
+      
+      sortedObject = sortedObject.reduce((sortedObjectWithProperty, key) => (sortedObjectWithProperty[key] = object[key], sortedObjectWithProperty), {});
+
+      return sortedObject;
+    },
+    /**
      *  Pluck array by object key
      * 
      * @param {array} array to be plucked 
