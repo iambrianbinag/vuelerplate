@@ -33,7 +33,7 @@
                       v-for="(propertyArrayValue, index) in propertyValue"
                       :key="index"
                       class="ma-1"
-                      small
+                      x-small
                     >
                       {{ propertyArrayValue }}
                     </v-chip>
