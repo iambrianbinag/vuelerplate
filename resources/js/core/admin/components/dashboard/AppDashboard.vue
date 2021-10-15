@@ -73,6 +73,15 @@
                                         Admin created a user
                                     </v-card-title>
                                     <v-card-text class="white text--primary pa-2">
+                                        <div class="grey--text ms-4">
+                                            <v-icon
+                                                dense 
+                                                color="grey lighten-1"
+                                            >
+                                                mdi-clock-outline
+                                            </v-icon>
+                                            2021-09-31 11:25 PM
+                                        </div>
                                         <SystemLogChanges
                                             :propertiesData="testChangesData"
                                             :isExpansionPanelsOpen="true"
