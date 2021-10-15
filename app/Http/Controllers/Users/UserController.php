@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Events\Users\UserCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\CreateUserRequest;
 use App\Http\Requests\Users\GetUsersRequest;
@@ -56,6 +57,7 @@ class UserController extends Controller
     {
         $data = $request->all();
         $user = $this->userService->createUser($data);
+        broadcast(new UserCreated($user))->toOthers();
 
         return new UserResource($user);
     }

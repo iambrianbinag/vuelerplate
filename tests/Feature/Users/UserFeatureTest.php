@@ -7,6 +7,7 @@ use App\Models\Roles\Role;
 use App\Models\Users\User;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Testing\Fluent\AssertableJson;
+use phpDocumentor\Reflection\Types\This;
 use Tests\TestCase;
 
 class UserFeatureTest extends TestCase
@@ -114,7 +115,15 @@ class UserFeatureTest extends TestCase
    {
        Event::fake();
 
-       User::factory()->create();
+       $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/users', [
+                'name' => $this->faker->name,
+                'email' => $this->faker->email,
+                'password' => $this->faker->password,
+                'role_id' => Role::factory()->create()->id,
+            ]);
+    
 
        Event::assertDispatched(function(UserCreated $event){
             return $event->user instanceof User;

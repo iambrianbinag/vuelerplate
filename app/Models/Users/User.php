@@ -2,7 +2,6 @@
 
 namespace App\Models\Users;
 
-use App\Events\Users\UserCreated;
 use App\Services\Logs\LogService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,15 +51,6 @@ class User extends Authenticatable implements JWTSubject
         'deleted_at',
         'created_at',
         'updated_at'
-    ];
-
-    /**
-     * The event map for the model.
-     *
-     * @var array
-     */
-    protected $dispatchesEvents = [
-        'created' => UserCreated::class,
     ];
 
     /**
