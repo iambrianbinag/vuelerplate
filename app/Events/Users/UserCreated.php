@@ -14,7 +14,10 @@ use Illuminate\Queue\SerializesModels;
 class UserCreated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    
+    /**
+     * @var User
+     */
     public $user;
 
     /**
