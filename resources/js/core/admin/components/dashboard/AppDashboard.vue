@@ -115,7 +115,7 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex';
+    import { mapGetters, mapActions, mapMutations } from 'vuex';
     import AppLoading from 'base/components/ui/loading/AppLoading';
     import SystemLogChanges from '../system-log/lists/SystemLogChanges';
 
@@ -211,20 +211,42 @@
             ...mapActions('admin.users', [
                 'getTotalUsers',
             ]),
+            ...mapMutations('admin.users', [
+                'setIncrementOnTotalUsers',
+            ]),
             ...mapActions('admin.roles', [
                 'getTotalRoles',
             ]),
+            ...mapMutations('admin.roles', [
+                'setIncrementOnTotalRoles',
+            ]),
             ...mapActions('admin.permissions', [
                 'getTotalPermissions',
+            ]),
+            ...mapActions('admin.permissions', [
+                'setIncrementOnTotalPermissions',
             ]),
             ...mapActions('admin.system-log', [
                 'getSystemLog'
             ]),
             /**
-             * Set tota data based on given value
+             * Get total item based on given type
+             */
+            getTotalItemByType(type){
+                return this.totalItems.find(item => item.type === type);
+            },
+            /**
+             * Set total data based on given type
              */
             setTotalDataValue(type, value){
-                this.totalItems.find(item => item.type === type).value = value;
+                this.getTotalItemByType(type).value = value;
+            },
+            /**
+             * Increment total data based on given type
+             */
+            setIncrementOnTotalDataValue(type){
+                const item = this.getTotalItemByType(type);
+                item.value = parseInt(item.value) + 1;
             },
             /**
              * Fetch all dashboard data
@@ -233,6 +255,23 @@
                 this.getTotalUsers().then(() => this.setTotalDataValue('user', this.totalUsers));
                 this.getTotalRoles().then(() => this.setTotalDataValue('role', this.totalRoles));
                 this.getTotalPermissions().then(() => this.setTotalDataValue('permission', this.totalPermissions));
+            },
+            /**
+             * Setup websocket for realtime update of data
+             */
+            setDashboardDataRealtime(){
+                Echo.channel('Users').listen('.UserCreated', event => {
+                    this.setIncrementOnTotalUsers();
+                    this.setIncrementOnTotalDataValue('user');
+                });
+                Echo.channel('Roles').listen('.RoleCreated', event => {
+                    this.setIncrementOnTotalRoles();
+                    this.setIncrementOnTotalDataValue('role');
+                });
+                Echo.channel('Permissions').listen('.PermissionCreated', event => {
+                    this.setIncrementOnTotalPermissions();
+                    this.setIncrementOnTotalDataValue('permission');
+                });
             },
 
             addEvent () {
@@ -278,6 +317,7 @@
         },
         mounted(){
             this.fetchDashboardData();
+            this.setDashboardDataRealtime();
 
             this.start();
         },
