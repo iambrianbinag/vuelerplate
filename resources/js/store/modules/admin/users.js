@@ -4,26 +4,34 @@ import helperMixins from '../../../helpers/mixins';
 const state = {
   users: null,
   user: null,
+  totalUsers: null,
 
   isLoadingGetUsers: false,
   isLoadingGetUser: false,
   isLoadingCreateUser: false,
   isLoadingUpdateUser: false,
+  isLoadingGetTotalUsers: false,
 };
 
 const getters = {
   users: (state) => state.users,
+  totalUsers: (state) => state.totalUsers,
 
   isLoadingGetUsers: (state) => state.isLoadingGetUsers,
   isLoadingGetUser: (state) => state.isLoadingGetUser,
   isLoadingCreateUser: (state) => state.isLoadingCreateUser,
   isLoadingUpdateUser: (state) => state.isLoadingUpdateUser,
+  isLoadingGetTotalUsers: (state) => state.isLoadingGetTotalUsers,
 };
 
 const mutations = {
   setUsers: (state, data) => state.users = data,
   setUser: (state, data) => state.user = data,
-};
+  setTotalUsers: (state, data) => state.totalUsers = data,
+  setIncrementOnTotalUsers: (state, data) => {
+    state.totalUsers = state.totalUsers ? parseInt(state.totalUsers) + 1 : 0;
+  },
+}
 
 const actions = {
   getUsers({commit, state}, data){
@@ -53,6 +61,20 @@ const actions = {
       })
       .finally(() => {
         state.isLoadingGetUser = false;
+      });
+  },
+  getTotalUsers({commit, state}, data){
+    state.isLoadingGetTotalUsers = true;
+    
+    return httpService.get('/users/total')
+      .then((response) => {
+        const { data } = response;
+        commit('setTotalUsers', data.total);
+
+        return data;
+      })
+      .finally(() => {
+        state.isLoadingGetTotalUsers = false;
       });
   },
   createUser({commit, state}, data){

@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <AppLoading 
-            v-if="false"
+            v-if="isLoadingFetchingOfDashboardData"
             :heightInVH="70" 
         />
         <div v-else>
@@ -140,6 +140,27 @@
         },
         data(){
             return {
+                totalItems: [
+                    {
+                        'type': 'user',
+                        'label': 'Total Users',
+                        'value': 0,
+                        'icon': 'account-group-outline',
+                    },
+                    {
+                        'type': 'role',
+                        'label': 'Total Roles',
+                        'value': 0,
+                        'icon': 'account-lock-outline',
+                    },
+                    {
+                        'type': 'permission',
+                        'label': 'Total Permissions',
+                        'value': 0,
+                        'icon': 'account-check-outline',
+                    },
+                ],
+
                 testChangesData:{
                     old: {
                         name: "dsadsa", 
@@ -151,24 +172,6 @@
                         email: "admin@example.comssshabbahababababba"
                     },
                 },
-
-                totalItems: [
-                    {
-                        'label': 'Total Users',
-                        'value': 10,
-                        'icon': 'account-group-outline',
-                    },
-                    {
-                        'label': 'Total Roles',
-                        'value': 20,
-                        'icon': 'account-lock-outline',
-                    },
-                    {
-                        'label': 'Total Permissions',
-                        'value': 20,
-                        'icon': 'account-check-outline',
-                    },
-                ],
                 interval: null,
                 items: [
                     {
@@ -181,13 +184,57 @@
             }
         },
         computed: {
+            ...mapGetters('admin.users', [
+                'totalUsers',
+                'isLoadingGetTotalUsers',
+            ]),
+            ...mapGetters('admin.roles', [
+                'totalRoles',
+                'isLoadingGetTotalRoles',
+            ]),
+            ...mapGetters('admin.permissions', [
+                'totalPermissions',
+                'isLoadingGetTotalPermissions',
+            ]),
             ...mapGetters('admin.system-log', [
                 'systemLog',
                 'isLoadingGetSystemLog',
             ]),
+            isLoadingFetchingOfDashboardData(){
+                return this.isLoadingGetTotalUsers 
+                    || this.isLoadingGetSystemLog
+                    || this.isLoadingGetTotalRoles
+                    || this.isLoadingGetTotalPermissions;
+            },
         },
         methods: {
-            ...mapActions('admin.system-log', ['getSystemLog']),
+            ...mapActions('admin.users', [
+                'getTotalUsers',
+            ]),
+            ...mapActions('admin.roles', [
+                'getTotalRoles',
+            ]),
+            ...mapActions('admin.permissions', [
+                'getTotalPermissions',
+            ]),
+            ...mapActions('admin.system-log', [
+                'getSystemLog'
+            ]),
+            /**
+             * Set tota data based on given value
+             */
+            setTotalDataValue(type, value){
+                this.totalItems.find(item => item.type === type).value = value;
+            },
+            /**
+             * Fetch all dashboard data
+             */
+            fetchDashboardData(){
+                this.getTotalUsers().then(() => this.setTotalDataValue('user', this.totalUsers));
+                this.getTotalRoles().then(() => this.setTotalDataValue('role', this.totalRoles));
+                this.getTotalPermissions().then(() => this.setTotalDataValue('permission', this.totalPermissions));
+            },
+
             addEvent () {
                 let { color, icon } = this.genAlert()
 
@@ -230,6 +277,8 @@
             },
         },
         mounted(){
+            this.fetchDashboardData();
+
             this.start();
         },
         beforeDestroy () {
