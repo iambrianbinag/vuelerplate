@@ -58,19 +58,19 @@
                                 hide-on-leave
                             >
                             <v-timeline-item
-                                v-for="item in items"
-                                :key="item.id"
-                                :color="item.color"
-                                :icon="item.icon"
+                                v-for="systemLog in systemLogData"
+                                :key="systemLog.id"
+                                :color="getSystemLogAttributeByActionType(systemLog.description).color"
+                                :icon="getSystemLogAttributeByActionType(systemLog.description).icon"
                                 small
                                 fill-dot
                             >
                                 <v-card
-                                    :color="item.color"
+                                    :color="getSystemLogAttributeByActionType(systemLog.description).color"
                                     dark
                                 >
                                     <v-card-title class="text-subtitle-1 pa-2">
-                                        Admin created a user
+                                        {{ `${systemLog.causer.name} ${systemLog.description} a ${systemLog.log_name}` | capitalize }}
                                     </v-card-title>
                                     <v-card-text class="white text--primary pa-2">
                                         <div class="grey--text ms-4">
@@ -80,10 +80,10 @@
                                             >
                                                 mdi-clock-outline
                                             </v-icon>
-                                            2021-09-31 11:25 PM
+                                            {{ $moment(systemLog.created_at).format('YYYY-MM-DD hh:mm A') }}
                                         </div>
                                         <SystemLogChanges
-                                            :propertiesData="testChangesData"
+                                            :propertiesData="systemLog.changes"
                                             :isExpansionPanelsOpen="true"
                                         />
                                     </v-card-text>
@@ -119,18 +119,24 @@
     import AppLoading from 'base/components/ui/loading/AppLoading';
     import SystemLogChanges from '../system-log/lists/SystemLogChanges';
 
-    const COLORS = [
-        'info',
-        'warning',
-        'error',
-        'success',
-    ]
-    const ICONS = {
-        info: 'mdi-information',
-        warning: 'mdi-alert',
-        error: 'mdi-alert-circle',
-        success: 'mdi-check-circle',
-    }
+    const SYSTEM_LOG_ATTRIBUTES = {
+        created: {
+            color: 'success',
+            icon: 'mdi-check-circle',
+        },
+        updated: {
+            color: 'info',
+            icon: 'mdi-information'
+        },
+        deleted: {
+            color: 'error',
+            icon: 'mdi-alert',
+        },
+        viewed: {
+            color: 'warning',
+            icon: 'mdi-eye',
+        }
+    };
 
     export default {
         name: 'AppDashboard',
@@ -160,27 +166,7 @@
                         'icon': 'account-check-outline',
                     },
                 ],
-
-                testChangesData:{
-                    old: {
-                        name: "dsadsa", 
-                        email: "admin@example.coms",
-                        tae: ['ABC', 'DEF', 'DASDSAD', 'DSADasdasdASDA']
-                    },
-                    attributes: {
-                        name: "dsadsass", 
-                        email: "admin@example.comssshabbahababababba"
-                    },
-                },
-                interval: null,
-                items: [
-                    {
-                        id: 1,
-                        color: 'info',
-                        icon: ICONS.info,
-                    },
-                ],
-                nonce: 2,
+                systemLogData: [],
             }
         },
         computed: {
@@ -202,9 +188,9 @@
             ]),
             isLoadingFetchingOfDashboardData(){
                 return this.isLoadingGetTotalUsers 
-                    || this.isLoadingGetSystemLog
                     || this.isLoadingGetTotalRoles
-                    || this.isLoadingGetTotalPermissions;
+                    || this.isLoadingGetTotalPermissions
+                    || this.isLoadingGetSystemLog;
             },
         },
         methods: {
@@ -230,6 +216,12 @@
                 'getSystemLog'
             ]),
             /**
+             * Get the attributes of system log based on given action type
+             */
+            getSystemLogAttributeByActionType(actionTypeName){
+                return SYSTEM_LOG_ATTRIBUTES[actionTypeName];
+            },
+            /**
              * Get total item based on given type
              */
             getTotalItemByType(type){
@@ -248,6 +240,9 @@
                 const item = this.getTotalItemByType(type);
                 item.value = parseInt(item.value) + 1;
             },
+            setSystemLogData(data){
+                this.systemLogData = data;
+            },
             /**
              * Fetch all dashboard data
              */
@@ -255,6 +250,7 @@
                 this.getTotalUsers().then(() => this.setTotalDataValue('user', this.totalUsers));
                 this.getTotalRoles().then(() => this.setTotalDataValue('role', this.totalRoles));
                 this.getTotalPermissions().then(() => this.setTotalDataValue('permission', this.totalPermissions));
+                this.getSystemLog().then(() => this.setSystemLogData(this.systemLog.data));
             },
             /**
              * Setup websocket for realtime update of data
@@ -273,56 +269,10 @@
                     this.setIncrementOnTotalDataValue('permission');
                 });
             },
-
-            addEvent () {
-                let { color, icon } = this.genAlert()
-
-                const previousColor = this.items[0].color
-
-                while (previousColor === color) {
-                    color = this.genColor()
-                }
-
-                this.items.unshift({
-                    id: this.nonce++,
-                    color,
-                    icon,
-                })
-
-                if (this.nonce > 6) {
-                    // this.items.pop()
-                }
-            },
-            genAlert () {
-                const color = this.genColor()
-
-                return {
-                    color,
-                    icon: this.genIcon(color),
-                }
-            },
-            genColor () {
-                return COLORS[Math.floor(Math.random() * 3)]
-            },
-            genIcon (color) {
-                return ICONS[color]
-            },
-            start () {
-                this.interval = setInterval(this.addEvent, 3000)
-            },
-            stop () {
-                clearInterval(this.interval)
-                this.interval = null
-            },
         },
         mounted(){
             this.fetchDashboardData();
             this.setDashboardDataRealtime();
-
-            this.start();
-        },
-        beforeDestroy () {
-            this.stop();
         },
     }
 </script>
