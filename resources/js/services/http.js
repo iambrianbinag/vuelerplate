@@ -23,6 +23,9 @@ const http = {
   setHeader(){
     axios.defaults.headers.common['Content-Type'] = 'application/json';
     axios.defaults.headers.common['Authorization'] = `Bearer ${tokenService.getToken()}`;
+    Echo.connector.pusher.connection.bind('connected', function () {
+      axios.defaults.headers.common['X-Socket-Id'] = Echo.socketId();
+    });
   },
   /**
    * Remove http header
