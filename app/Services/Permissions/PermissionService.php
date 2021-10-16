@@ -157,7 +157,7 @@ class PermissionService extends Service
             $this->setTotalPermissionFromCache($totalPermission);
         }
 
-        return $totalPermission;
+        return (int)$totalPermission;
     }
     
     /**

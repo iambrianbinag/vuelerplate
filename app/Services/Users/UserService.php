@@ -182,7 +182,7 @@ class UserService extends Service
             $this->setTotalUserFromCache($totalUser);
         }
 
-        return $totalUser;
+        return (int)$totalUser;
     }
     
     /**

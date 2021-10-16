@@ -235,7 +235,7 @@ class RoleService extends Service
             $this->setTotalRoleFromCache($totalRole);
         }
 
-        return $totalRole;
+        return (int)$totalRole;
     }
 
     /**
