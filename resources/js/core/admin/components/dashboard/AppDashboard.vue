@@ -70,7 +70,7 @@
                                     dark
                                 >
                                     <v-card-title class="text-subtitle-1 pa-2">
-                                        {{ `${systemLog.causer.name} ${systemLog.description} a ${systemLog.log_name}` | capitalize }}
+                                        {{ formatActivityLogDescription(systemLog.causer ? systemLog.causer.name : null, systemLog.description, systemLog.log_name) | capitalize }}
                                     </v-card-title>
                                     <v-card-text class="white text--primary pa-2">
                                         <div class="grey--text ms-4">
@@ -229,6 +229,13 @@
              */
             getTotalItemByType(type){
                 return this.totalItems.find(item => item.type === type);
+            },
+            /**
+             * Format description of activity log based on given values
+             */
+            formatActivityLogDescription(causerName, description, logName){
+                const defaultCauserName = 'Admin';
+                return `${causerName || defaultCauserName} ${description} a ${logName}`;
             },
             /**
              * Set total data based on given type
