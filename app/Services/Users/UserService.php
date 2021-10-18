@@ -83,8 +83,8 @@ class UserService extends Service
         $dataWithRoleId = $data;
         $dataWithoutRoleId = collect($dataWithRoleId)->only(['name', 'email', 'password'])->toArray();
         
-        if($password = isset($dataWithoutRoleId['password'])){
-            $dataWithoutRoleId['password'] = Hash::make($password);
+        if(isset($dataWithoutRoleId['password'])){
+            $dataWithoutRoleId['password'] = Hash::make($dataWithoutRoleId['password']);
         }
         
         $user = $this->user::create($dataWithoutRoleId);
@@ -134,8 +134,8 @@ class UserService extends Service
         $dataWithRoleId = $data;
         $dataWithoutRoleId = collect($dataWithRoleId)->only(['name', 'email', 'password'])->toArray();
 
-        if($password = isset($dataWithoutRoleId['password'])){
-            $dataWithoutRoleId['password'] = Hash::make($password);
+        if(isset($dataWithoutRoleId['password'])){
+            $dataWithoutRoleId['password'] = Hash::make($dataWithoutRoleId['password']);
         }
 
         $user->update($dataWithoutRoleId);

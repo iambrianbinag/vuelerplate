@@ -111,6 +111,27 @@ class UserFeatureTest extends TestCase
    }
 
    /** @test */
+   public function it_can_login_user_after_created()
+   {
+        $data = [
+            'name' => 'John Doe',
+            'email' => 'johndoe@example.com',
+            'password' => 'secret!!!',
+            'role_id' => Role::factory()->create()->id
+        ];
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/users', $data);
+
+        $this->postJson('/api/users/login', [
+                'email' => $data['email'],
+                'password' => $data['password'],
+            ])
+            ->assertStatus(200);
+   }
+
+   /** @test */
    public function it_can_return_user_from_created_event()
    {
        Event::fake();
@@ -162,6 +183,36 @@ class UserFeatureTest extends TestCase
         $updated = collect($update)->except(['role_id']);
 
         $this->assertDatabaseHas('users', $updated->all());
+   }
+
+   /** @test */
+   public function it_can_login_user_after_updated()
+   {
+        $user = $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/users', [
+                'name' => 'John Doe',
+                'email' => 'johndoe@example.com',
+                'password' => 'secret!!!',
+                'role_id' => Role::factory()->create()->id,
+            ]);
+
+        $update = [
+            'name' => 'John Doe',
+            'email' => 'johndoeupdated@example.com',
+            'password' => 'secretupdated!!!',
+            'role_id' => Role::factory()->create()->id,
+        ];
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->putJson("/api/users/{$user['id']}", $update);
+
+        $this->postJson('/api/users/login', [
+                'email' => $update['email'],
+                'password' => $update['password'],
+            ])
+            ->assertStatus(200);
    }
 
    /** @test */
