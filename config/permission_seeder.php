@@ -3,30 +3,30 @@
 return [
   'permissions' => [
     // ACTIVITY LOG
-    'view log',
+    'log_view',
 
     // USERS
-    'create user',
-    'update user',
-    'view user',
-    'delete user',
-    'get total user',
+    'user_create',
+    'user_update',
+    'user_view',
+    'user_delete',
+    'user_total_get',
 
     // PERMISSIONS
-    'create permission',
-    'update permission',
-    'view permission',
-    'delete permission',
-    'get total permission',
+    'permission_create',
+    'permission_update',
+    'permission_view',
+    'permission_delete',
+    'permission_total_get',
     
     // ROLES
-    'create role',
-    'update role',
-    'view role',
-    'delete role',
-    'get role permissions',
-    'give role permissions',
-    'sync role permissions',
-    'get total role',
+    'role_create',
+    'role_update',
+    'role_view',
+    'role_delete',
+    'role_permissions_get',
+    'role_permissions_give',
+    'role_permissions_sync',
+    'role_total_get',
   ]
 ];
