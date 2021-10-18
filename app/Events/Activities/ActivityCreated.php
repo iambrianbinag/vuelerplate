@@ -57,6 +57,19 @@ class ActivityCreated implements ShouldBroadcast
      */
     public function broadcastWith()
     {
-        return ['activity' => $this->activity];
+        $activity = $this->activity;
+
+        return [
+            'activity' => [
+                'id' => $activity->id,
+                'log_name' => $activity->log_name,
+                'description' => $activity->description,
+                'subject' => $activity->subject,
+                'changes' => $activity->changes,
+                'causer' => $activity->causer,
+                'created_at' => $activity->created_at,
+                'updated_at' => $activity->updated_at,
+            ]
+        ];
     }
 }
