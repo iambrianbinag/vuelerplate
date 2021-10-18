@@ -209,11 +209,14 @@
             ...mapActions('admin.permissions', [
                 'getTotalPermissions',
             ]),
-            ...mapActions('admin.permissions', [
+            ...mapMutations('admin.permissions', [
                 'setIncrementOnTotalPermissions',
             ]),
             ...mapActions('admin.system-log', [
                 'getSystemLog'
+            ]),
+            ...mapMutations('admin.system-log', [
+                'setFirstDataAndRemoveLastDataInSystemLog'
             ]),
             /**
              * Get the attributes of system log based on given action type
@@ -267,6 +270,10 @@
                 Echo.channel('Permissions').listen('.PermissionCreated', event => {
                     this.setIncrementOnTotalPermissions();
                     this.setIncrementOnTotalDataValue('permission');
+                });
+                Echo.channel('Activities').listen('.ActivityCreated', event => {
+                    this.setFirstDataAndRemoveLastDataInSystemLog(event.activity);
+                    this.setSystemLogData(this.systemLog.data);
                 });
             },
         },

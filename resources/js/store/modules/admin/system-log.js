@@ -15,6 +15,17 @@ const getters = {
 
 const mutations = {
   setSystemLog: (state, data) => state.systemLog = data,
+  setFirstDataAndRemoveLastDataInSystemLog: (state, data) => {
+    if(!state.systemLog && !state.systemLog.data && !state.systemLog.data.length > 0){
+      return;
+    }
+
+    const updatedData = [...state.systemLog.data];
+    updatedData.unshift(data);
+    updatedData.pop();
+
+    state.systemLog.data = updatedData;
+  },
 };
 
 const actions = {
