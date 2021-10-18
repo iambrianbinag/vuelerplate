@@ -2,6 +2,9 @@
 
 namespace Tests\Feature\Activities;
 
+use App\Events\Activities\ActivityCreated;
+use App\Models\Activities\Activity;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
@@ -99,5 +102,17 @@ class ActivityFeatureTest extends TestCase
                     })
                     ->etc();
             });
+    }
+
+    /** @test */
+    public function it_can_dispatch_created_event_of_activity()
+    {
+        Event::fake();
+
+        Activity::factory()->create();
+
+        Event::assertDispatched(function(ActivityCreated $event){
+            return $event->activity instanceof Activity;
+        });
     }
 }
