@@ -207,9 +207,6 @@ class RoleService extends Service
         ];
 
         $roleWithPermissions = $role->syncPermissions($permissionIds);
-        $roleWithPermissions->permissions->transform(function($permission){
-            return $permission->only(['id', 'name']);
-        });
 
         $logData['attributes'] = [
             'permissions' => $role->permissions->pluck('name')->all(),
@@ -217,6 +214,10 @@ class RoleService extends Service
 
         $role->fillActivity($logData);
         $role->saveActivity('updated');
+
+        $roleWithPermissions->permissions->transform(function($permission){
+            return $permission->only(['id', 'name']);
+        });
 
         return $roleWithPermissions;
     }
