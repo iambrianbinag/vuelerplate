@@ -28,15 +28,22 @@
                   {{ `${propertyName}: ` | capitalize }}
                 </div>
                 <div style="word-break: break-word;">
-                  <template v-if="Array.isArray(propertyValue)" >
-                    <v-chip
-                      v-for="(propertyArrayValue, index) in propertyValue"
-                      :key="index"
-                      class="ma-1"
-                      x-small
-                    >
-                      {{ propertyArrayValue }}
-                    </v-chip>
+                  <template v-if="Array.isArray(propertyValue)">
+                    <template v-for="(propertyArrayValue, index) in propertyValue">
+                      <template v-if="isMobile">
+                          <span :key="index">
+                            {{ `${propertyArrayValue} ${index !== (propertyValue.length - 1) ? ',' : ''} ` }}
+                          </span>
+                      </template>
+                      <v-chip
+                        v-else
+                        :key="index"
+                        class="ma-1"
+                        x-small
+                      >
+                        {{ propertyArrayValue }}
+                      </v-chip>
+                    </template>
                   </template>
                   <template v-else>
                     {{ propertyValue }}
@@ -92,6 +99,9 @@
       },
     },
     computed: {
+      isMobile: function(){
+        return this.$vuetify.breakpoint.xsOnly;
+      },
       propertiesInAlphabeticalOrder: function(){
         return this.sortObjectByKey(this.propertiesData);
       },
