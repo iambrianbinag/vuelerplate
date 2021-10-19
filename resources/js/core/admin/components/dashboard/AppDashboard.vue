@@ -57,38 +57,38 @@
                                 group
                                 hide-on-leave
                             >
-                            <v-timeline-item
-                                v-for="systemLog in systemLogData"
-                                :key="systemLog.id"
-                                :color="getSystemLogAttributeByActionType(systemLog.description).color"
-                                :icon="getSystemLogAttributeByActionType(systemLog.description).icon"
-                                small
-                                fill-dot
-                            >
-                                <v-card
+                                <v-timeline-item
+                                    v-for="systemLog in systemLogData"
+                                    :key="systemLog.id"
                                     :color="getSystemLogAttributeByActionType(systemLog.description).color"
-                                    dark
+                                    :icon="getSystemLogAttributeByActionType(systemLog.description).icon"
+                                    small
+                                    fill-dot
                                 >
-                                    <v-card-title class="text-subtitle-1 pa-2">
-                                        {{ formatActivityLogDescription(systemLog.causer ? systemLog.causer.name : null, systemLog.description, systemLog.log_name) | capitalize }}
-                                    </v-card-title>
-                                    <v-card-text class="white text--primary pa-2">
-                                        <div class="grey--text ms-4">
-                                            <v-icon
-                                                dense 
-                                                color="grey lighten-1"
-                                            >
-                                                mdi-clock-outline
-                                            </v-icon>
-                                            {{ $moment(systemLog.created_at).format('YYYY-MM-DD hh:mm A') }}
-                                        </div>
-                                        <SystemLogChanges
-                                            :propertiesData="systemLog.changes"
-                                            :isExpansionPanelsOpen="true"
-                                        />
-                                    </v-card-text>
-                                </v-card>
-                            </v-timeline-item>
+                                    <v-card
+                                        :color="getSystemLogAttributeByActionType(systemLog.description).color"
+                                        dark
+                                    >
+                                        <v-card-title class="text-subtitle-1 pa-2">
+                                            {{ formatActivityLogDescription(systemLog.causer ? systemLog.causer.name : null, systemLog.description, systemLog.log_name) | capitalize }}
+                                        </v-card-title>
+                                        <v-card-text class="white text--primary pa-2">
+                                            <div class="grey--text ms-4">
+                                                <v-icon
+                                                    dense 
+                                                    color="grey lighten-1"
+                                                >
+                                                    mdi-clock-outline
+                                                </v-icon>
+                                                {{ $moment(systemLog.created_at).format('YYYY-MM-DD hh:mm A') }}
+                                            </div>
+                                            <SystemLogChanges
+                                                :propertiesData="systemLog.changes"
+                                                :isExpansionPanelsOpen="true"
+                                            />
+                                        </v-card-text>
+                                    </v-card>
+                                </v-timeline-item>
                             </v-slide-x-reverse-transition>
                         </v-timeline>
                         <v-card-actions class="primary">
