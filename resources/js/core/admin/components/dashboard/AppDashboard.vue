@@ -12,102 +12,12 @@
                     cols="12"
                     md="4"
                 >
-                    <v-card 
-                        class="text-xs-center" 
-                        height="100%"
-                    >
-                        <v-card-text class="d-flex justify-space-between">
-                            <div>
-                                <div class="text-h4 mb-2">{{ item.value }}</div>{{ item.label }}
-                            </div>
-                            <div>
-                                <v-icon size="70">
-                                    {{`mdi-${item.icon}`}}
-                                </v-icon>
-                            </div>
-                        </v-card-text>
-                        <v-card-actions class="primary">
-                            <v-spacer></v-spacer>
-                            <div class="subtitle-2">
-                                 <v-btn
-                                    color="white" 
-                                    text 
-                                    small
-                                >
-                                    More Info
-                                    <v-icon large>
-                                        mdi-chevron-right
-                                    </v-icon>
-                                </v-btn>
-                            </div> 
-                            <v-spacer></v-spacer>
-                        </v-card-actions>
-                    </v-card>
+                    <AttributeDetails :attributeDetails="item" />
                 </v-col>
             </v-row>
             <v-row dense>
                 <v-col cols="12">
-                    <v-card 
-                        class="text-xs-center" 
-                        height="100%"
-                    >
-                        <v-card-title class="primary white--text">Activity Log</v-card-title>
-                        <v-timeline dense>
-                            <v-slide-x-reverse-transition
-                                group
-                                hide-on-leave
-                            >
-                                <v-timeline-item
-                                    v-for="systemLog in systemLogData"
-                                    :key="systemLog.id"
-                                    :color="getSystemLogAttributeByActionType(systemLog.description).color"
-                                    :icon="getSystemLogAttributeByActionType(systemLog.description).icon"
-                                    small
-                                    fill-dot
-                                >
-                                    <v-card
-                                        :color="getSystemLogAttributeByActionType(systemLog.description).color"
-                                        dark
-                                    >
-                                        <v-card-title class="text-subtitle-1 pa-2">
-                                            {{ formatActivityLogDescription(systemLog.causer ? systemLog.causer.name : null, systemLog.description, systemLog.log_name) | capitalize }}
-                                        </v-card-title>
-                                        <v-card-text class="white text--primary pa-2">
-                                            <div class="grey--text ms-4">
-                                                <v-icon
-                                                    dense 
-                                                    color="grey lighten-1"
-                                                >
-                                                    mdi-clock-outline
-                                                </v-icon>
-                                                {{ $moment(systemLog.created_at).format('YYYY-MM-DD hh:mm A') }}
-                                            </div>
-                                            <SystemLogChanges
-                                                :propertiesData="systemLog.changes"
-                                                :isExpansionPanelsOpen="true"
-                                            />
-                                        </v-card-text>
-                                    </v-card>
-                                </v-timeline-item>
-                            </v-slide-x-reverse-transition>
-                        </v-timeline>
-                        <v-card-actions class="primary">
-                            <v-spacer></v-spacer>
-                            <div class="subtitle-2">
-                                 <v-btn
-                                    color="white" 
-                                    text 
-                                    small
-                                >
-                                    More Info
-                                    <v-icon large>
-                                        mdi-chevron-right
-                                    </v-icon>
-                                </v-btn>
-                            </div> 
-                            <v-spacer></v-spacer>
-                        </v-card-actions>
-                    </v-card>
+                    <SystemLog :systemLogData="systemLogData" />
                 </v-col>
             </v-row>
         </div>
@@ -117,32 +27,15 @@
 <script>
     import { mapGetters, mapActions, mapMutations } from 'vuex';
     import AppLoading from 'base/components/ui/loading/AppLoading';
-    import SystemLogChanges from '../system-log/lists/SystemLogChanges';
-
-    const SYSTEM_LOG_ATTRIBUTES = {
-        created: {
-            color: 'success',
-            icon: 'mdi-check-circle',
-        },
-        updated: {
-            color: 'info',
-            icon: 'mdi-information'
-        },
-        deleted: {
-            color: 'error',
-            icon: 'mdi-alert',
-        },
-        viewed: {
-            color: 'warning',
-            icon: 'mdi-eye',
-        }
-    };
+    import AttributeDetails from './lists/AttributeDetails';
+    import SystemLog from './lists/SystemLog';
 
     export default {
         name: 'AppDashboard',
         components: { 
             AppLoading,
-            SystemLogChanges,
+            AttributeDetails,
+            SystemLog,
         },
         data(){
             return {
@@ -219,23 +112,10 @@
                 'setFirstDataAndRemoveLastDataInSystemLog'
             ]),
             /**
-             * Get the attributes of system log based on given action type
-             */
-            getSystemLogAttributeByActionType(actionTypeName){
-                return SYSTEM_LOG_ATTRIBUTES[actionTypeName];
-            },
-            /**
              * Get total item based on given type
              */
             getTotalItemByType(type){
                 return this.totalItems.find(item => item.type === type);
-            },
-            /**
-             * Format description of activity log based on given values
-             */
-            formatActivityLogDescription(causerName, description, logName){
-                const defaultCauserName = 'Admin';
-                return `${causerName || defaultCauserName} ${description} a ${logName}`;
             },
             /**
              * Set total data based on given type
