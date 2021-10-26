@@ -21,6 +21,11 @@ import AppPermissions from '../../core/admin/pages/permissions/AppPermissions';
  */
 import SystemLog from '../../core/admin/pages/system-log/SystemLog';
 
+/**
+ * CONTROL PANEL
+ */
+import ControlPanel from '../../core/admin/pages/control-panel/ControlPanel';
+
 const routes = [
   /**
    * DASHBOARD
@@ -111,6 +116,24 @@ const routes = [
     path: '/audit-trail/system-log',
     name: 'system-log-list',
     component: SystemLog,
+    meta: {
+      requiresAuth: true,
+    }
+  },
+  /**
+   * CONTROL PANEL
+   */
+  {
+    path: '/settings',
+    name: 'settings',
+    redirect: {
+      name: 'control-panel-list'
+    },
+  },
+  {
+    path: '/settings/control-panel',
+    name: 'control-panel-list',
+    component: ControlPanel,
     meta: {
       requiresAuth: true,
     }
