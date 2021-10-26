@@ -172,11 +172,6 @@
                 label: 'Control Panel',
                 icon: 'solar-panel',
               },
-              {
-                path: '/system',
-                label: 'System',
-                icon: 'database',
-              },
             ]
           },
         ],
