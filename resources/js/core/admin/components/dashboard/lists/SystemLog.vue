@@ -4,7 +4,10 @@
       height="100%"
     >
       <v-card-title class="primary white--text">Activity Log</v-card-title>
-      <v-timeline dense>
+      <v-timeline
+        v-if="!isMobile" 
+        dense
+      >
         <v-slide-x-reverse-transition
           group
           hide-on-leave
@@ -25,6 +28,16 @@
           </v-timeline-item>
         </v-slide-x-reverse-transition>
       </v-timeline>
+      <template v-else>
+        <SystemLogDetails
+          v-for="(systemLog, index) in systemLogData"
+          :key="index"
+          class="ma-2"
+          :data="systemLog"
+          :color="getSystemLogAttributeByActionType(systemLog.description).color"
+          :description="formatActivityLogDescription(systemLog.causer ? systemLog.causer.name : null, systemLog.description, systemLog.log_name)" 
+        />
+      </template>
     <v-card-actions class="primary">
         <v-spacer></v-spacer>
         <div class="subtitle-2">
@@ -76,6 +89,11 @@
         type: Array,
         default: [],
       }
+    },
+    computed:{
+      isMobile: function(){
+        return this.$vuetify.breakpoint.xsOnly;
+      },
     },
     methods: {
       /**
