@@ -12,7 +12,7 @@
           Add
         </v-btn>
     </div>
-    <AppTable
+    <TableServer
       :title="table.title"
       :headers="table.headers"
       :data="roles"
@@ -67,7 +67,7 @@
           <span>Permissions</span>
         </v-tooltip>
       </template>
-    </AppTable>
+    </TableServer>
     <template v-if="action.isVisible">
       <RoleViewDialog
         v-if="action.type == 'VIEW'"
@@ -91,7 +91,7 @@
 
 <script>
   import { mapGetters, mapActions, mapMutations } from 'vuex';
-  import AppTable from 'base/components/ui/tables/AppTable';
+  import TableServer from 'base/components/ui/tables/TableServer';
   import RoleFormDialog from './dialogs/RoleFormDialog';
   import RoleViewDialog from './dialogs/RoleViewDialog';
   import RolePermissionsFormDialog from './dialogs/RolePermissionsFormDialog';
@@ -99,7 +99,7 @@
   export default {
     name: 'AppRoles',
     components: { 
-      AppTable, 
+      TableServer, 
       RoleFormDialog, 
       RoleViewDialog, 
       RolePermissionsFormDialog,

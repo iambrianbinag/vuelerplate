@@ -12,7 +12,7 @@
           Add
         </v-btn>
     </div>
-    <AppTable
+    <TableServer
       :title="table.title"
       :headers="table.headers"
       :data="users"
@@ -54,17 +54,17 @@
           <span>Update user</span>
         </v-tooltip>
       </template>
-    </AppTable>
+    </TableServer>
   </v-container>
 </template>
 
 <script>
   import { mapGetters, mapActions, mapMutations } from 'vuex';
-  import AppTable from 'base/components/ui/tables/AppTable';
+  import TableServer from 'base/components/ui/tables/TableServer';
 
   export default {
     name: 'AppUsers',
-    components: { AppTable },
+    components: { TableServer },
     data(){
       return {
         table: {

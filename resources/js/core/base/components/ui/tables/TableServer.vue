@@ -49,7 +49,7 @@
   import AppHeader from '../headers/AppHeader';
 
   export default {
-    name: 'AppTable',
+    name: 'TableServer',
     components: { AppHeader },
     props: {
       /**

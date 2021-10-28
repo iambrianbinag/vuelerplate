@@ -12,7 +12,7 @@
           Add
         </v-btn>
     </div>
-    <AppTable
+    <TableServer
       :title="table.title"
       :headers="table.headers"
       :data="permissions"
@@ -54,7 +54,7 @@
           <span>Update permission</span>
         </v-tooltip>
       </template>
-    </AppTable>
+    </TableServer>
     <template v-if="action.isVisible">
       <PermissionViewDialog
         v-if="action.type == 'VIEW'"
@@ -73,14 +73,14 @@
 
 <script>
   import { mapGetters, mapActions, mapMutations } from 'vuex';
-  import AppTable from 'base/components/ui/tables/AppTable';
+  import TableServer from 'base/components/ui/tables/TableServer';
   import PermissionFormDialog from './dialogs/PermissionFormDialog';
   import PermissionViewDialog from './dialogs/PermissionViewDialog';
 
   export default {
     name: 'AppRoles',
     components: { 
-      AppTable, 
+      TableServer, 
       PermissionFormDialog, 
       PermissionViewDialog,  
     },

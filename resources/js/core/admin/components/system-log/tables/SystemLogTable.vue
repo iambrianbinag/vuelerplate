@@ -1,5 +1,5 @@
 <template>
-    <AppTable
+    <TableServer
       :title="table.title"
       :headers="table.headers"
       :data="systemLog"
@@ -27,18 +27,18 @@
           {{ item.causer.name | capitalize }}
         </template>
       </template>
-    </AppTable>
+    </TableServer>
 </template>
 
 <script>
   import { mapGetters, mapActions, mapMutations } from 'vuex';
-  import AppTable from 'base/components/ui/tables/AppTable';
+  import TableServer from 'base/components/ui/tables/TableServer';
   import SystemLogChanges from '../lists/SystemLogChanges';
 
   export default {
     name: 'SystemLogTable',
     components: { 
-      AppTable,
+      TableServer,
       SystemLogChanges, 
     },
     props: {
