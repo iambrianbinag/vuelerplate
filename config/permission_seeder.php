@@ -2,6 +2,11 @@
 
 return [
   'permissions' => [
+    // SETTINGS
+    'setting_create',
+    'setting_update',
+    'setting_view',
+
     // ACTIVITY LOG
     'log_view',
 

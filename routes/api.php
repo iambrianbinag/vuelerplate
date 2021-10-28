@@ -5,6 +5,7 @@ use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\Permissions\PermissionController;
+use App\Http\Controllers\Settings\SettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,13 @@ Route::group(['prefix' => '/users'], function(){
 });
 
 Route::group(['middleware' => 'auth:api'], function(){
+    Route::group(['prefix' => '/settings'], function(){
+        Route::get('/', [SettingController::class, 'index'])->middleware('permission:setting_view');
+        Route::post('/', [SettingController::class, 'store'])->middleware('permission:setting_create');
+        Route::get('/{id}', [SettingController::class, 'show'])->middleware('permission:setting_view');
+        Route::put('/{id}', [SettingController::class, 'update'])->middleware('permission:setting_update');
+    });
+
     Route::group(['prefix' => '/activity-log'], function(){
         Route::get('/', [ActivityController::class, 'index'])->middleware('permission:log_view');
     });
