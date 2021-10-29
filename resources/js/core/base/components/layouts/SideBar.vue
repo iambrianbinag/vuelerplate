@@ -160,17 +160,17 @@
             ],
           },
           /**
-           * SETTINGS
+           * CONTROL PANEL
            */
           {
-            path: '/settings',
-            label: 'Settings',
-            icon: 'cogs',
+            path: '/control-panel',
+            label: 'Control Panel',
+            icon: 'solar-panel',
             children: [
               {
-                path: '/control-panel',
-                label: 'Control Panel',
-                icon: 'solar-panel',
+                path: '/settings',
+                label: 'Settings',
+                icon: 'cogs',
               },
             ]
           },

@@ -22,9 +22,9 @@ import AppPermissions from '../../core/admin/pages/permissions/AppPermissions';
 import SystemLog from '../../core/admin/pages/system-log/SystemLog';
 
 /**
- * CONTROL PANEL
+ * SETTINGS
  */
-import ControlPanel from '../../core/admin/pages/control-panel/ControlPanel';
+import AppSettings from '../../core/admin/pages/settings/AppSettings';
 
 const routes = [
   /**
@@ -121,19 +121,19 @@ const routes = [
     }
   },
   /**
-   * CONTROL PANEL
+   * SETTINGS
    */
   {
-    path: '/settings',
-    name: 'settings',
+    path: '/control-panel',
+    name: 'control-panel',
     redirect: {
-      name: 'control-panel-list'
+      name: 'setting-list'
     },
   },
   {
-    path: '/settings/control-panel',
-    name: 'control-panel-list',
-    component: ControlPanel,
+    path: '/control-panel/settings',
+    name: 'setting-list',
+    component: AppSettings,
     meta: {
       requiresAuth: true,
     }
