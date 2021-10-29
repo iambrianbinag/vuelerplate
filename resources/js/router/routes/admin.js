@@ -17,7 +17,7 @@ import AppRoles from '../../core/admin/pages/roles/AppRoles';
  */
 import AppPermissions from '../../core/admin/pages/permissions/AppPermissions';
 /**
- * AUDIT TRAIL
+ * SYSTEM LOG
  */
 import SystemLog from '../../core/admin/pages/system-log/SystemLog';
 
