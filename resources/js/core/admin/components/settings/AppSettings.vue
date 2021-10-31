@@ -4,7 +4,7 @@
         <v-btn
           small
           color="primary"
-          @click="() => {}"
+          @click="handleCreateSetting"
         >
           <v-icon left>
             mdi-plus
@@ -15,8 +15,8 @@
     <AppTable
       :title="table.title"
       :headers="table.headers"
-      :data="users"
-      :loading="isLoadingGetUsers"
+      :data="settings"
+      :loading="isLoadingGetSettings"
       :orderByDefault="table.orderBy"
       :orderDirectionDefault="table.orderDirection"
     >
@@ -25,7 +25,7 @@
           <template #activator="{ on, attrs }">
             <v-btn
               color="secondary"
-              @click="handleUserView(item)"
+              @click="handleSettingView(item)"
               v-bind="attrs"
               v-on="on"
               x-small
@@ -34,13 +34,13 @@
               <v-icon>mdi-eye</v-icon>
             </v-btn>
           </template>
-          <span>View user</span>
+          <span>View setting</span>
         </v-tooltip>
         <v-tooltip top>
           <template #activator="{ on, attrs }">
             <v-btn
               color="primary"
-              @click="handleUserUpdate(item)"
+              @click="handleSettingUpdate(item)"
               v-bind="attrs"
               v-on="on"
               x-small
@@ -49,28 +49,50 @@
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </template>
-          <span>Update user</span>
+          <span>Update setting</span>
         </v-tooltip>
       </template>
     </AppTable>
+    <template v-if="action.isVisible">
+      <SettingViewDialog
+        v-if="action.type == 'VIEW'"
+        :visible.sync="action.isVisible"
+        :setting="action.setting"
+      />
+      <SettingFormDialog 
+        v-else
+        :visible.sync="action.isVisible" 
+        :setting="action.setting"
+      />
+    </template>
   </v-container>
 </template>
 
 <script>
-  import { mapGetters, mapActions, mapMutations } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
   import AppTable from 'base/components/ui/tables/AppTable';
+  import SettingFormDialog from './dialogs/SettingFormDialog';
+  import SettingViewDialog from './dialogs/SettingViewDialog';
 
   export default {
     name: 'AppSettings',
-    components: { AppTable },
+    components: { 
+      AppTable, 
+      SettingFormDialog, 
+      SettingViewDialog,  
+    },
     data(){
       return {
+        action: {
+          type: null, // ADD, UPDATE, or VIEW
+          isVisible: false,
+          setting: null,
+        },
         table: {
-          title: 'Control Panel',
+          title: 'Settings',
           headers: [
-            { text: 'ID', value: 'id' },
             { text: 'Name', value: 'name' },
-            { text: 'Email', value: 'email' },
+            { text: 'Value', value: 'value' },
             {
               text: 'Action',
               align: 'start',
@@ -78,28 +100,42 @@
               value: 'action',
             },
           ],
-          orderBy: 'id',
-          orderDirection: 'desc'
+          orderBy: null,
+          orderDirection: null,
         },
       }
     },
     computed: {
-      ...mapGetters('admin.users', [
-        'users',
-        'isLoadingGetUsers',
+      ...mapGetters('admin.settings', [
+        'settings',
+        'isLoadingGetSettings',
       ]),
     },
+    watch: {
+      'action.isVisible': function(value){
+        if(!value){
+          this.action = {
+            type: null,
+            isVisible: false,
+            setting: null,
+          }
+        }
+      },
+    },
     methods: {
-      ...mapActions('admin.users', ['getUsers']),
-      ...mapMutations('admin.users', ['setUsers']),
+      ...mapActions('admin.settings', ['getSettings']),
       /**
        *  Triggered when create button is clicked
        * 
        * @event click
        * @type {event}
        */
-      handleCreateUser(){
-        this.$router.push({ name: 'user-create' });
+      handleCreateSetting(){
+        this.action = {
+          type: 'ADD',
+          isVisible: true,
+          setting: null,
+        }
       },
       /**
        * Triggered when view button is clicked
@@ -107,8 +143,12 @@
        * @event click
        * @type {event}
        */
-      handleUserView(user){
-        this.$router.push({ name: 'user-view', params: { id: user.id } });
+      handleSettingView(setting){
+        this.action = {
+          type: 'VIEW',
+          isVisible: true,
+          setting,
+        }
       },
        /**
        * Triggered when update button is clicked
@@ -116,15 +156,16 @@
        * @event click
        * @type {event}
        */
-      handleUserUpdate(user){
-        this.$router.push({ name: 'user-update', params: { id: user.id } });
+      handleSettingUpdate(setting){
+        this.action = {
+          type: 'UPDATE',
+          isVisible: true,
+          setting,
+        }
       },
     },
-    created(){
-      this.setUsers(null);
-    },
     mounted(){
-      this.getUsers();
+      this.getSettings();
     }
   }
 </script>
