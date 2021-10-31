@@ -137,6 +137,7 @@
     methods: {
       /**
        * Format data items
+       * 
        * @param {array} array to be formatted
        */
       setData(items){
