@@ -125,6 +125,15 @@ const attributes = {
  * Custom Validation Keys
  */
 const validationKeys = {
+  decimal: {
+    validationKey: 'numeric',
+    params: [
+      {
+        vue: null,
+        ext: null
+      }
+    ]
+  },
   minLengthString: {
     validationKey: 'min.string',
     params: [

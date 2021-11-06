@@ -77,7 +77,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'; 
-  import { required, numeric } from 'vuelidate/lib/validators';
+  import { required, decimal } from 'vuelidate/lib/validators';
 
   export default {
     name: 'PermissionFormDialog',
@@ -131,7 +131,7 @@
           required 
         },
         order: {
-          numeric
+          decimal,
         },
       }
     },
