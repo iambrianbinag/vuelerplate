@@ -11,8 +11,8 @@ class UserAuthService extends Service
     /**
      * Get a JWT via given credentials.
      *
-     * @param string $email
-     * @param string $password
+     * @param  string $email
+     * @param  string $password
      * @return array
      */
     public function login(string $email, string $password)
@@ -66,7 +66,7 @@ class UserAuthService extends Service
     /**
      * Get the token array structure.
      *
-     * @param string $token
+     * @param  string $token
      * @return array
      */
     private function respondWithToken(string $token)
