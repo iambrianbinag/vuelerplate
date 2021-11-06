@@ -114,7 +114,7 @@
       }
     },
     computed: {
-      ...mapGetters('admin.settings', [
+      ...mapGetters('base.settings', [
         'isLoadingCreateSetting',
         'isLoadingUpdateSetting',
       ]),
@@ -139,7 +139,7 @@
       ...mapActions('base.system', [
         'showSnackbar'
       ]),
-      ...mapActions('admin.settings', [
+      ...mapActions('base.settings', [
         'createSetting',
         'updateSetting',
       ]),

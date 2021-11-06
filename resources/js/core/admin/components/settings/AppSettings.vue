@@ -106,7 +106,7 @@
       }
     },
     computed: {
-      ...mapGetters('admin.settings', [
+      ...mapGetters('base.settings', [
         'settings',
         'isLoadingGetSettings',
       ]),
@@ -123,7 +123,7 @@
       },
     },
     methods: {
-      ...mapActions('admin.settings', ['getSettings']),
+      ...mapActions('base.settings', ['getSettings']),
       /**
        *  Triggered when create button is clicked
        * 
