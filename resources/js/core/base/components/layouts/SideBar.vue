@@ -178,10 +178,11 @@
       }
     },
     computed: {
-      ...mapGetters('base.system', [
-        'appName',
-        'isSidebarOpen'
-      ]),
+      ...mapGetters('base.system', ['isSidebarOpen']),
+      ...mapGetters('base.settings', ['getSettingValueByName']),
+      appName: function(){
+        return this.getSettingValueByName('name');
+      },
     },
     watch: {
       //
