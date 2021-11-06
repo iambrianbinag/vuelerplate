@@ -122,6 +122,23 @@ class PermissionFeatureTest extends TestCase
     }
 
     /** @test */
+    public function it_can_create_a_permission_with_decimal_order()
+    {
+        $data = ['name' => $this->faker->name, 'order' => 10.11];
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/permissions', $data)
+            ->assertJson(function(AssertableJson $json) use ($data){
+                $json
+                    ->where('order', $data['order'])
+                    ->etc();
+            });
+
+        $this->assertDatabaseHas('permissions', $data);
+    }
+
+    /** @test */
     public function it_can_return_permission_from_created_event()
     {
         Event::fake();
@@ -151,6 +168,26 @@ class PermissionFeatureTest extends TestCase
                     ->where('id', $permission->id)
                     ->where('name', $update['name'])
                     ->where('order', $update['order']);
+            });
+
+        $this->assertDatabaseHas('permissions', $update);
+    }
+
+    /** @test */
+    public function it_can_update_a_permission_with_decimal_order()
+    {
+        $permission = Permission::factory()->create();
+
+        $update = ['name' => $this->faker->name, 'order' => 10.11,];
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->putJson("/api/permissions/$permission->id", $update)
+            ->assertStatus(200)
+            ->assertJson(function(AssertableJson $json) use ($update){
+                $json
+                    ->where('order', $update['order'])
+                    ->etc();
             });
 
         $this->assertDatabaseHas('permissions', $update);
