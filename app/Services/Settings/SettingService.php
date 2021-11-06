@@ -33,7 +33,7 @@ class SettingService extends Service
    */
   public function getSettings()
   {
-    $settings = $this->setting::select('id', 'name', 'value')
+    $settings = $this->setting::select('id', 'name', 'description','value')
       ->orderBy('id', 'desc')
       ->get();
 

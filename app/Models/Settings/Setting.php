@@ -16,7 +16,7 @@ class Setting extends Model
 
     protected static $logOnlyDirty = true;
 
-    protected static $logAttributes = ['name', 'value'];
+    protected static $logAttributes = ['name', 'description','value'];
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +25,7 @@ class Setting extends Model
      */
     protected $fillable = [
         'name',
+        'description',
         'value',
     ];
 }

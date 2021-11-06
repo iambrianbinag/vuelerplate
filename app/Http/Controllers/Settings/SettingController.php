@@ -48,7 +48,7 @@ class SettingController extends Controller
      */
     public function store(CreateSettingRequest $request)
     {
-        $data = $request->only(['name', 'value']);
+        $data = $request->only(['name', 'description', 'value']);
         $setting = $this->settingService->createSetting($data);
 
         return new SettingResource($setting);
@@ -71,7 +71,7 @@ class SettingController extends Controller
     {
         $setting = $this->settingService->getSetting($id);
 
-        $data = $request->only(['name', 'value']);
+        $data = $request->only(['name', 'description', 'value']);
 
         $setting = $this->settingService->updateSetting($setting, $data);
 

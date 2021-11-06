@@ -23,6 +23,7 @@ class SettingFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
+            'description' => $this->faker->sentence,
             'value' => $this->faker->name,
         ];
     }

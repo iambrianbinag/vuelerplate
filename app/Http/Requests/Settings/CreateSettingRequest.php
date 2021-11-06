@@ -25,6 +25,7 @@ class CreateSettingRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:125', 'unique:settings,name'],
+            'description' => ['required', 'string'],
             'value' => ['required', 'string', 'max:125'],
         ];
     }

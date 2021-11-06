@@ -23,6 +23,7 @@ class SettingFeatureTest extends TestCase
                         $json
                             ->has('id')
                             ->has('name')
+                            ->has('description')
                             ->has('value');
                     });
             });
@@ -41,6 +42,7 @@ class SettingFeatureTest extends TestCase
                 $json
                     ->where('id', $setting->id)
                     ->where('name', $setting->name)
+                    ->where('description', $setting->description)
                     ->where('value', $setting->value);
             });
     }
@@ -59,7 +61,11 @@ class SettingFeatureTest extends TestCase
     /** @test */
     public function it_can_create_a_setting()
     {
-        $data = ['name' => $this->faker->name, 'value' => $this->faker->name,];
+        $data = [
+            'name' => $this->faker->name, 
+            'description' => $this->faker->sentence, 
+            'value' => $this->faker->name,
+        ];
 
         $this
             ->actingAs($this->user, 'api')
@@ -69,6 +75,7 @@ class SettingFeatureTest extends TestCase
                 $json
                     ->has('id')
                     ->where('name', $data['name'])
+                    ->where('description', $data['description'])
                     ->where('value', $data['value']);
             });
 
@@ -80,7 +87,11 @@ class SettingFeatureTest extends TestCase
     {
         $setting = Setting::factory()->create();
 
-        $update = ['name' => $this->faker->name, 'value' => $this->faker->name,];
+        $update = [
+            'name' => $this->faker->name,
+            'description' => $this->faker->sentence,  
+            'value' => $this->faker->name,
+        ];
 
         $this
             ->actingAs($this->user, 'api')
@@ -90,6 +101,7 @@ class SettingFeatureTest extends TestCase
                 $json
                     ->where('id', $setting->id)
                     ->where('name', $update['name'])
+                    ->where('description', $update['description'])
                     ->where('value', $update['value']);
             });
 
@@ -101,7 +113,11 @@ class SettingFeatureTest extends TestCase
     {
         $invalidSettingId = 'invalid';
 
-        $update = ['name' => $this->faker->name, 'value' => $this->faker->name,];
+        $update = [
+            'name' => $this->faker->name, 
+            'description' => $this->faker->sentence, 
+            'value' => $this->faker->name,
+        ];
 
         $this
             ->actingAs($this->user, 'api')
@@ -116,6 +132,7 @@ class SettingFeatureTest extends TestCase
             ->actingAs($this->user, 'api')
             ->postJson('/api/settings', [
                 'name' => $this->faker->name, 
+                'description' => $this->faker->sentence, 
                 'value' => $this->faker->name,
             ]);
 
@@ -138,6 +155,7 @@ class SettingFeatureTest extends TestCase
             ->actingAs($this->user, 'api')
             ->putJson("/api/settings/$setting->id", [
                 'name' => $this->faker->name, 
+                'description' => $this->faker->sentence, 
                 'value' => $this->faker->name,
             ]);
 

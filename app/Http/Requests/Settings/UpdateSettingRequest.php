@@ -26,6 +26,7 @@ class UpdateSettingRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:125', Rule::unique('settings')->ignore($this->segment(3))],
+            'description' => ['required', 'string'],
             'value' => ['required', 'string', 'max:125'],
         ];
     }
