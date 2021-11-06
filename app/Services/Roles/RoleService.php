@@ -23,8 +23,8 @@ class RoleService extends Service
     /**
      * RoleService constructor
      *
-     * @param Role $role
-     * @param CacheInterface $cacheService
+     * @param  Role $role
+     * @param  CacheInterface $cacheService
      */
     public function __construct(Role $role, CacheInterface $cacheService)
     {
@@ -38,11 +38,11 @@ class RoleService extends Service
     /**
      * Get roles
      *
-     * @param string $search
-     * @param int $perPage
-     * @param string $orderBy
-     * @param string $orderDirection
-     * @param bool $notPaginated
+     * @param  string $search
+     * @param  int $perPage
+     * @param  string $orderBy
+     * @param  string $orderDirection
+     * @param  bool $notPaginated
      * @return LengthAwarePaginator|Collection
      */
     public function getRoles(
@@ -80,7 +80,7 @@ class RoleService extends Service
     /**
      * Create a role
      *
-     * @param array $data
+     * @param  array $data
      * @return Role
      */
     public function createRole(array $data)
@@ -99,21 +99,19 @@ class RoleService extends Service
     /**
      * Get a role
      *
-     * @param $id
+     * @param  $id
      * @return Role
      */
     public function getRole($id)
     {
-        $role = $this->role::findOrFail($id);
-
-        return $role;
+        return $this->role::findOrFail($id);
     }
     
     /**
      * Update a role
      *
-     * @param Role $role
-     * @param array $data
+     * @param  Role $role
+     * @param  array $data
      * @return Role
      */
     public function updateRole(Role $role, array $data)
@@ -140,7 +138,7 @@ class RoleService extends Service
     /**
      * Delete a role
      *
-     * @param Role $role
+     * @param  Role $role
      * @return Role
      */
     public function deleteRole(Role $role)
@@ -155,7 +153,7 @@ class RoleService extends Service
     /**
      * Get role permissions
      *
-     * @param Role $role
+     * @param  Role $role
      * @return Role
      */
     public function getRolePermissions(Role $role)
@@ -176,8 +174,8 @@ class RoleService extends Service
     /**
      * Give role permissions
      *
-     * @param Role $role
-     * @param array $permissionIds
+     * @param  Role $role
+     * @param  array $permissionIds
      * @return Role
      */
     public function giveRolePermissions(Role $role, array $permissionIds)
@@ -193,8 +191,8 @@ class RoleService extends Service
     /**
      * Sync role permissions
      *
-     * @param Role $role
-     * @param array $permissionIds
+     * @param  Role $role
+     * @param  array $permissionIds
      * @return Role
      */
     public function syncRolePermissions(Role $role, array $permissionIds)
