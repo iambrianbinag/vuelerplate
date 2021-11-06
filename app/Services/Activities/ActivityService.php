@@ -26,14 +26,14 @@ class ActivityService extends Service
     /**
      * Get activity log
      * 
-     * @param string $logName
-     * @param int $subjectId
-     * @param string $search
-     * @param string $orderBy
-     * @param string $orderDirection
-     * @param bool $notPaginated 
-     * @param int $perPage
-     * @param int $queryChunk
+     * @param  string $logName
+     * @param  int $subjectId
+     * @param  string $search
+     * @param  string $orderBy
+     * @param  string $orderDirection
+     * @param  bool $notPaginated 
+     * @param  int $perPage
+     * @param  int $queryChunk
      * @return array
      */
     public function getActivities(
