@@ -23,8 +23,8 @@ class PermissionService extends Service
     /**
      * PermissionService constructor
      * 
-     * @param Permission $permission
-     * @param CacheInterface $cacheService
+     * @param  Permission $permission
+     * @param  CacheInterface $cacheService
      */
     public function __construct(Permission $permission, CacheInterface $cacheService)
     {
@@ -38,12 +38,12 @@ class PermissionService extends Service
     /**
      * Get permissions
      *
-     * @param string $search
-     * @param int $perPage
-     * @param string $orderBy
-     * @param string $orderDirection
-     * @param bool $notPaginated
-     * @param int $queryChunk
+     * @param  string $search
+     * @param  int $perPage
+     * @param  string $orderBy
+     * @param  string $orderDirection
+     * @param  bool $notPaginated
+     * @param  int $queryChunk
      * @return LengthAwarePaginator|Collection
      */
     public function getPermissions(
@@ -90,7 +90,7 @@ class PermissionService extends Service
     /**
      * Create a permission
      *
-     * @param array $data
+     * @param  array $data
      * @return Permission
      */
     public function createPermission(array $data)
@@ -104,21 +104,19 @@ class PermissionService extends Service
     /**
      * Get a permission
      *
-     * @param $id
+     * @param  $id
      * @return Permission
      */
     public function getPermission($id)
     {
-        $permission = $this->permission::findOrFail($id);
-
-        return $permission;
+        return $this->permission::findOrFail($id);
     }
     
     /**
      * Update a permission
      *
-     * @param Permission $permission
-     * @param array $data
+     * @param  Permission $permission
+     * @param  array $data
      * @return Permission
      */
     public function updatePermission(Permission $permission, array $data)
@@ -131,7 +129,7 @@ class PermissionService extends Service
     /**
      * Delete a permission
      *
-     * @param Permission $permission
+     * @param  Permission $permission
      * @return Permission
      */
     public function deletePermission(Permission $permission)
@@ -173,7 +171,7 @@ class PermissionService extends Service
     /**
      * Set the total permission from cache
      *
-     * @param int $total
+     * @param  int $total
      * @return int
      */
     private function setTotalPermissionFromCache(int $total)
