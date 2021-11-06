@@ -48,9 +48,7 @@ class SettingService extends Service
    */
   public function createSetting(array $data)
   {
-    $setting = $this->setting::create($data);
-
-    return $setting;
+    return $this->setting::create($data);
   }
   
   /**
@@ -61,9 +59,7 @@ class SettingService extends Service
    */
   public function getSetting($id)
   {
-    $setting = $this->setting::findOrFail($id);
-
-    return $setting;
+    return $this->setting::findOrFail($id);
   }
   
   /**
@@ -74,9 +70,7 @@ class SettingService extends Service
    */
   public function getSettingByName(string $name)
   {
-    $setting = $this->setting::firstWhere('name', $name);
-
-    return $setting;
+    return $this->setting::firstWhere('name', $name);
   }
   
   /**
