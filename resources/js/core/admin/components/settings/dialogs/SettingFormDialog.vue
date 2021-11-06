@@ -143,6 +143,12 @@
         'createSetting',
         'updateSetting',
       ]),
+      /** 
+       * Reload page 
+       */
+      reloadPage(){
+        window.location.reload();
+      },
       /**
        * Close dialog
        */
@@ -190,6 +196,7 @@
               this.successCallback();
               this.$v.$reset();
               this.closeDialog();
+              this.reloadPage();
             });
         } else {
           this.createSetting(params)
@@ -201,6 +208,7 @@
               this.$v.$reset();
               this.resetForm();
               this.closeDialog();
+              this.reloadPage();
             });
         }
       },
