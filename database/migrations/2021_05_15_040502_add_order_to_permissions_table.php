@@ -14,7 +14,7 @@ class AddOrderToPermissionsTable extends Migration
     public function up()
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->smallInteger('order')->nullable();
+            $table->float('order', 8, 2)->nullable();
         });
     }
 
