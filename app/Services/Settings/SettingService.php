@@ -67,6 +67,19 @@ class SettingService extends Service
   }
   
   /**
+   * Get a setting by name
+   *
+   * @param  string $name
+   * @return Setting
+   */
+  public function getSettingByName(string $name)
+  {
+    $setting = $this->setting::firstWhere('name', $name);
+
+    return $setting;
+  }
+  
+  /**
    * Update a setting
    *
    * @param  Setting $setting
