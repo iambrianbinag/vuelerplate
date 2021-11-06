@@ -38,6 +38,18 @@
                 cols="12"
               >
                 <v-text-field
+                  v-model="form.description"
+                  label="Description"
+                  hide-details
+                  disabled
+                  outlined
+                  dense
+                />
+              </v-col>
+              <v-col
+                cols="12"
+              >
+                <v-text-field
                   v-model="form.value"
                   label="Value"
                   hide-details
@@ -92,6 +104,7 @@
         form: {
           id: null,
           name: '',
+          description: '',
           value: '',
         },
         systemLogData: {

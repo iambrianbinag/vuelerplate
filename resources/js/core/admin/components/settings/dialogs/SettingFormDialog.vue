@@ -36,6 +36,21 @@
                 <v-col
                   cols="12"
                 >
+                  <form-group name="description">
+                    <v-text-field
+                      slot-scope="{ attrs }"
+                      v-bind="attrs"
+                      v-model="form.description"
+                      label="Description *"
+                      hide-details="auto"
+                      outlined
+                      dense
+                    />
+                  </form-group>
+                </v-col>
+                <v-col
+                  cols="12"
+                >
                   <form-group name="value">
                     <v-text-field
                       slot-scope="{ attrs }"
@@ -109,6 +124,7 @@
         form: {
           id: null,
           name: '',
+          description: '',
           value: '',
         }
       }
@@ -128,6 +144,9 @@
     validations: {
       form: {
         name: { 
+          required 
+        },
+        description: { 
           required 
         },
         value: {

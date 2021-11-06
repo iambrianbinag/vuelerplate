@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapGetters } from 'vuex';
   import AppTable from 'base/components/ui/tables/AppTable';
   import SettingFormDialog from './dialogs/SettingFormDialog';
   import SettingViewDialog from './dialogs/SettingViewDialog';
@@ -92,6 +92,7 @@
           title: 'Settings',
           headers: [
             { text: 'Name', value: 'name' },
+            { text: 'Description', value: 'description' },
             { text: 'Value', value: 'value' },
             {
               text: 'Action',
