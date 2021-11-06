@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\Settings\SettingService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/{path}', function () {
-    return view('app');
+    $settingService = app()->make(SettingService::class);
+    $title = $settingService->getSettingByName('title');
+
+    return view('app', ['title' => $title ?  $title->value : config('app.name', 'Vuelerplate') ]);
 })->where('path', '.*');
