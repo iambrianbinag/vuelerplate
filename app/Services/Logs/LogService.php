@@ -39,67 +39,72 @@ class LogService extends Service
   /**
    * Set log name
    *
-   * @param string $logName
+   * @param  string $logName
    * @return ActivityLog
    */
   public function setLogName(string $logName)
   {
     $this->logName = $logName;
+
     return $this;
   }
   
   /**
    * Set submit empty logs
    *
-   * @param bool $submitEmptyLogs
+   * @param  bool $submitEmptyLogs
    * @return ActivityLog
    */
   public function setSubmitEmptyLogs(bool $submitEmptyLogs)
   {
     $this->submitEmptyLogs = $submitEmptyLogs;
+
     return $this;
   }
   
   /**
    * Set log only dirty
    *
-   * @param bool $logOnlyDirty
+   * @param  bool $logOnlyDirty
    * @return ActivityLog
    */
   public function setLogOnlyDirty(bool $logOnlyDirty)  
   {
     $this->logOnlyDirty = $logOnlyDirty;
+
     return $this;
   }
   
   /**
    * Set performed on
    *
-   * @param Model $performedOn
+   * @param  Model $performedOn
    * @return ActivityLog
    */
   public function setPerformedOn(Model $performedOn)
   {
     $this->performedOn = $performedOn;
+
     return $this;
   }
   
   /**
    * Set caused by
    *
-   * @param Model $causedBy
+   * @param  Model $causedBy
    * @return ActivityLog
    */
   public function setCausedBy($causedBy)
   {
     $this->causedBy = $causedBy;
+
     return $this;
   }
   
   /**
    * Set with properties
    *
-   * @param array $withProperties
+   * @param  array $withProperties
    * @return ActivityLog
    */
   public function setWithProperties(array $withProperties)
@@ -111,18 +116,20 @@ class LogService extends Service
     }
 
     $this->withProperties = $withProperties;
+
     return $this;
   }
   
   /**
    * Set description
    *
-   * @param string $description
+   * @param  string $description
    * @return ActivityLog
    */
   public function setDescription(string $description)
   {
     $this->description = $description;
+
     return $this;
   }
   
@@ -176,8 +183,8 @@ class LogService extends Service
   /**
    * Validate description in array of descriptions
    *
-   * @param string $description
-   * @param array $descriptions
+   * @param  string $description
+   * @param  array $descriptions
    * @throws InvalidDescriptionLogException
    * @return ActivityLog
    */
@@ -187,6 +194,7 @@ class LogService extends Service
       $validDescriptionsString = implode(', ', $descriptions);
       throw new InvalidDescriptionLogException("The description $description is invalid, it must be $validDescriptionsString");
     };
+
     return $this;
   }
 }
