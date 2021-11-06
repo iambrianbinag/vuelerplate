@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <div v-if="isLoadingLocal">
+        <div v-if="isLoadingGetSettings || isLoadingLocal">
             <AppLoading/>
         </div>
         <div v-else>
@@ -33,6 +33,7 @@
             }
         },
         computed: {
+            ...mapGetters('base.settings', ['isLoadingGetSettings']),
             ...mapGetters('base.authentication', [
                 'authenticatedUserToken', 
                 'authenticatedUserTokenExpiration'
@@ -46,6 +47,7 @@
             }
         },
         methods: {
+            ...mapActions('base.settings', ['getSettings']),
             ...mapActions('base.authentication', ['refresh', 'getAuthenticatedUser']),
             ...mapMutations('base.system', ['setAppName']),
             /**
@@ -70,6 +72,7 @@
             },
         },
         mounted() {
+            this.getSettings();
             this.refreshToken();
             this.setAppName(config.APP_NAME);
             if(this.authenticatedUserToken){
