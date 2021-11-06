@@ -24,7 +24,8 @@ class UserService extends Service
     /**
      * UserService constructor
      *
-     * @param User $user
+     * @param  User $user
+     * @param  CacheInterface $cacheService
      */
     public function __construct(User $user, CacheInterface $cacheService)
     {
@@ -38,10 +39,10 @@ class UserService extends Service
     /**
      * Get users
      *
-     * @param string $search
-     * @param int $perPage
-     * @param string $orderBy
-     * @param string $orderDirection
+     * @param  string $search
+     * @param  int $perPage
+     * @param  string $orderBy
+     * @param  string $orderDirection
      * @return LengthAwarePaginator|Collection
      */
     public function getUsers(
@@ -75,7 +76,7 @@ class UserService extends Service
     /**
      * Create a user
      *
-     * @param array $data
+     * @param  array $data
      * @return User
      */
     public function createUser(array $data)
@@ -103,21 +104,19 @@ class UserService extends Service
     /**
      * Get a user
      *
-     * @param $id
+     * @param  $id
      * @return User
      */
     public function getUser($id)
     {
-        $user = $this->user::findOrFail($id);
-
-        return $user;
+       return $this->user::findOrFail($id);
     }
     
     /**
      * Update a user
      *
-     * @param User $user
-     * @param array $data
+     * @param  User $user
+     * @param  array $data
      * @return User
      */
     public function updateUser(User $user, array $data)
@@ -156,7 +155,7 @@ class UserService extends Service
     /**
      * Delete a user
      *
-     * @param User $user
+     * @param  User $user
      * @return User
      */
     public function deleteUser(User $user)
@@ -198,7 +197,7 @@ class UserService extends Service
     /**
      * Set the total user from cache
      *
-     * @param int $total
+     * @param  int $total
      * @return int
      */
     private function setTotalUserFromCache(int $total)
