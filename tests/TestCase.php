@@ -28,7 +28,7 @@ abstract class TestCase extends BaseTestCase
 
         // Create permissions
         $permissions = collect(config('permission_seeder.permissions'))->map(function($permission){
-            return Permission::create(['name' => $permission]);
+            return Permission::create(['name' => $permission['name'], 'order' => $permission['order']]);
         });
 
         // Create role and assign all permissions
