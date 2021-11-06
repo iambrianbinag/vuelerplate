@@ -4,6 +4,7 @@ namespace App\Services\Auth;
 
 use App\Services\Auth\Exceptions\InvalidCredentialsException;
 use App\Services\Service;
+use Illuminate\Database\Eloquent\Model;
 
 class UserAuthService extends Service
 {    
@@ -31,17 +32,11 @@ class UserAuthService extends Service
     /**
      * Get the authenticated User.
      *
-     * @return array
+     * @return Model
      */
     public function getAuthUser()
     {
-        $authUser = auth()->user();
-
-        return [
-            'id' => $authUser->id,
-            'name' => $authUser->name,
-            'email' => $authUser->email,
-        ];
+        return auth()->user();
     }
     
     /**

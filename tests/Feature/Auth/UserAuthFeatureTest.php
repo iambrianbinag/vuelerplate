@@ -103,7 +103,8 @@ class UserAuthFeatureTest extends TestCase
                 $json
                     ->where('id', $user->id)
                     ->where('name', $user->name)
-                    ->where('email', $user->email);
+                    ->where('email', $user->email)
+                    ->where('role', $user->role);
             });
     }
 }

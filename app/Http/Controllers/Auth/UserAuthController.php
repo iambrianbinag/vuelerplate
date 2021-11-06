@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginUserRequest;
+use App\Http\Resources\Users\UserResource;
 use App\Services\Auth\Exceptions\InvalidCredentialsException;
 use App\Services\Auth\UserAuthService;
 use Illuminate\Http\JsonResponse;
@@ -54,7 +55,7 @@ class UserAuthController extends Controller
     {
         $authUser = $this->userAuthService->getAuthUser();
 
-        return response()->json($authUser);
+        return new UserResource($authUser);
     }
 
     /**
