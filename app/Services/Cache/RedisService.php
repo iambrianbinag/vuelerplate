@@ -15,7 +15,7 @@ class RedisService implements CacheInterface
     /**
      * RedisService constructor
      * 
-     * @param string $connectionName
+     * @param  string $connectionName
      */
     public function __construct(string $connectionName = null)
     {
@@ -25,8 +25,8 @@ class RedisService implements CacheInterface
     /**
      * Run Redis command
      *
-     * @param string $name
-     * @param array $parameters
+     * @param  string $name
+     * @param  array $parameters
      * @return mixed
      */
     public function command(string $name, array $parameters = [])
