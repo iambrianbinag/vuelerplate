@@ -110,7 +110,10 @@
                 'authenticatedUser', 
                 'isLoadingAuthenticatedUser'
             ]),
-            ...mapGetters('base.system', ['appName']),
+            ...mapGetters('base.settings', ['getSettingValueByName']),
+            appName: function(){
+                return this.getSettingValueByName('name');
+            },
         },
         methods: {
             ...mapActions('base.authentication', ['login']),
@@ -141,8 +144,5 @@
                     });
             },
         },
-        mounted() {
-            //
-        }
     }
 </script>

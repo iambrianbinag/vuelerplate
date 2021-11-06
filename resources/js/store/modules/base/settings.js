@@ -10,6 +10,17 @@ const state = {
 
 const getters = {
   settings: (state) => state.settings,
+  getSettingValueByName: (state) => (settingName) => {
+    let foundSettingValue = undefined;
+    if(state.settings && settingName){
+      const foundSettingByName = state.settings.find(setting => setting.name === settingName);
+      if(foundSettingByName){
+        foundSettingValue = foundSettingByName.value;
+      }
+    }
+
+    return foundSettingValue;
+  },
 
   isLoadingGetSettings: (state) => state.isLoadingGetSettings,
   isLoadingCreateSetting: (state) => state.isLoadingCreateSetting,
