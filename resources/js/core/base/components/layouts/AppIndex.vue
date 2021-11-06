@@ -49,7 +49,6 @@
         methods: {
             ...mapActions('base.settings', ['getSettings']),
             ...mapActions('base.authentication', ['refresh', 'getAuthenticatedUser']),
-            ...mapMutations('base.system', ['setAppName']),
             /**
              * Refresh token of authenticated user if token's expiration date is equal or greater than
              * the seconds to be refreshed that was set in configuration
@@ -74,7 +73,6 @@
         mounted() {
             this.getSettings();
             this.refreshToken();
-            this.setAppName(config.APP_NAME);
             if(this.authenticatedUserToken){
                 this.getAuthenticatedUser();
             }

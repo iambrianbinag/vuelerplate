@@ -6,20 +6,17 @@ const state = {
     message: '', 
     messages: [],
   },
-  appName: null,
   isSidebarOpen: null,
 };
 
 const getters = {
   snackbar: (state) => state.snackbar,
-  appName: (state) => state.appName,
   isSidebarOpen: (state) => state.isSidebarOpen,
 };
 
 const mutations = {
   setSnackbar: (state, data) => state.snackbar = data, 
   resetSnackbar: (state, data) => state.snackbar = data,
-  setAppName: (state, data) => state.appName = data,
   setIsSidebarOpen: (state, data) => state.isSidebarOpen = data,
 };
 
