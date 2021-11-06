@@ -19,13 +19,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['prefix' => '/settings'], function(){
+    Route::get('/', [SettingController::class, 'index']);
+});
+
 Route::group(['prefix' => '/users'], function(){
     Route::post('/login', [UserAuthController::class, 'login']);
 });
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::group(['prefix' => '/settings'], function(){
-        Route::get('/', [SettingController::class, 'index'])->middleware('permission:setting_view');
         Route::post('/', [SettingController::class, 'store'])->middleware('permission:setting_create');
         Route::get('/{id}', [SettingController::class, 'show'])->middleware('permission:setting_view');
         Route::put('/{id}', [SettingController::class, 'update'])->middleware('permission:setting_update');

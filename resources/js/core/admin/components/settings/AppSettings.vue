@@ -123,7 +123,6 @@
       },
     },
     methods: {
-      ...mapActions('base.settings', ['getSettings']),
       /**
        *  Triggered when create button is clicked
        * 
@@ -164,9 +163,6 @@
         }
       },
     },
-    mounted(){
-      this.getSettings();
-    }
   }
 </script>
 
