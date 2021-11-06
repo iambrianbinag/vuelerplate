@@ -7,8 +7,8 @@ class Util
   /**
    * Get array difference recursively
    *
-   * @param array $arr1
-   * @param array $arr2
+   * @param  array $arr1
+   * @param  array $arr2
    * @return array
    */
   public static function arrayRecursiveDiff(array $arr1, array $arr2) {
@@ -40,8 +40,8 @@ class Util
   /**
    * Map array and filter the associative array with allowed attributes
    *
-   * @param array $associativeArray
-   * @param array $onlyKeys
+   * @param  array $associativeArray
+   * @param  array $onlyKeys
    * @return array
    */
   public static function arrayMapWithAllowedKeys($associativeArray = [], $onlyKeys = []){
