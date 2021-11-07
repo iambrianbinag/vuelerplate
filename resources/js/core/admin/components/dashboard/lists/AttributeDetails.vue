@@ -17,13 +17,14 @@
         <v-spacer></v-spacer>
         <div class="subtitle-2">
               <v-btn
-                color="white" 
+                color="white"
+                @click="handleMoreInfo" 
                 text 
                 small
             >
                 More Info
                 <v-icon large>
-                    mdi-chevron-right
+                  mdi-chevron-right
                 </v-icon>
             </v-btn>
         </div> 
@@ -40,6 +41,20 @@
         type: Object,
         required: true,
       }
+    },
+    methods: {
+      /**
+       * Triggered when more info is clicked
+       * 
+       * @event click
+       * @type {event}
+       */
+      handleMoreInfo(){
+        const pathName = this.attributeDetails.pathName;
+        if(pathName){
+          this.$router.push({ name: pathName });
+        }
+      },
     },
   }
 </script>
