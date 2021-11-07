@@ -20,7 +20,7 @@ class UserAuthController extends Controller
     /**
      * UserAuthController constructor
      *
-     * @param UserAuthService $userAuthService
+     * @param  UserAuthService $userAuthService
      */
     public function __construct(UserAuthService $userAuthService)
     {
@@ -30,7 +30,7 @@ class UserAuthController extends Controller
     /**
      * Get a JWT via given credentials.
      *
-     * @param LoginUserRequest $request
+     * @param  LoginUserRequest $request
      * @return JsonResponse
      */
     public function login(LoginUserRequest $request)
