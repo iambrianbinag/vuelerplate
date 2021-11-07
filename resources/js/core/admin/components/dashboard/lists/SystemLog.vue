@@ -42,7 +42,8 @@
         <v-spacer></v-spacer>
         <div class="subtitle-2">
           <v-btn
-            color="white" 
+            color="white"
+            @click="handleMoreInfo"  
             text 
             small
           >
@@ -108,6 +109,15 @@
       formatActivityLogDescription(causerName, description, logName){
         const defaultCauserName = 'Admin';
         return `${causerName || defaultCauserName} ${description} a ${logName}`;
+      },
+      /**
+       * Triggered when more info is clicked
+       * 
+       * @event click
+       * @type {event}
+       */
+      handleMoreInfo(){
+        this.$router.push({ name: 'system-log-list' });
       },
     }
   }
