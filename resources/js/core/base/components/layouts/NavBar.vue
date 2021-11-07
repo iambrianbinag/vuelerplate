@@ -71,6 +71,7 @@
                             </p>
                             <v-divider class="my-2"></v-divider>
                             <v-btn
+                                @click="handleEditAccount"
                                 depressed
                                 small
                                 rounded
@@ -132,6 +133,15 @@
                     .then((response) => {
                         this.$router.push({ name: 'login' });
                     });
+            },
+            /**
+             * Triggered when edit account button is clicked
+             * 
+             * @event click
+             * @type {event}
+             */
+            handleEditAccount(){
+                this.$router.push({ name: 'my-account' });
             },
         },
         mounted() {

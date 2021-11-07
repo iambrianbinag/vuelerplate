@@ -1,4 +1,9 @@
 /**
+ * ACCOUNTS
+ */
+import UserAccount from '../../core/admin/pages/accounts/UserAccount';
+
+/**
  * DASHBOARD
  */
 import AppDashboard from '../../core/admin/pages/dashboard/AppDashboard';
@@ -27,6 +32,17 @@ import SystemLog from '../../core/admin/pages/system-log/SystemLog';
 import AppSettings from '../../core/admin/pages/settings/AppSettings';
 
 const routes = [
+  /**
+   * ACCOUNTS
+   */
+  {
+    path: '/my-account',
+    name: 'my-account',
+    component: UserAccount,
+    meta: {
+      requiresAuth: true,
+    },
+  },
   /**
    * DASHBOARD
    */
