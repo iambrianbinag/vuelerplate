@@ -23,7 +23,7 @@ class PermissionController extends Controller
     /**
      * PermissionController constructor
      *
-     * @param PermissionService $permissionService
+     * @param  PermissionService $permissionService
      */
     public function __construct(PermissionService $permissionService)
     {
@@ -33,7 +33,7 @@ class PermissionController extends Controller
     /**
      * Get all permissions
      *
-     * @param GetPermissionsRequest $request
+     * @param  GetPermissionsRequest $request
      * @return JsonResponse
      */
     public function index(GetPermissionsRequest $request)
@@ -53,7 +53,7 @@ class PermissionController extends Controller
     /**
      * Create a permission
      *
-     * @param CreatePermissionRequest $request
+     * @param  CreatePermissionRequest $request
      * @return JsonResponse
      */
     public function store(CreatePermissionRequest $request)
@@ -68,7 +68,7 @@ class PermissionController extends Controller
     /**
      * Show a permission
      *
-     * @param $id
+     * @param  $id
      * @return JsonResponse
      */
     public function show($id)
@@ -81,8 +81,8 @@ class PermissionController extends Controller
     /**
      * Update a permission
      *
-     * @param UpdatePermissionRequest $request
-     * @param $id
+     * @param  UpdatePermissionRequest $request
+     * @param  $id
      * @return JsonResponse
      */
     public function update(UpdatePermissionRequest $request, $id)
@@ -99,7 +99,7 @@ class PermissionController extends Controller
     /**
      * Delete a role
      *
-     * @param $id
+     * @param  $id
      * @return JsonResponse
      */
     public function destroy($id)
