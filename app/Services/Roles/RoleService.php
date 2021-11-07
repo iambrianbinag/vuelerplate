@@ -56,7 +56,7 @@ class RoleService extends Service
         $perPage = $perPage ?? $this->paginationPerPageDefault;
         $orderDirection = $orderDirection ?? $this->paginationOrderDirectionDefault;
 
-        $roles = Role::select('id', 'name')
+        $roles = $this->role::select('id', 'name')
             ->when($search, function($query, $search){
                 return $query->where(function($query) use ($search){
                     $query->where('id', 'like', "%$search%")
