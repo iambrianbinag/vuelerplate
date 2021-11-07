@@ -22,7 +22,7 @@ class UserController extends Controller
     /**
      * UserController constructor
      *
-     * @param UserService $userService
+     * @param  UserService $userService
      */
     public function __construct(UserService $userService)
     {
@@ -32,7 +32,7 @@ class UserController extends Controller
     /**
      * Get all users
      *
-     * @param GetUsersRequest $request
+     * @param  GetUsersRequest $request
      * @return JsonResponse
      */
     public function index(GetUsersRequest $request)
@@ -50,7 +50,7 @@ class UserController extends Controller
     /**
      * Create a user
      *
-     * @param CreateUserRequest $request
+     * @param  CreateUserRequest $request
      * @return JsonResponse
      */
     public function store(CreateUserRequest $request)
@@ -65,7 +65,7 @@ class UserController extends Controller
     /**
      * Show a user
      *
-     * @param $id
+     * @param  $id
      * @return JsonResponse
      */
     public function show($id)
@@ -78,8 +78,8 @@ class UserController extends Controller
     /**
      * Update a user
      *
-     * @param UpdateUserRequest $request
-     * @param $id
+     * @param  UpdateUserRequest $request
+     * @param  $id
      * @return JsonResponse
      */
     public function update(UpdateUserRequest $request, $id)
@@ -96,7 +96,7 @@ class UserController extends Controller
     /**
      * Delete a user
      *
-     * @param $id
+     * @param  $id
      * @return JsonResponse
      */
     public function destroy($id)
