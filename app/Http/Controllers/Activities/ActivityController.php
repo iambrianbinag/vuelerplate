@@ -18,7 +18,7 @@ class ActivityController extends Controller
     /**
      * ActivityController constructor
      *
-     * @param ActivityService $activityService
+     * @param  ActivityService $activityService
      */
     public function __construct(ActivityService $activityService)
     {
@@ -28,7 +28,7 @@ class ActivityController extends Controller
     /**
      * Get all activity log
      *
-     * @param GetActivitiesRequest $request
+     * @param  GetActivitiesRequest $request
      * @return JsonResponse
      */
     public function index(GetActivitiesRequest $request)
