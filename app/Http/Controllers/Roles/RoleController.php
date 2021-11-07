@@ -33,7 +33,7 @@ class RoleController extends Controller
     /**
      * Get all roles
      *
-     * @param GetRolesRequest $request
+     * @param  GetRolesRequest $request
      * @return JsonResponse
      */
     public function index(GetRolesRequest $request)
@@ -52,7 +52,7 @@ class RoleController extends Controller
     /**
      * Create a role
      *
-     * @param CreateRoleRequest $request
+     * @param  CreateRoleRequest $request
      * @return JsonResponse
      */
     public function store(CreateRoleRequest $request)
@@ -67,7 +67,7 @@ class RoleController extends Controller
     /**
      * Show a role
      *
-     * @param $id
+     * @param  $id
      * @return JsonResponse
      */
     public function show($id)
@@ -80,8 +80,8 @@ class RoleController extends Controller
     /**
      * Update a role
      *
-     * @param UpdateRoleRequest $request
-     * @param $id
+     * @param  UpdateRoleRequest $request
+     * @param  $id
      * @return JsonResponse
      */
     public function update(UpdateRoleRequest $request, $id)
@@ -98,7 +98,7 @@ class RoleController extends Controller
     /**
      * Delete a role
      *
-     * @param $id
+     * @param  $id
      * @return JsonResponse
      */
     public function destroy($id)
@@ -112,7 +112,7 @@ class RoleController extends Controller
     /**
      * Get role's attached permissions
      *
-     * @param $id
+     * @param  $id
      * @return JsonResponse
      */
     public function getRolePermissions($id)
@@ -126,8 +126,8 @@ class RoleController extends Controller
     /**
      * Give permissions to role
      *
-     * @param GiveRolePermissionsRequest $request
-     * @param $id
+     * @param  GiveRolePermissionsRequest $request
+     * @param  $id
      * @return JsonResponse
      */
     public function giveRolePermissions(GiveRolePermissionsRequest $request, $id)
@@ -141,8 +141,8 @@ class RoleController extends Controller
     /**
      * Sync permissions to role
      *
-     * @param GiveRolePermissionsRequest $request
-     * @param $id
+     * @param  GiveRolePermissionsRequest $request
+     * @param  $id
      * @return JsonResponse
      */
     public function syncRolePermissions(GiveRolePermissionsRequest $request, $id)
