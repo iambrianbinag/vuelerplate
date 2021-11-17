@@ -116,15 +116,22 @@
  * Custom Validation Attributes
  */
 const attributes = {
-  'attributes': {
-    //
-  },
+  password_confirmaton: 'password',
 }
 
 /**
  * Custom Validation Keys
  */
 const validationKeys = {
+  sameAsPassword: {
+    validationKey: 'confirmed',
+    params: [
+      {
+        vue: null,
+        ext: null
+      }
+    ]
+  },
   decimal: {
     validationKey: 'numeric',
     params: [
