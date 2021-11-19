@@ -66,7 +66,7 @@
                     <v-list-item-content class="justify-center">
                         <div class="mx-auto text-center">
                             <div class="subtitle-1">{{ authenticatedUserInformation.name | capitalize }}</div>
-                            <p class="caption mt-1">
+                            <p class="caption ma-1">
                                 {{ authenticatedUserInformation.email }}
                             </p>
                             <v-divider class="my-2"></v-divider>
