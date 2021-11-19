@@ -2,7 +2,7 @@
   <v-container>
     <AppHeader :title="headerTitle" />
     <AppLoading 
-      v-if="isLoadingGetUserAccount = false"
+      v-if="isLoadingAuthenticatedUser"
       :heightInVH="70" 
     />
     <v-sheet
@@ -71,7 +71,7 @@
           </v-row>
           <div class="d-flex justify-end mt-2">
             <v-btn
-              :loading="isLoadingUpdateUser"
+              :loading="isLoadingUpdateUserAccount"
               color='primary'
               type='submit'
               small
@@ -91,6 +91,13 @@
   import AppLoading from 'base/components/ui/loading/AppLoading';
   import { required, email, minLength, requiredUnless, sameAs } from 'vuelidate/lib/validators';
 
+  const DEFAULT_FORM_DATA = {
+    id: null,
+    email: '',
+    password: '',
+    password_confirmaton: '',
+  };
+
   export default {
     name: 'UserAccount',
     components: { AppHeader, AppLoading },
@@ -99,20 +106,14 @@
         headerTitle: 'My account',
         isPasswordShown: false,
         isPasswordConfirmationShown: false,
-        form: {
-          id: null,
-          email: '',
-          password: '',
-          password_confirmaton: '',
-        }
+        form: {...DEFAULT_FORM_DATA},
       }
     },
     computed: {
-      ...mapGetters('admin.users', [
-        'isLoadingUpdateUser',
-      ]),
       ...mapGetters('base.authentication', [
-          'authenticatedUser', 
+          'authenticatedUser',
+          'isLoadingAuthenticatedUser',
+          'isLoadingUpdateUserAccount', 
       ]),
       isPasswordEmpty: function(){
         return this.form.password == '' || this.form.password == null;
@@ -147,8 +148,8 @@
       ...mapActions('base.system', [
         'showSnackbar'
       ]),
-      ...mapActions('admin.users', [
-        'updateUser',
+      ...mapActions('base.authentication', [
+        'updateUserAccount',
       ]),
       /**
        * Set form data from authenticated user
@@ -157,6 +158,13 @@
         if(this.authenticatedUser.information){
           this.form.email = this.authenticatedUser.information.email;
         }
+      },
+      /**
+       * Set form to empty
+       */
+      resetForm(){
+        const retainedFormData  = { email: this.form.email };
+        this.form = {...DEFAULT_FORM_DATA, ...retainedFormData};
       },
       /**
        *  Triggered when form is submitted
@@ -171,13 +179,18 @@
         }
 
         const params = {...this.form};
+        if(params.password == '' || params.password == null){
+          delete params.password;
+          delete params.password_confirmaton;
+        }
 
-        this.updateUser(params)
+        this.updateUserAccount(params)
           .then((response) => {
             this.showSnackbar({
               message: 'Account has updated successfully'
             });
             this.$v.$reset();
+            this.resetForm();
           });
       },
     },

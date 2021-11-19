@@ -6,6 +6,7 @@ const state = {
   authenticatedUser: { token: null, tokenExpiration: null, information: null },
 
   isLoadingAuthenticatedUser: false,
+  isLoadingUpdateUserAccount: false,
 };
 
 const getters = {
@@ -15,6 +16,7 @@ const getters = {
   authenticatedUserInformation: (state) => state.authenticatedUser.information,
 
   isLoadingAuthenticatedUser: (state) => state.isLoadingAuthenticatedUser,
+  isLoadingUpdateUserAccount: (state) => state.isLoadingUpdateUserAccount,
 };
 
 const mutations = {
@@ -91,7 +93,21 @@ const actions = {
       }).finally(() => {
         state.isLoadingAuthenticatedUser = false;
       });
-  }
+  },
+  updateUserAccount({commit, state, getters}, data){
+    state.isLoadingUpdateUserAccount = true;
+
+    return httpService.post('/users/my-account', data)
+      .then((response) => {
+        const data = response.data;
+        const updatedAuthenticatedUserInformation = {...getters.authenticatedUserInformation, ...data};
+        commit('setAuthenticatedUserInformation', updatedAuthenticatedUserInformation);
+
+        return data;
+      }).finally(() => {
+        state.isLoadingUpdateUserAccount = false;
+      });
+  },
 };
 
 export default {
