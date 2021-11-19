@@ -2,9 +2,11 @@
 
 namespace App\Services\Auth;
 
+use App\Models\Users\User;
 use App\Services\Auth\Exceptions\InvalidCredentialsException;
 use App\Services\Service;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class UserAuthService extends Service
 {    
@@ -37,6 +39,38 @@ class UserAuthService extends Service
     public function getAuthUser()
     {
         return auth()->user();
+    }
+    
+    /**
+     * Update user account
+     *
+     * @param  User $user
+     * @param  array $data
+     * @return User
+     */
+    public function updateMyAccount(User $user, array $data)
+    {
+        $logData = [
+            'attributes' => [], 
+            'old' => [
+                'email' => $user->email,
+            ],
+        ];
+
+        if(isset($data['password'])){
+            $data['password'] = Hash::make($data['password']);
+        }
+
+        $user->update($data);
+
+        $logData['attributes'] = [
+            'email' => $user->email,
+        ];
+
+        $user->fillActivity($logData);
+        $user->saveActivity('updated');
+
+        return $user;
     }
     
     /**

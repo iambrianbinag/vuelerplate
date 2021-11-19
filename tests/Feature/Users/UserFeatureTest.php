@@ -233,6 +233,47 @@ class UserFeatureTest extends TestCase
    }
 
    /** @test */
+   public function it_can_update_the_account_of_authenticated_user()
+   {
+        $user = $this->user;
+
+        $update = [
+            'email' => $this->faker->unique()->email,
+            'password' => $this->faker->password,
+        ];
+
+        $this
+            ->actingAs($user, 'api')
+            ->postJson('/api/users/my-account', $update)
+            ->assertStatus(200)
+            ->assertJson(function(AssertableJson $json) use ($user, $update){
+                $json
+                    ->where('id', $user->id)
+                    ->where('email', $update['email']);
+            });
+
+        $updated = collect($update)->except('password');
+
+        $this->assertDatabaseHas('users', $updated->all());
+   }
+
+   /** @test */
+   public function it_can_log_in_updated_account_of_authenticated_user()
+   {
+        $update = [
+            'email' => $this->faker->unique()->email,
+            'password' => $this->faker->password,
+        ];
+
+        $this
+            ->actingAs($this->user, 'api')
+            ->postJson('/api/users/my-account', $update);
+
+        $this->postJson('/api/users/login', $update)
+            ->assertStatus(200);
+   }
+
+   /** @test */
    public function it_can_soft_delete_a_user()
    {
         $user = User::factory()->create();
@@ -280,6 +321,28 @@ class UserFeatureTest extends TestCase
             'description' => 'created',
             'subject_id' => $responseData['id'],
             'causer_id' => $this->user->id
+        ];
+
+        $this->assertDatabaseHas('activity_log', $logData);
+   }
+
+   /** @test */
+   public function it_can_log_updated_account_of_authenticated_user()
+   {
+        $user = $this->user;
+
+        $this
+            ->actingAs($user, 'api')
+            ->postJson('/api/users/my-account', [
+                'email' => $this->faker->unique()->email,
+                'password' => $this->faker->password,
+            ]);
+
+        $logData = [
+            'log_name' => 'user',
+            'description' => 'updated',
+            'subject_id' => $user->id,
+            'causer_id' => $user->id
         ];
 
         $this->assertDatabaseHas('activity_log', $logData);

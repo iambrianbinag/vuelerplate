@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth:api'], function(){
         Route::post('/logout', [UserAuthController::class, 'logout']);
         Route::post('/refresh', [UserAuthController::class, 'refresh']);
         Route::post('/me', [UserAuthController::class, 'me']);
+        Route::post('/my-account', [UserAuthController::class, 'updateMyAcount']);
     });
 
     Route::group(['prefix' => '/permissions'], function(){

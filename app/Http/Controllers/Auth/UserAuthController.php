@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginUserRequest;
+use App\Http\Requests\Auth\UpdateAccountRequest;
 use App\Http\Resources\Users\UserResource;
 use App\Services\Auth\Exceptions\InvalidCredentialsException;
 use App\Services\Auth\UserAuthService;
@@ -80,5 +81,24 @@ class UserAuthController extends Controller
         $token = $this->userAuthService->refresh();
 
         return response()->json($token);
+    }
+    
+    /**
+     * Update account of authenticated user
+     *
+     * @return JsonResponse
+     */
+    public function updateMyAcount(UpdateAccountRequest $request)
+    {
+        $data = $request->only(['email', 'password']);
+
+        $authUser = $this->userAuthService->getAuthUser();
+
+        $updatedUserAccount = $this->userAuthService->updateMyAccount($authUser, $data);
+
+        return response()->json([
+            'id' => $updatedUserAccount->id,
+            'email' => $updatedUserAccount->email,
+        ]);
     }
 }
